@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Política de Privacidade — Think Capture</title>
+  <meta name="description" content="Como o Think Capture trata os seus dados: o que guarda, onde, por quanto tempo e como você apaga tudo." />
+  <style>
+    :root {
+      --fundo: #FAFAFA; --superficie: #FFFFFF; --texto: #111111; --texto-suave: #767676;
+      --linha: rgba(17, 17, 17, 0.09);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --fundo: #191919; --superficie: #212121; --texto: #F2F2F2; --texto-suave: #A8A8A8; --linha: rgba(242, 242, 242, 0.10); }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fundo); color: var(--texto); font: 17px/1.6 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    main { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+    h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; }
+    .sub { color: var(--texto-suave); margin: 0 0 36px; }
+    h2 { font-size: 21px; margin: 40px 0 12px; }
+    p, li { margin: 0 0 12px; }
+    ul { padding-left: 22px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 15px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+    th { color: var(--texto-suave); font-weight: 600; }
+    .cartao { background: var(--superficie); border: 1px solid var(--linha); border-radius: 18px; padding: 18px 20px; margin: 16px 0; }
+    a { color: inherit; }
+    footer { margin-top: 48px; color: var(--texto-suave); font-size: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Política de Privacidade</h1>
+  <p class="sub">Think Capture · em vigor desde 18 de setembro de 2026</p>
+
+  <div class="cartao">
+    <p><strong>Em uma frase:</strong> o Think Capture guarda o que você escreve nele — pensamentos, tarefas, hábitos, ideias — para que você os reencontre em qualquer aparelho. Não vendemos, não anunciamos e não rastreamos. O áudio da sua voz nunca é gravado nem enviado. Você apaga tudo quando quiser, de dentro do aplicativo.</p>
+  </div>
+
+  <h2>1. Quem é responsável</h2>
+  <p>O Think Capture é um aplicativo mantido por Douglas Santos, desenvolvedor independente, no Brasil, que é o controlador dos seus dados pessoais nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD). Para qualquer assunto de privacidade, escreva para <a href="mailto:douglas.santosads@gmail.com">douglas.santosads@gmail.com</a>.</p>
+
+  <h2>2. O que coletamos, e para quê</h2>
+  <table>
+    <tr><th>Dado</th><th>Para quê</th><th>Base legal</th></tr>
+    <tr><td>E-mail e senha, ou a sua conta Google (nome, e-mail e identificador do Google)</td><td>Criar e proteger a sua conta; entrar em outro aparelho</td><td>Execução do contrato</td></tr>
+    <tr><td>Nome de exibição e foto de perfil (opcional)</td><td>Mostrar quem está dentro do aplicativo</td><td>Execução do contrato</td></tr>
+    <tr><td>Preferências: tema, idioma, horários dos lembretes</td><td>Fazer o aplicativo funcionar do seu jeito</td><td>Execução do contrato</td></tr>
+    <tr><td>O que você escreve: pensamentos, "por que isso importa", tarefas, subtarefas, hábitos e seus registros, ideias e suas etapas, lembretes, reflexões (humor e anotação)</td><td>É o próprio serviço — guardar e organizar o que passa pela sua cabeça</td><td>Execução do contrato</td></tr>
+    <tr><td>Datas de criação, alteração, conclusão e exclusão de cada item</td><td>Ordenar, filtrar, contar sequências e permitir o "desfazer"</td><td>Execução do contrato</td></tr>
+  </table>
+  <p>Não coletamos localização, contatos, dados de saúde, dados financeiros nem qualquer informação além do que você mesmo digita ou escolhe.</p>
+
+  <h2>3. A sua voz não é gravada</h2>
+  <p>Quando você fala em vez de escrever, o reconhecimento de fala acontece <strong>no próprio aparelho</strong>, pelo serviço do sistema (Apple ou Google). O Think Capture recebe só o texto reconhecido, que você revisa antes de guardar. O áudio não é gravado, não é salvo e não sai do aparelho. A foto de perfil é enviada sem os metadados de câmera (EXIF), como a localização de onde foi tirada.</p>
+
+  <h2>4. Onde os dados ficam</h2>
+  <p>Os seus dados ficam no <strong>Supabase</strong>, provedor de banco de dados e armazenamento, em servidores localizados nos Estados Unidos (região us-west-2). Isso é uma transferência internacional de dados nos termos da LGPD, feita com um provedor que adota medidas de segurança compatíveis com a lei. Cada pessoa só acessa os próprios dados: essa regra é aplicada pelo próprio banco de dados, não apenas pelo aplicativo. A foto de perfil fica em uma área privada e só é exibida por um endereço temporário e assinado.</p>
+  <p>No seu aparelho ficam apenas a chave da sua sessão (no cofre do sistema, Keychain no iOS e Keystore no Android), a preferência de idioma e, no Android, um retrato cifrado do que os widgets mostram — títulos de hábitos e tarefas do dia. Os seus pensamentos não ficam guardados no aparelho.</p>
+
+  <h2>5. Com quem compartilhamos</h2>
+  <p>Com ninguém para fins de marketing, publicidade ou venda. Os únicos terceiros que tocam nos seus dados são os que fazem o serviço funcionar:</p>
+  <ul>
+    <li><strong>Supabase</strong> — banco de dados, autenticação e armazenamento.</li>
+    <li><strong>Resend</strong> — envio dos e-mails de confirmação de conta e de redefinição de senha, a partir de thinkcaptured.com.br.</li>
+    <li><strong>Google</strong> — só se você escolher "Continuar com Google"; o Google nos entrega nome, e-mail e identificador, nada mais.</li>
+    <li><strong>Apple ou Google</strong>, no seu aparelho — reconhecimento de fala e entrega das notificações locais.</li>
+  </ul>
+  <p>Podemos ainda compartilhar dados quando a lei exigir ou para proteger direitos, com a menor extensão necessária.</p>
+
+  <h2>6. Nada de rastreamento</h2>
+  <p>O aplicativo não tem anúncios, não usa cookies nem ferramentas de análise de comportamento, e não envia dados a redes de publicidade. Os erros do aplicativo não são enviados a serviços de terceiros.</p>
+
+  <h2>7. Notificações</h2>
+  <p>Os lembretes, o toque diário e o resumo do início do dia são notificações <strong>locais</strong>, agendadas no seu aparelho a partir do que você escolheu. Elas só existem se você permitir, e podem ser desligadas no aplicativo ou nas configurações do sistema. Na tela bloqueada do Android, o conteúdo fica oculto até o aparelho ser destravado.</p>
+
+  <h2>8. Por quanto tempo guardamos</h2>
+  <p>Enquanto a sua conta existir. Itens que você exclui no aplicativo ficam marcados como excluídos para permitir o "desfazer", e deixam de aparecer. Quando você exclui a conta, todos os seus dados — conta, perfil, foto e tudo o que escreveu — são apagados dos nossos sistemas. Cópias de segurança do provedor podem manter os dados por um período limitado antes de expirarem.</p>
+
+  <h2>9. Os seus direitos</h2>
+  <p>Pela LGPD, você pode a qualquer momento: confirmar se tratamos os seus dados, acessá-los, corrigi-los, pedir a exclusão, pedir a portabilidade e revogar consentimentos. No aplicativo:</p>
+  <ul>
+    <li><strong>Corrigir</strong>: nome, foto e preferências ficam no Perfil; cada item pode ser editado.</li>
+    <li><strong>Excluir a conta</strong>: Perfil → "Excluir minha conta". É definitivo.</li>
+    <li><strong>Acessar ou exportar</strong>: escreva para o e-mail acima e enviamos uma cópia dos seus dados.</li>
+  </ul>
+  <p>Respondemos aos pedidos em até 15 dias. Você também pode se dirigir à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+  <h2>10. Segurança</h2>
+  <p>A comunicação entre o aplicativo e os servidores é cifrada (HTTPS). As senhas são guardadas com hash pelo serviço de autenticação; nós nunca as vemos. O acesso aos dados é restrito, no banco, à pessoa autenticada dona deles. Nenhum sistema é infalível: se houver um incidente que afete os seus dados, avisaremos você e a ANPD conforme a lei.</p>
+
+  <h2>11. Crianças</h2>
+  <p>O Think Capture não é dirigido a menores de 13 anos e não coleta conscientemente dados deles. Se você acredita que uma criança criou uma conta, escreva para nós e a removeremos.</p>
+
+  <h2>12. Mudanças nesta política</h2>
+  <p>Se esta política mudar, a nova versão será publicada neste endereço com a data atualizada. Mudanças relevantes serão avisadas dentro do aplicativo.</p>
+
+  <footer>
+    <p>Think Capture · <a href="https://thinkcaptured.com.br">thinkcaptured.com.br</a> · Contato: <a href="mailto:douglas.santosads@gmail.com">douglas.santosads@gmail.com</a></p>
+  </footer>
+</main>
+</body>
+</html>
