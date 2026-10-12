@@ -1,9 +1,1755 @@
 <!doctype html>
 <html lang="pt-BR">
+<script>document.documentElement.classList.add('js')</script>
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0; url=politica-de-privacidade.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Think Capture</title>
+  <meta name="description" content="Tire da cabeça em segundos. Fale ou escreva o que veio, e organize depois em tarefa, hábito ou anotação. Grátis para iPhone e Android." />
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+  <meta property="og:title" content="Think Capture" />
+  <meta property="og:description" content="Sua cabeça não foi feita para guardar tudo. Tire dela em segundos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="icone.png" />
+  <link rel="icon" type="image/png" href="icone.png" />
+  <link rel="apple-touch-icon" href="icone.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Cores do aplicativo (src/biblioteca/cores.ts). O escuro é preto puro,
+       pedido do proprietário para a página: o Kiro vira contorno claro. */
+    :root {
+      --fundo: #FAFAF8;
+      --superficie: #FFFFFF;
+      --superficie-suave: #F0F0EC;
+      --texto: #111111;
+      --texto-suave: #6B6B66;
+      --linha: rgba(17, 17, 17, 0.09);
+      --acento: #111111;
+      --sobre-acento: #FAFAF8;
+      --tarefa-tinta: #DCF1EC;
+      --tarefa-acento: #1F6F80;
+      --habito-tinta: #DEF0E1;
+      --habito-acento: #3E8A5C;
+      --anotacao-tinta: #E6E4FF;
+      --anotacao-acento: #6A61CF;
+      --lembrete-tinta: #FAF0D8;
+      --lembrete-acento: #976712;
+      --kiro-corpo: #111111;
+      --kiro-miolo: #FCFCF9;
+      --kiro-sombra: #E7E6DF;
+      --bolha: #FFFFFF;
+      --bolha-borda: rgba(17, 17, 17, 0.08);
+      --trilha-forte: rgba(17, 17, 17, 0.22);
+      --moldura: #1B1B1A;
+      --moldura-aro: #3A3A38;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-tema="claro"]) {
+        --fundo: #000000;
+        --superficie: #0E0E0E;
+        --superficie-suave: #171717;
+        --texto: #F2F2F2;
+        --texto-suave: #9A9A96;
+        --linha: rgba(242, 242, 242, 0.09);
+        --trilha-forte: rgba(242, 242, 242, 0.24);
+        --acento: #F2F2F2;
+        --sobre-acento: #000000;
+        --tarefa-tinta: #12303A;
+        --tarefa-acento: #8FD3E4;
+        --habito-tinta: #16342A;
+        --habito-acento: #7FC49B;
+        --anotacao-tinta: #24234A;
+        --anotacao-acento: #A9A2FF;
+        --lembrete-tinta: #3A3018;
+        --lembrete-acento: #EDC47D;
+        --kiro-corpo: #F2F2F2;
+        --kiro-miolo: #000000;
+        --kiro-sombra: #1C1C1C;
+        --bolha: #141414;
+        --bolha-borda: rgba(242, 242, 242, 0.08);
+        --moldura: #161616;
+        --moldura-aro: #3C3C3C;
+        color-scheme: dark;
+      }
+    }
+    :root[data-tema="escuro"] {
+      --fundo: #000000;
+      --superficie: #0E0E0E;
+      --superficie-suave: #171717;
+      --texto: #F2F2F2;
+      --texto-suave: #9A9A96;
+      --linha: rgba(242, 242, 242, 0.09);
+      --acento: #F2F2F2;
+      --sobre-acento: #000000;
+      --tarefa-tinta: #12303A;
+      --tarefa-acento: #8FD3E4;
+      --habito-tinta: #16342A;
+      --habito-acento: #7FC49B;
+      --anotacao-tinta: #24234A;
+      --anotacao-acento: #A9A2FF;
+      --lembrete-tinta: #3A3018;
+      --lembrete-acento: #EDC47D;
+      --kiro-corpo: #F2F2F2;
+      --kiro-miolo: #000000;
+      --kiro-sombra: #1C1C1C;
+      --bolha: #141414;
+      --bolha-borda: rgba(242, 242, 242, 0.08);
+      --moldura: #161616;
+      --moldura-aro: #3C3C3C;
+      color-scheme: dark;
+    }
+
+    :root {
+      --fonte-titulo: 'Quicksand', ui-rounded, system-ui, sans-serif;
+      --fonte-texto: 'Nunito', system-ui, sans-serif;
+      --curva: cubic-bezier(0.16, 1, 0.3, 1);
+      --margem: clamp(16px, 5vw, 32px);
+      --largura: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--fundo);
+      color: var(--texto);
+      font: 400 17px/1.6 var(--fonte-texto);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color .35s var(--curva), color .35s var(--curva);
+    }
+    a { color: inherit; }
+    ::selection { background: var(--texto); color: var(--fundo); }
+    input { caret-color: var(--texto); }
+    h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 700; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    .envelope { width: 100%; max-width: var(--largura); margin: 0 auto; padding: 0 var(--margem); }
+    .rotulo {
+      font: 700 12px/1 var(--fonte-texto);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--texto-suave);
+    }
+
+    /* ---------- Topo ---------- */
+    .topo {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--fundo) 78%, transparent);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s var(--curva);
+    }
+    .topo.rolou { border-bottom-color: var(--linha); }
+    .topo .envelope { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 19px/1 var(--fonte-titulo); letter-spacing: -0.02em; }
+    .marca svg { width: 26px; height: 31px; }
+    .topo-acoes { display: flex; align-items: center; gap: 8px; }
+    .botao-tema {
+      width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--linha);
+      background: transparent; color: var(--texto); display: grid; place-items: center; cursor: pointer;
+      transition: background-color .2s var(--curva), transform .2s var(--curva);
+    }
+    .botao-tema:hover { background: var(--superficie-suave); }
+    .botao-tema:active { transform: scale(0.95); }
+    .botao-tema svg { width: 18px; height: 18px; }
+    .baixar-topo {
+      height: 44px; padding: 0 20px; border-radius: 999px; background: var(--acento); color: var(--sobre-acento);
+      font: 700 15px/44px var(--fonte-texto); text-decoration: none; white-space: nowrap;
+      transition: transform .2s var(--curva), opacity .2s;
+    }
+    .baixar-topo:active { transform: scale(0.97); }
+
+    /* ---------- Abertura ---------- */
+    .abertura { padding: clamp(32px, 7vw, 88px) 0 clamp(56px, 8vw, 112px); }
+    .abertura .envelope {
+      display: grid; gap: clamp(32px, 5vw, 64px); align-items: center;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    }
+    .abertura h1 { font-size: clamp(38px, 4.9vw, 66px); line-height: 1.06; letter-spacing: -0.03em; }
+    .abertura .apoio { margin-top: 22px; font-size: clamp(17px, 1.6vw, 20px); color: var(--texto-suave); max-width: 30em; }
+    .lojas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .loja {
+      display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 10px 22px 10px 18px;
+      border-radius: 16px; text-decoration: none; background: var(--acento); color: var(--sobre-acento);
+      transition: transform .2s var(--curva), box-shadow .3s var(--curva);
+    }
+    .loja.contorno { background: transparent; color: var(--texto); box-shadow: inset 0 0 0 1.5px var(--linha); }
+    .loja.contorno:hover { box-shadow: inset 0 0 0 1.5px var(--texto-suave); }
+    .loja:hover { transform: translateY(-2px); }
+    .loja:active { transform: scale(0.97); }
+    .loja svg { width: 26px; height: 26px; flex: none; }
+    .loja span { display: flex; flex-direction: column; line-height: 1.15; }
+    .loja small { font: 600 11px/1.2 var(--fonte-texto); opacity: .72; letter-spacing: .02em; }
+    .loja b { font: 700 18px/1.15 var(--fonte-titulo); letter-spacing: -0.01em; }
+    .nota-gratis { margin-top: 16px; font-size: 14px; color: var(--texto-suave); }
+
+    /* O palco do Kiro: ele, a sombra e os pensamentos que o rodeiam. */
+    .palco {
+      position: relative; aspect-ratio: 1 / 1.02; width: 100%; max-width: 540px; justify-self: center;
+      touch-action: manipulation; user-select: none; -webkit-user-select: none;
+    }
+    .kiro-caixa {
+      position: absolute; left: 50%; bottom: 6%; width: 52%; transform: translateX(-50%);
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .kiro-caixa:focus-visible { outline: 2px solid var(--texto-suave); outline-offset: 12px; border-radius: 40%; }
+    .kiro-pulo { transform-origin: 50% 100%; will-change: transform; }
+    .kiro-caixa svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .fala {
+      position: absolute; z-index: 5; left: 50%; top: 14%; transform: translate(-50%, 6px); opacity: 0;
+      background: var(--bolha); border: 1px solid var(--bolha-borda); border-radius: 18px;
+      padding: 10px 16px; font: 600 15px/1.35 var(--fonte-texto); max-width: 78%; text-align: center;
+      transition: opacity .3s var(--curva), transform .3s var(--curva); pointer-events: none;
+    }
+    .fala.visivel { opacity: 1; transform: translate(-50%, 0); }
+
+    .pensamento {
+      position: absolute; padding: 9px 15px; border-radius: 999px; cursor: pointer;
+      background: var(--bolha); border: 1px solid var(--bolha-borda); color: var(--texto);
+      font: 600 14px/1.2 var(--fonte-texto); white-space: nowrap;
+      transition: opacity .3s var(--curva), background-color .2s;
+      animation: flutuar 6s ease-in-out infinite;
+    }
+    .pensamento:hover { background: var(--superficie-suave); }
+    .pensamento:focus-visible { outline: 2px solid var(--texto-suave); outline-offset: 3px; }
+    @keyframes flutuar {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -8px; }
+    }
+    .pensamento.indo { animation: none; pointer-events: none; }
+    .palco.fora .pensamento { animation-play-state: paused; }
+
+    /* ---------- Seções ---------- */
+    section { padding: clamp(64px, 10vw, 128px) 0; }
+    .cabeca-secao { max-width: 640px; }
+    .cabeca-secao h2 { font-size: clamp(32px, 4.4vw, 52px); line-height: 1.06; margin-top: 14px; }
+    .cabeca-secao p { margin-top: 16px; color: var(--texto-suave); font-size: 18px; max-width: 34em; }
+
+    /* Experimente: o campo que manda o pensamento para o Kiro. */
+    .experimente { border-top: 1px solid var(--linha); }
+    .experimente .envelope { display: block; }
+    /* Destinos: tarefa, hábito, anotação. */
+    .destinos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
+    .destino {
+      border-radius: 28px; padding: 28px 26px 30px; background: var(--tinta); color: var(--texto);
+      display: flex; flex-direction: column; min-height: 300px;
+      transition: transform .35s var(--curva);
+    }
+    .destino:hover { transform: translateY(-4px); }
+    .destino .icone { width: 44px; height: 44px; border-radius: 14px; flex: none; display: grid; place-items: center; background: color-mix(in srgb, var(--acento-tipo) 18%, transparent); color: var(--acento-tipo); }
+    .destino .icone svg { width: 22px; height: 22px; }
+    .destino .cabeca { display: flex; align-items: center; gap: 14px; }
+    .destino h3 { font-size: 28px; }
+    .destino p { margin-top: 8px; color: var(--texto-suave); }
+    .destino p { margin-bottom: 24px; }
+
+    /*
+      O exemplo de cada cartão é a **linha de verdade** da trilha de
+      Acompanhar — 11/10, pedido do proprietário. As medidas saem de
+      `src/componentes/linha-do-dia.tsx`: o quadrado de 22 com canto de 7 na
+      tarefa, o círculo de 24 no hábito, as sete bolinhas de 14, e a etiqueta
+      da anotação na tinta dela. Um desenho inventado aqui mostraria um
+      produto que não existe.
+    */
+    .exemplo {
+      margin-top: auto; display: flex; align-items: flex-start; gap: 12px; padding: 16px;
+      border-radius: 18px; background: color-mix(in srgb, var(--fundo) 55%, transparent);
+    }
+    .exemplo .corpo { flex: 1; min-width: 0; }
+    .exemplo .titulo { font: 700 15px var(--fonte-titulo); color: var(--texto); }
+    .exemplo .no { flex: none; display: grid; place-items: center; width: 24px; height: 24px; margin-top: 1px; }
+
+    /* O nó da tarefa: quadrado de 22, canto 7, contorno de 1.6. */
+    .no-da-tarefa { width: 22px; height: 22px; border-radius: 7px; border: 1.6px solid var(--trilha-forte); }
+    /* O do hábito: círculo de 24, cheio quando o dia está feito. */
+    .no-do-habito {
+      width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center;
+      background: var(--habito-acento); color: var(--sobre-acento);
+    }
+    .no-do-habito svg { width: 14px; height: 14px; }
+    .no-da-anotacao { color: var(--anotacao-acento); }
+    .no-da-anotacao svg { width: 22px; height: 22px; }
+
+    /* As sete bolinhas da semana, de segunda a domingo. */
+    .semana { display: flex; gap: 6px; margin-top: 7px; }
+    .semana i { width: 14px; height: 14px; border-radius: 999px; background: var(--superficie-suave); }
+    .semana i.feito { background: var(--habito-acento); }
+    .semana i.hoje { background: var(--habito-acento); }
+
+    .lado-da-linha { flex: none; display: flex; align-items: center; gap: 5px; margin-top: 1px; }
+    .chama { width: 15px; height: 15px; color: #E8793A; }
+    .sequencia { font: 700 14px var(--fonte-titulo); color: var(--habito-acento); }
+    .etiqueta-da-linha {
+      flex: none; margin-top: 1px; padding: 3px 7px; border-radius: 7px;
+      background: var(--anotacao-tinta); color: var(--anotacao-acento);
+      font: 700 12px var(--fonte-titulo);
+    }
+    .tarefa { --tinta: var(--tarefa-tinta); --acento-tipo: var(--tarefa-acento); }
+    .habito { --tinta: var(--habito-tinta); --acento-tipo: var(--habito-acento); }
+    .anotacao { --tinta: var(--anotacao-tinta); --acento-tipo: var(--anotacao-acento); }
+
+    /* As telas do app, capturas reais dentro de uma moldura de iPhone. */
+    .vitrine .envelope { display: grid; gap: clamp(40px, 6vw, 72px); }
+    .aparelhos { display: grid; grid-template-columns: repeat(3, minmax(0, 290px)); justify-content: center; gap: clamp(20px, 4vw, 56px); align-items: start; }
+    .aparelho:nth-child(2) { margin-top: clamp(32px, 6vw, 88px); }
+    @media (max-width: 720px) {
+      /* No celular as três viram uma fileira que corre de lado, sem rolar a página. */
+      .aparelhos {
+        display: flex; justify-content: flex-start; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity;
+        margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem) 8px; scroll-padding: 0 var(--margem); scrollbar-width: none;
+      }
+      .aparelhos::-webkit-scrollbar { display: none; }
+      .aparelho { flex: 0 0 68%; scroll-snap-align: start; }
+      .aparelho:nth-child(2) { margin-top: 0; }
+    }
+    .aparelho figcaption { margin-top: 20px; text-align: center; }
+    .aparelho figcaption b { display: block; font: 700 20px/1.3 var(--fonte-titulo); }
+    .aparelho figcaption span { display: block; margin-top: 4px; color: var(--texto-suave); font-size: 15px; }
+    .iphone {
+      position: relative; padding: 3.6%; border-radius: 16% / 7.4%;
+      background: var(--moldura);
+      box-shadow: inset 0 0 0 1.5px var(--moldura-aro), 0 40px 80px -40px rgba(0, 0, 0, 0.45);
+    }
+    .iphone::before, .iphone::after {
+      content: ''; position: absolute; width: 1.2%; border-radius: 2px; background: var(--moldura-aro);
+    }
+    .iphone::before { left: -1.1%; top: 22%; height: 10%; }
+    .iphone::after { right: -1.1%; top: 27%; height: 15%; }
+    .iphone img {
+      display: block; width: 100%; height: auto; aspect-ratio: 1206 / 2622; object-fit: cover;
+      border-radius: 12.8% / 5.9%; background: var(--superficie-suave);
+    }
+
+    /*
+      Os dois aparelhos vivos — 11/10, pedido do proprietário: "a moldura do
+      celular, na tela de início, igualzinho ao app; o mascote mexendo,
+      recebendo os pensamentos; os menus embaixo, mas os menus não devem
+      funcionar; só o microfone e a escrita". O que a pessoa captura aqui
+      aparece na tela de Pensamentos ao lado — no celular, logo abaixo.
+
+      Não é um vídeo nem um screenshot: é a tela do produto rodando. As
+      medidas e os textos saem do aplicativo, para a página não mostrar um
+      app que não existe.
+    */
+    /*
+      **Uma moldura só** — 11/10, pedido do proprietário: Início e Pensamentos
+      viraram duas páginas do mesmo aparelho, e quem troca é o menu. Duas
+      molduras lado a lado mostravam dois celulares; uma só mostra o produto,
+      e o menu passa a fazer o que um menu faz.
+    */
+    .palco-dos-aparelhos { display: flex; justify-content: center; margin-top: 44px; }
+    .aparelho-vivo { max-width: 360px; margin: 0 auto; width: 100%; }
+    .aparelho-vivo .legenda { margin-top: 18px; text-align: center; }
+    .aparelho-vivo .legenda b { display: block; font: 700 18px/1.3 var(--fonte-titulo); }
+    .aparelho-vivo .legenda span { display: block; margin-top: 4px; color: var(--texto-suave); font-size: 14px; }
+
+    .tela-do-app {
+      position: relative; display: flex; flex-direction: column;
+      aspect-ratio: 1206 / 2400; border-radius: 12.8% / 6.4%; overflow: hidden;
+      background: var(--fundo); color: var(--texto);
+      font: 400 13px var(--fonte-texto);
+    }
+    /* As duas páginas: a que está fora não ocupa lugar nem recebe toque. */
+    .pagina-do-app { flex: 1; display: none; flex-direction: column; min-height: 0; }
+    .tela-do-app[data-pagina="inicio"] .pagina-do-app[data-pagina="inicio"],
+    .tela-do-app[data-pagina="pensamentos"] .pagina-do-app[data-pagina="pensamentos"] { display: flex; }
+
+    /* O topo: a saudação e o sino. */
+    .topo-do-app {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 18px 6px; flex: none;
+    }
+    .topo-do-app .saudacao { font: 400 14px var(--fonte-texto); color: var(--texto-suave); }
+    .topo-do-app .sino { width: 20px; height: 20px; color: var(--texto); position: relative; }
+    .topo-do-app .sino i {
+      position: absolute; top: -1px; right: -1px; width: 7px; height: 7px; border-radius: 99px;
+      background: var(--texto); box-shadow: 0 0 0 2px var(--fundo);
+    }
+
+    /* O miolo: o Kiro, o convite e a doca. */
+    .miolo-do-app {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; padding: 0 18px 10px; text-align: center; position: relative; min-height: 0;
+    }
+    .kiro-do-app { width: 108px; flex: none; transition: width .42s var(--curva); }
+    .tela-do-app[data-estado="ouvindo"] .kiro-do-app,
+    .tela-do-app[data-estado="escrevendo"] .kiro-do-app { width: 68px; }
+    .kiro-do-app svg { display: block; width: 100%; height: auto; }
+    .convite-do-app { font: 600 17px/1.26 var(--fonte-titulo); max-width: 11em; }
+    .esperando-do-app { font-size: 12.5px; color: var(--texto-suave); }
+    .relogio-do-app { font: 400 14px var(--fonte-texto); color: var(--texto-suave); font-variant-numeric: tabular-nums; }
+    .dito-do-app {
+      width: 100%; border: 0; background: transparent; text-align: center; resize: none;
+      font: 400 14px/1.45 var(--fonte-texto); color: var(--texto); outline: none; min-height: 40px;
+    }
+    .dito-do-app::placeholder { color: var(--texto-suave); }
+
+    /* Os pensamentos caindo no Kiro, como na tela em repouso. */
+    .chuva-do-app { position: absolute; left: 0; right: 0; top: 0; height: 46%; pointer-events: none; overflow: hidden; }
+    .chuva-do-app b {
+      position: absolute; padding: 3px 8px; border-radius: 99px; white-space: nowrap;
+      background: var(--superficie); box-shadow: inset 0 0 0 1px var(--linha);
+      font: 600 10px var(--fonte-texto); color: var(--texto-suave); opacity: 0;
+    }
+
+    /* A moldura que ouve: a borda é a própria onda, como no aplicativo. */
+    .moldura-do-app { position: relative; width: 100%; max-width: 230px; }
+    .moldura-do-app .anel {
+      position: absolute; inset: -5px; border-radius: 20px; pointer-events: none;
+      opacity: 0; transition: opacity .3s var(--curva);
+    }
+    .tela-do-app[data-estado="ouvindo"] .moldura-do-app .anel { opacity: 1; }
+    .moldura-do-app .anel::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      padding: calc(1.2px + var(--forca, 0) * 3px);
+      background: conic-gradient(from var(--giro, 0deg),
+        var(--acento), var(--anotacao-acento), var(--tarefa-acento), var(--habito-acento), var(--acento));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+    }
+    .moldura-do-app .dentro {
+      min-height: 46px; padding: 12px 14px; display: flex; align-items: center; justify-content: center;
+    }
+    .onda-do-app { display: flex; align-items: center; gap: 2.5px; height: 20px; }
+    .onda-do-app i { display: block; width: 2.5px; border-radius: 99px; background: var(--acento); height: 4px; transition: height .07s linear; }
+
+    /* A doca, nos três momentos — as medidas do aplicativo, em escala. */
+    .doca-do-app { flex: none; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 18px 12px; }
+    .doca-do-app .grupo { display: none; align-items: center; }
+    .tela-do-app[data-estado="repouso"] .grupo.repouso,
+    .tela-do-app[data-estado="ouvindo"] .grupo.ouvindo,
+    .tela-do-app[data-estado="escrevendo"] .grupo.escrevendo { display: flex; }
+    .grupo.repouso { gap: 8px; padding: 8px; border-radius: 999px; background: var(--superficie-suave); }
+    .grupo.escrevendo { width: 100%; justify-content: space-between; }
+    .redondo {
+      border: 0; cursor: pointer; border-radius: 999px; display: grid; place-items: center; padding: 0;
+      background: transparent; color: var(--texto);
+      transition: transform .18s var(--curva);
+    }
+    .redondo:active { transform: scale(0.93); }
+    .redondo.cheio { background: var(--acento); color: var(--sobre-acento); }
+    .redondo.contornado { background: var(--superficie); box-shadow: inset 0 0 0 1.2px var(--linha); }
+    .redondo.vazio { box-shadow: inset 0 0 0 1.2px var(--linha); color: var(--texto-suave); }
+    .redondo:disabled { background: var(--linha); color: var(--texto-suave); cursor: default; }
+    .redondo.p48 { width: 48px; height: 48px; }
+    .redondo.p38 { width: 38px; height: 38px; }
+    .redondo.p56 { width: 56px; height: 56px; transform: scale(calc(1 + var(--forca, 0) * 0.05)); }
+    .redondo svg { width: 18px; height: 18px; }
+    .redondo.p38 svg { width: 15px; height: 15px; }
+    .quadrado-de-parar { width: 17px; height: 17px; border-radius: 6px; background: var(--sobre-acento); }
+
+    /*
+      O convite no microfone — 11/10, pedido do proprietário: "deixar o botão
+      pulsando e um balãozinho clique aqui, para indicar que é clicável". Ele
+      **some no primeiro toque**: um convite que fica depois de aceito vira
+      ruído, e a partir dali a pessoa já sabe onde ele está.
+    */
+    .redondo.convidando { animation: pulsar-convite 2.1s var(--curva) infinite; }
+    @keyframes pulsar-convite {
+      0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acento) 42%, transparent); }
+      55% { box-shadow: 0 0 0 13px color-mix(in srgb, var(--acento) 0%, transparent); }
+    }
+    .balao-do-convite {
+      position: absolute; left: 50%; bottom: 100%; margin-bottom: 10px; transform: translateX(-50%);
+      padding: 6px 11px; border-radius: 999px; white-space: nowrap;
+      background: var(--acento); color: var(--sobre-acento);
+      font: 700 11.5px var(--fonte-texto); pointer-events: none;
+      animation: subir-convite 2.1s var(--curva) infinite;
+    }
+    .balao-do-convite::after {
+      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent; border-top-color: var(--acento);
+    }
+    @keyframes subir-convite { 0%, 100% { transform: translate(-50%, 0); } 55% { transform: translate(-50%, -4px); } }
+    .doca-do-app .grupo.repouso { position: relative; }
+    .cancelar-do-app { border: 0; background: transparent; cursor: pointer; padding: 2px 10px; font: 400 12px var(--fonte-texto); color: var(--texto-suave); }
+
+    /*
+      O fim da demonstração — 12/10, pedido do proprietário.
+
+      **Não é limite de segurança**: nada daqui sai do navegador de quem está
+      vendo, não há servidor para derrubar e a lista já é cortada em seis. O
+      limite existe por outra razão, melhor: depois de cinco, a demonstração
+      já convenceu, e insistir nela é gastar a atenção de quem está pronto
+      para baixar. A doca dá lugar ao convite.
+    */
+    .fim-da-demo { display: none; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+    .tela-do-app[data-estado="cheio"] .fim-da-demo { display: flex; }
+    .tela-do-app[data-estado="cheio"] .grupo { display: none; }
+    .fim-da-demo .baixar-do-app {
+      display: inline-flex; align-items: center; gap: 7px; padding: 11px 20px; border-radius: 999px;
+      background: var(--acento); color: var(--sobre-acento); text-decoration: none;
+      font: 700 13px var(--fonte-texto); transition: transform .18s var(--curva);
+    }
+    .fim-da-demo .baixar-do-app:active { transform: scale(0.96); }
+    .fim-da-demo small { font-size: 11px; color: var(--texto-suave); }
+
+    /* O menu de abas: desenhado igual, e só o Início responde. */
+    .abas-do-app {
+      flex: none; display: flex; align-items: center; justify-content: space-around;
+      padding: 8px 6px 14px; border-top: 1px solid var(--linha); background: var(--fundo);
+    }
+    .abas-do-app button {
+      border: 0; background: transparent; cursor: pointer; display: grid; justify-items: center; gap: 3px;
+      padding: 4px 6px; color: var(--texto-suave); font: 600 9.5px var(--fonte-texto);
+    }
+    .abas-do-app button svg { width: 19px; height: 19px; }
+    .abas-do-app button[aria-current="page"] { color: var(--texto); }
+    .abas-do-app button[aria-current="page"] b { display: block; width: 16px; height: 2px; border-radius: 2px; background: var(--texto); }
+    .abas-do-app button b { display: block; width: 16px; height: 2px; }
+    .abas-do-app .retrato { width: 19px; height: 19px; border-radius: 99px; background: var(--superficie-suave); box-shadow: inset 0 0 0 1px var(--linha); }
+
+    /* A tela de Pensamentos: a caixa de entrada que enche do que foi capturado. */
+    .cabeca-dos-pensamentos { padding: 10px 18px 6px; flex: none; }
+    .cabeca-dos-pensamentos h4 { font: 700 20px var(--fonte-titulo); }
+    .cabeca-dos-pensamentos span { font-size: 12.5px; color: var(--texto-suave); }
+    .rolo-dos-pensamentos { flex: 1; overflow: hidden; padding: 6px 18px 10px; min-height: 0; }
+    .dia-dos-pensamentos { margin-top: 10px; font: 700 15px var(--fonte-titulo); }
+    .dia-dos-pensamentos small { font-weight: 400; font-size: 11.5px; color: var(--texto-suave); margin-left: 6px; }
+    .linha-do-pensamento {
+      display: flex; align-items: flex-start; gap: 10px; padding: 9px 0;
+      animation: entrar .45s var(--curva) both;
+    }
+    .linha-do-pensamento time { flex: none; width: 34px; font-size: 11px; color: var(--texto-suave); padding-top: 2px; }
+    .linha-do-pensamento .bolinha { flex: none; width: 11px; height: 11px; margin-top: 3px; border-radius: 99px; box-shadow: inset 0 0 0 1.4px var(--trilha-forte); }
+    .linha-do-pensamento p { font-size: 13px; line-height: 1.35; }
+    .vazio-dos-pensamentos { margin-top: 56px; text-align: center; color: var(--texto-suave); font-size: 12.5px; padding: 0 20px; }
+
+    /* O recado que o menu dá quando a pessoa toca numa aba que não anda. */
+    .recado-do-app {
+      position: absolute; left: 14px; right: 14px; bottom: 76px; padding: 9px 12px; border-radius: 14px;
+      background: var(--superficie); box-shadow: inset 0 0 0 1px var(--linha), 0 10px 24px -14px rgba(0,0,0,.5);
+      font-size: 11.5px; color: var(--texto-suave); text-align: center;
+      opacity: 0; transform: translateY(6px); transition: opacity .25s var(--curva), transform .25s var(--curva);
+      pointer-events: none;
+    }
+    .recado-do-app.visto { opacity: 1; transform: none; }
+
+    /* O número. */
+    .numero { text-align: center; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+    .numero { text-align: left; }
+    .numero .frase { font: 700 clamp(34px, 5.2vw, 64px)/1.1 var(--fonte-titulo); letter-spacing: -0.03em; max-width: 16em; color: var(--texto-suave); text-wrap: balance; }
+    .numero .frase strong { color: var(--texto); font-variant-numeric: tabular-nums; }
+    .numero .depois { margin-top: 24px; font-size: 18px; color: var(--texto-suave); max-width: 32em; }
+
+    /* Recursos: uma lista em duas colunas, sem cartão dentro de cartão. */
+    .recursos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 6vw, 96px); margin-top: 56px; }
+    .recurso { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 18px; padding: 28px 0; border-top: 1px solid var(--linha); }
+    .recurso .icone { width: 48px; height: 48px; border-radius: 14px; background: var(--superficie-suave); display: grid; place-items: center; }
+    .recurso .icone svg { width: 22px; height: 22px; }
+    .recurso h3 { font-size: 21px; line-height: 1.25; }
+    .recurso p { margin-top: 6px; color: var(--texto-suave); }
+
+    /* Planos. */
+    /*
+      **Um cartão só** — 12/10, pedido do proprietário. O do Grátis saiu e o do
+      Pro ficou com o palco inteiro.
+
+      O plano gratuito **não sumiu da página**: ele está dito no título da
+      seção e no parágrafo acima, que é onde a promessa "para sempre" cabe
+      melhor que numa lista de checks. A secao 38 do CLAUDE.md manda a tela de
+      planos comparar em vez de elogiar, e o que ela protege é justamente isso
+      — que ninguém saia achando que o aplicativo é pago.
+
+      E **sem preço nem botão de assinar**: a cobrança ainda não existe
+      (secao 21), e um "Assinar R$ 17,90" aqui seria vender o que não dá para
+      comprar.
+    */
+    .planos { display: flex; justify-content: center; margin-top: 48px; }
+    .plano {
+      position: relative; width: 100%; max-width: 660px; border-radius: 32px;
+      padding: clamp(32px, 5vw, 48px); background: var(--acento); color: var(--sobre-acento);
+      overflow: hidden; transition: transform .35s var(--curva);
+    }
+    .plano:hover { transform: translateY(-4px); }
+    /* O brilho que corre por trás: um só, lento, e atrás do texto. */
+    .plano::before {
+      content: ''; position: absolute; inset: -40%; pointer-events: none;
+      background: radial-gradient(42% 42% at 30% 20%,
+        color-mix(in srgb, var(--habito-acento) 42%, transparent), transparent 70%),
+        radial-gradient(38% 38% at 78% 72%,
+        color-mix(in srgb, var(--anotacao-acento) 38%, transparent), transparent 70%);
+      animation: girar-brilho 18s linear infinite;
+    }
+    @keyframes girar-brilho { to { transform: rotate(360deg); } }
+    .plano > * { position: relative; }
+    .selo-do-pro {
+      display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border-radius: 999px;
+      background: color-mix(in srgb, var(--sobre-acento) 16%, transparent);
+      font: 700 12.5px var(--fonte-texto); letter-spacing: .08em; text-transform: uppercase;
+    }
+    .selo-do-pro svg { width: 14px; height: 14px; }
+    .plano h3 { margin-top: 18px; font-size: clamp(34px, 5vw, 46px); letter-spacing: -0.02em; }
+    .plano .sub { margin-top: 10px; font-size: clamp(17px, 2.2vw, 20px); opacity: .78; max-width: 24em; }
+    .plano ul {
+      list-style: none; padding: 0; margin: 30px 0 0;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px;
+    }
+    .plano li { display: flex; gap: 12px; align-items: flex-start; font-weight: 600; }
+    .plano li svg { width: 20px; height: 20px; flex: none; margin-top: 3px; opacity: .85; }
+    .plano .depois-do-pro {
+      margin-top: 30px; padding-top: 22px; font-size: 15px; opacity: .72;
+      border-top: 1px solid color-mix(in srgb, var(--sobre-acento) 18%, transparent);
+    }
+
+    /* Final. */
+    .final { text-align: center; }
+    .final .kiro-final { width: 128px; margin: 0 auto 28px; cursor: pointer; }
+    .final .kiro-final svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .final h2 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; }
+    .final p { margin: 18px auto 0; color: var(--texto-suave); font-size: 18px; max-width: 28em; }
+    .final .lojas { justify-content: center; }
+
+    footer { border-top: 1px solid var(--linha); padding: 32px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14px; color: var(--texto-suave); }
+    footer .envelope { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; }
+    footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+    footer a { text-decoration: none; padding: 8px 0; }
+    footer a:hover { color: var(--texto); }
+
+    /* Entrada ao rolar. */
+    .js .surge { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--curva), transform .7s var(--curva); transition-delay: var(--atraso, 0ms); }
+    .surge.visivel { opacity: 1; transform: none; }
+
+    @media (max-width: 860px) {
+      .abertura .envelope { grid-template-columns: minmax(0, 1fr); }
+      .palco { max-width: 320px; order: -1; }
+      .abertura { padding-top: 12px; }
+      .destinos { grid-template-columns: minmax(0, 1fr); }
+      .destino { min-height: 0; }
+      .recursos { grid-template-columns: minmax(0, 1fr); }
+      .plano ul { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .baixar-topo { display: none; }
+      .loja { flex: 1 1 100%; justify-content: center; }
+      .pensamento { font-size: 13px; padding: 8px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .pensamento { animation: none; }
+      /* O brilho do cartão do Pro fica parado: a cor continua lá, o giro não. */
+      .plano::before { animation: none; }
+      .js .surge { opacity: 1; transform: none; transition: none; }
+      * { transition-duration: 0.01ms !important; }
+    }
+  </style>
 </head>
-<body><a href="politica-de-privacidade.html">Política de Privacidade do Think Capture</a></body>
+<body>
+
+  <!-- O desenho do Kiro, uma vez, e usado por <use> em todo lugar.
+       Os caminhos são os de referencias/assets/mascote-novo.svg, letra por letra. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <path id="k-corpo" d="M 907.65 1459.18 C 906.217 1470.22 904.03 1481.16 901.105 1491.91 C 893.621 1518.53 882.157 1538.29 857.594 1552.43 C 827.382 1569.83 766.12 1569.7 733.293 1560.41 C 678.182 1545.43 682.428 1502.75 684.382 1456.77 C 684.807 1446.78 683.555 1429.44 676.188 1422.66 C 662.929 1410.47 643.564 1402.73 628.66 1392.4 C 618.997 1385.7 610.302 1379.27 601.37 1371.89 C 570.81 1346.52 545.427 1315.49 526.61 1280.51 C 457.451 1154.11 488.299 1002.76 526.658 871.514 C 544.496 811.122 566.26 751.961 591.814 694.408 C 645.967 573.781 718.693 460.046 838 394.923 C 933.379 341.871 1045.91 328.842 1150.89 358.699 C 1376.8 425.262 1413.62 669.629 1445.89 869.98 C 1449.15 890.127 1452.25 910.301 1455.19 930.497 C 1456.66 940.194 1458.56 954.634 1460.65 963.772 C 1463.88 977.965 1473.29 994.668 1479.23 1008.41 C 1491.05 1035.47 1498.9 1064.09 1502.52 1093.4 C 1507.12 1128.32 1504.45 1163.81 1494.68 1197.65 C 1482.75 1237.54 1460.92 1268.95 1423.99 1288.75 C 1420.15 1291.4 1415.84 1302.2 1413.4 1307.16 C 1390.28 1347.11 1358.47 1381.35 1320.32 1407.33 C 1292.74 1426.13 1277.45 1423.95 1272.18 1462.54 C 1266.76 1502.28 1261.36 1529.72 1225.9 1552.22 L 1214.83 1557.35 C 1191.03 1565.32 1173.68 1566.52 1148.51 1566.67 C 1118.19 1566.84 1082.54 1563.12 1059.82 1540.58 C 1038.87 1519.81 1039.64 1488.33 1039.95 1460.89 C 1001.1 1460.98 945.637 1461.24 907.65 1459.18 z" />
+      <path id="k-miolo" d="M 1067 1458.34 C 1083.98 1457.19 1130.43 1449.51 1141.72 1435.29 C 1144.06 1432.34 1140.02 1424.75 1135.47 1425.18 C 1107.15 1427.87 1079.83 1431.26 1051.21 1432.76 C 1023.93 1434.18 996.606 1434.57 969.295 1433.93 C 950.316 1433.52 930.593 1431.74 911.67 1433.19 C 902.855 1433.86 896.825 1434.54 890.161 1441.05 C 870.923 1459.83 884.348 1503.1 848.34 1527.17 C 824.099 1543.37 776.289 1542.42 748.934 1536.98 C 680.541 1523.35 727.723 1457.01 702.86 1414.25 C 691.76 1395.16 670.295 1386.7 652.336 1375.49 C 642.836 1369.56 633.649 1362.87 624.787 1356.02 C 600.623 1337.02 579.691 1314.23 562.801 1288.54 C 499.528 1191.77 506.025 1082.13 528.527 973.539 C 540.475 918.566 555.909 864.41 574.736 811.397 C 624.038 669.187 696.392 518.685 825.96 433.729 C 911.855 377.792 1016.26 357.768 1116.75 377.956 C 1202.03 395.86 1264.57 438.128 1312.47 511.946 C 1382.81 620.352 1398.25 756.965 1420.58 881.789 C 1425.43 908.868 1428.34 937.089 1433.09 964.135 C 1436.75 985.028 1448.08 1003.26 1455.950 1022.59 C 1476.93 1074.1 1484.05 1121.37 1472.57 1175.8 C 1463.61 1209.96 1449.3 1243.04 1417.42 1261.76 C 1377.64 1285.11 1318.9 1271.48 1300.71 1226.79 C 1296.77 1216.67 1294.91 1208.15 1295.84 1197.24 C 1301.86 1126.09 1405.37 1121.91 1398.78 1043.79 C 1398.31 1038.21 1397.89 1035.13 1394.15 1030.93 C 1389.98 1028.91 1386.92 1028.08 1384.51 1032.63 C 1381.58 1038.15 1380.22 1044.15 1378.28 1050.06 C 1375.61 1058.37 1371.78 1066.27 1366.91 1073.51 C 1352.02 1096.15 1319.55 1110.83 1299.89 1130.93 C 1238.75 1193.43 1273.48 1287.04 1358.98 1298.39 C 1368.57 1299.66 1377.39 1299.24 1387.02 1299.05 C 1365.49 1336.85 1333 1366.97 1297.17 1391.04 C 1283.36 1400.31 1269.63 1404.23 1259.950 1418.26 C 1239.7 1447.59 1250.3 1491.91 1225.98 1518.57 C 1208.92 1537.26 1173.53 1540.67 1149.77 1540.72 C 1128.43 1540.76 1095.52 1538.76 1079.58 1522.28 C 1064.39 1506.58 1066.96 1478.9 1067 1458.34 z" />
+      <path id="k-vinco" d="M 1472.57 1175.8 C 1463.61 1209.96 1449.3 1243.04 1417.42 1261.76 C 1377.64 1285.11 1318.9 1271.48 1300.71 1226.79 C 1308.45 1228.5 1319.73 1236.73 1327.68 1238.81 C 1373.6 1251.41 1417.27 1231.72 1450.18 1199.79 C 1456.17 1193.99 1465.96 1178.75 1472.57 1175.8 z" />
+      <path id="k-boca" d="M 822.693 1022.7 C 834.305 1022.47 837.329 1031.6 844.451 1040.46 C 850.382 1047.87 856.914 1054.77 863.979 1061.11 C 903.153 1096.38 964.363 1091.84 1000.48 1132.19 C 1037.7 1173.8 1032.61 1237.38 991.449 1274.08 C 948.883 1312.02 889.903 1318.19 835.748 1316.02 L 824.514 1314.5 C 818.211 1309.82 812.889 1301.75 817.787 1294.48 C 824.79 1285.4 844.075 1289.57 854.592 1289.87 C 917.133 1291.65 1011.55 1262.62 996.898 1182.47 C 985.698 1121.22 908.119 1123.89 866.205 1095.44 C 847.709 1082.88 835.643 1067.84 826.315 1047.3 C 822.088 1038.22 815.75 1032.26 822.693 1022.7 z" />
+      <path id="k-olho-d" d="M 1238.1 698.181 C 1282.66 693.042 1272.56 744.168 1273.7 771.925 C 1274.66 795.085 1275.03 812.773 1250.69 822.708 C 1244.8 823.284 1239.74 823.224 1234.16 821.024 C 1226.71 818.085 1221.5 812.128 1218.53 804.782 C 1213.84 793.182 1213.24 728.042 1218.25 716.452 C 1222.4 706.844 1228.6 702.027 1238.1 698.181 z" />
+      <path id="k-olho-e" d="M 996.871 700.229 C 1034.92 695.616 1034.3 730.488 1033.17 757.411 C 1032.66 769.711 1034.35 782.694 1032.92 795.076 C 1032.44 799.578 1031.24 803.974 1029.36 808.096 C 1025.39 816.63 1018.69 820.906 1010.16 823.885 C 970.547 830.019 974.284 783.578 974.925 758.46 C 975.542 734.277 969.949 712.016 996.871 700.229 z" />
+    </defs>
+  </svg>
+
+  <header class="topo" id="topo">
+    <div class="envelope">
+      <a class="marca" href="#" aria-label="Think Capture, início">
+        <svg viewBox="461.333 318.667 1068 1272" aria-hidden="true">
+          <use href="#k-corpo" fill="var(--kiro-corpo)" />
+          <use href="#k-miolo" fill="var(--kiro-miolo)" />
+          <use href="#k-olho-d" fill="var(--kiro-corpo)" />
+          <use href="#k-olho-e" fill="var(--kiro-corpo)" />
+        </svg>
+        Think Capture
+      </a>
+      <div class="topo-acoes">
+        <button class="botao-tema" id="botao-tema" type="button" aria-label="Trocar entre claro e escuro">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <a class="baixar-topo" href="#baixar">Baixar grátis</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Abertura -->
+    <section class="abertura" aria-labelledby="titulo-abertura">
+      <div class="envelope">
+        <div>
+          <p class="rotulo surge">Para iPhone e Android</p>
+          <h1 id="titulo-abertura" class="surge" style="--atraso:80ms">Sua cabeça não foi feita para guardar tudo.</h1>
+          <p class="apoio surge" style="--atraso:160ms">Fale ou escreva no instante em que o pensamento vem. O Kiro guarda, e você organiza depois.</p>
+          <div class="lojas surge" style="--atraso:240ms">
+            <a class="loja" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
+              <span><small>Baixar na</small><b>App Store</b></span>
+            </a>
+            <a class="loja contorno" href="https://play.google.com/store/apps/details?id=com.douglassdj.thinkcapture" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M3.6 1.8 13.3 11.5 3.6 21.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FBBC04" d="M16.6 14.8 13.3 11.5l3.3-3.3 3.8 2.2c1.1.6 1.1 1.6 0 2.2z"/><path fill="#EA4335" d="M13.3 11.5 3.6 21.2c.36.2.83.18 1.3-.08l11.7-6.32z"/><path fill="#4285F4" d="M3.6 1.8c.36-.2.83-.18 1.3.08l11.7 6.32-3.3 3.3z"/></svg>
+              <span><small>Disponível no</small><b>Google Play</b></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="palco" id="palco">
+          <div class="fala" id="fala" aria-live="polite"></div>
+          <div class="kiro-caixa" id="kiro" role="button" tabindex="0" aria-label="Kiro, o mascote do Think Capture. Toque para ele acenar.">
+            <div class="kiro-pulo" id="kiro-pulo">
+              <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
+                <ellipse id="k-sombra" cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
+                <g id="k-corpo-todo">
+                  <use href="#k-corpo" fill="var(--kiro-corpo)" />
+                  <use href="#k-miolo" fill="var(--kiro-miolo)" />
+                  <use href="#k-vinco" fill="var(--kiro-sombra)" />
+                  <g id="k-boca-giro"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
+                  <g id="k-olhos">
+                    <g id="k-piscar">
+                      <use href="#k-olho-d" fill="var(--kiro-corpo)" />
+                      <use href="#k-olho-e" fill="var(--kiro-corpo)" />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experimente -->
+    <section class="experimente" aria-labelledby="titulo-experimente">
+      <div class="envelope">
+        <div class="cabeca-secao surge">
+          <h2 id="titulo-experimente">Tire da cabeça em segundos.</h2>
+          <p>Este é o aplicativo de verdade, rodando aqui. Fale ou escreva, e veja o pensamento
+            chegar na sua caixa de entrada.</p>
+        </div>
+
+        <!--
+          Os dois aparelhos vivos — 11/10. O da esquerda é a tela de Início
+          rodando: o Kiro recebendo os pensamentos, o convite e a doca de
+          verdade. O da direita é Pensamentos, e enche com o que foi
+          capturado. O menu está lá porque a tela tem um, mas **só o Início
+          responde** — tocar nas outras abas diz isso, em vez de não fazer nada.
+        -->
+        <div class="palco-dos-aparelhos">
+          <figure class="aparelho-vivo surge">
+            <div class="iphone">
+              <div class="tela-do-app" id="tela-inicio" data-estado="repouso" data-pagina="inicio">
+                <div class="topo-do-app">
+                  <span class="saudacao" id="saudacao-do-app">Bom dia</span>
+                  <span class="sino"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
+                </div>
+
+                <div class="pagina-do-app" data-pagina="inicio">
+                <div class="miolo-do-app">
+                  <div class="chuva-do-app" id="chuva-do-app" aria-hidden="true"></div>
+                  <div class="kiro-do-app" id="kiro-do-app" aria-hidden="true"></div>
+
+                  <p class="convite-do-app" id="convite-do-app">O que está passando pela sua cabeça?</p>
+                  <p class="esperando-do-app" id="esperando-do-app">Toque no microfone e fale</p>
+                  <p class="relogio-do-app" id="relogio-do-app" hidden>0:00</p>
+
+                  <div class="moldura-do-app" id="moldura-do-app" hidden>
+                    <span class="anel" id="anel-do-app" aria-hidden="true"></span>
+                    <div class="dentro">
+                      <span class="onda-do-app" id="onda-do-app" aria-hidden="true"></span>
+                      <label for="dito-do-app" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">O que está na sua cabeça?</label>
+                      <textarea class="dito-do-app" id="dito-do-app" rows="2" maxlength="140" placeholder="Ligar pro dentista amanhã cedo"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="doca-do-app">
+                  <div class="grupo repouso">
+                    <span class="balao-do-convite" id="balao-do-convite">Clique aqui e fale</span>
+                    <button type="button" class="redondo cheio p48 convidando" id="app-falar" aria-label="Capturar por voz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3.5"/></svg></button>
+                    <button type="button" class="redondo contornado p48" id="app-escrever" aria-label="Capturar por texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+                  </div>
+                  <div class="grupo ouvindo">
+                    <button type="button" class="redondo cheio p56" id="app-parar" aria-label="Terminar de falar"><span class="quadrado-de-parar"></span></button>
+                  </div>
+                  <div class="grupo escrevendo">
+                    <button type="button" class="redondo vazio p38" id="app-cancelar" aria-label="Cancelar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    <button type="button" class="redondo cheio p48" id="app-guardar" aria-label="Guardar o pensamento" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button>
+                    <button type="button" class="redondo vazio p38" id="app-trocar-voz" aria-label="Trocar para voz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3.5"/></svg></button>
+                  </div>
+                  <button type="button" class="cancelar-do-app" id="app-cancelar-voz" hidden>Cancelar</button>
+
+                  <div class="fim-da-demo">
+                    <a class="baixar-do-app" href="#baixar">Baixar grátis</a>
+                    <small>No aplicativo não tem limite.</small>
+                  </div>
+                </div>
+                </div>
+
+                <div class="pagina-do-app" data-pagina="pensamentos">
+                  <div class="cabeca-dos-pensamentos">
+                    <h4>Pensamentos</h4>
+                    <span id="quantos-do-app">Nada capturado ainda</span>
+                  </div>
+                  <div class="rolo-dos-pensamentos">
+                    <p class="vazio-dos-pensamentos" id="vazio-do-app">O que você capturar no Início aparece aqui.</p>
+                    <div id="hoje-do-app" hidden>
+                      <p class="dia-dos-pensamentos">Hoje <small id="data-do-app"></small></p>
+                      <div id="lista-do-app"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <nav class="abas-do-app" aria-label="Menu do aplicativo">
+                  <button type="button" class="aba-viva" data-pagina="inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg><span>Início</span><b></b></button>
+                  <button type="button" class="aba-viva" data-pagina="pensamentos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-4-.9L3 21l1.9-4.3A8.3 8.3 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg><span>Pensamentos</span><b></b></button>
+                  <button type="button" class="aba-parada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><span>Acompanhar</span><b></b></button>
+                  <button type="button" class="aba-parada"><span class="retrato"></span><span>Perfil</span><b></b></button>
+                </nav>
+
+                <p class="recado-do-app" id="recado-do-app" aria-live="polite">Aqui só o Início funciona. O resto está no aplicativo.</p>
+              </div>
+            </div>
+            <figcaption class="legenda"><b>O aplicativo, rodando aqui</b><span>Fale ou escreva, e toque em Pensamentos para ver onde ele foi parar.</span></figcaption>
+          </figure>
+
+          
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Destinos -->
+    <section aria-labelledby="titulo-destinos">
+      <div class="envelope">
+        <div class="cabeca-secao surge">
+          <h2 id="titulo-destinos">Depois, cada um encontra seu lugar.</h2>
+          <p>Quando fizer sentido, transforme o que guardou em tarefa, hábito ou anotação. O pensamento original fica com você.</p>
+        </div>
+        <div class="destinos">
+          <article class="destino tarefa surge">
+            <div class="cabeca"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="m8 12.2 2.7 2.7L16.2 9.4"/></svg></div><h3>Tarefa</h3></div>
+            <p>Com quando fazer, prazo final e um lembrete na hora certa. Pode se repetir, como a conta de todo mês.</p>
+            <div class="exemplo"><span class="no"><span class="no-da-tarefa"></span></span><span class="corpo"><span class="titulo">Ligar pro dentista</span></span><span class="etiqueta-da-linha" style="background:var(--superficie-suave);color:var(--texto-suave)">14:00</span></div>
+          </article>
+          <article class="destino habito surge" style="--atraso:90ms">
+            <div class="cabeca"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.5 2 2.5 0-3 0-5 1-8z"/></svg></div><h3>Hábito</h3></div>
+            <p>Uma meta do seu jeito, um mapa dos dias e a sequência que cresce. Meio copo de água também aparece.</p>
+            <div class="exemplo"><span class="no"><span class="no-do-habito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></span><span class="corpo"><span class="titulo">Voltar a correr</span><span class="semana"><i class="feito"></i><i></i><i class="feito"></i><i></i><i class="feito"></i><i></i><i class="hoje"></i></span></span><span class="lado-da-linha"><span class="sequencia">12</span><svg class="chama" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.5 2 2.5 0-3 0-5 1-8z"/></svg></span></div>
+          </article>
+          <article class="destino anotacao surge" style="--atraso:180ms">
+            <div class="cabeca"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div><h3>Anotação</h3></div>
+            <p>A frase que você quer ver de novo ao longo do dia, nos horários que escolher.</p>
+            <div class="exemplo"><span class="no no-da-anotacao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span><span class="corpo"><span class="titulo">Reclamar o menos possível</span></span><span class="etiqueta-da-linha">09:00</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- As telas do app -->
+    <section class="vitrine" aria-labelledby="titulo-vitrine" style="padding-top:0">
+      <div class="envelope">
+        <div class="cabeca-secao surge">
+          <h2 id="titulo-vitrine">Tudo o que saiu da cabeça, num lugar só.</h2>
+          <p>Guarde num toque, encontre tudo na caixa de entrada e acompanhe o que virou tarefa, hábito ou anotação.</p>
+        </div>
+        <div class="aparelhos">
+          <figure class="aparelho surge" style="margin:0">
+            <div class="iphone"><img src="telas/inicio.jpg" alt="A tela de início do Think Capture, com o Kiro e os botões de falar e escrever" loading="lazy" width="860" height="1870" /></div>
+            <figcaption><b>Início</b><span>Fale ou escreva, e pronto</span></figcaption>
+          </figure>
+          <figure class="aparelho surge" style="margin:0;--atraso:100ms">
+            <div class="iphone"><img src="telas/pensamentos.jpg" alt="A tela Pensamentos do Think Capture, com a caixa de entrada dos pensamentos guardados" loading="lazy" width="860" height="1870" /></div>
+            <figcaption><b>Pensamentos</b><span>A caixa de entrada do que você guardou</span></figcaption>
+          </figure>
+          <figure class="aparelho surge" style="margin:0;--atraso:200ms">
+            <div class="iphone"><img src="telas/acompanhar.jpg" alt="A tela Acompanhar do Think Capture, com as tarefas e os hábitos do dia" loading="lazy" width="860" height="1870" /></div>
+            <figcaption><b>Acompanhar</b><span>Hábitos e tarefas do dia, com a sequência</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- O número -->
+    <section class="numero" aria-label="Quantos pensamentos por dia">
+      <div class="envelope surge">
+        <p class="frase">Cerca de <strong id="numero">6.200</strong> pensamentos passam pela cabeça de uma pessoa num único dia.</p>
+        <p class="depois">Tarefas abertas voltam à mente até serem anotadas. Tirar da cabeça é o que faz elas pararem de pesar.</p>
+      </div>
+    </section>
+
+    <!-- Recursos -->
+    <section aria-labelledby="titulo-recursos">
+      <div class="envelope">
+        <div class="cabeca-secao surge">
+          <h2 id="titulo-recursos">Rápido de guardar. Calmo de voltar.</h2>
+        </div>
+        <div class="recursos">
+          <div class="recurso surge">
+            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+            <div><h3>Fale, e o texto aparece enquanto você fala</h3><p>A transcrição acontece no seu celular. Você revisa e guarda, sem esperar processar.</p></div>
+          </div>
+          <div class="recurso surge" style="--atraso:80ms">
+            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+            <div><h3>Um lembrete na hora certa</h3><p>Hoje, amanhã ou em uma semana. Anotar tira da cabeça; saber que o Kiro avisa deixa você seguir o dia em paz.</p></div>
+          </div>
+          <div class="recurso surge">
+            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <div><h3>Sua voz não fica guardada</h3><p>Do pensamento falado fica só o texto. O áudio não é salvo em lugar nenhum, nem no aparelho, nem na nuvem.</p></div>
+          </div>
+          <div class="recurso surge" style="--atraso:80ms">
+            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><rect x="15" y="9" width="7" height="12" rx="2"/><path d="M6 18h6"/></svg></div>
+            <div><h3>Os mesmos pensamentos em todo aparelho</h3><p>Tudo fica salvo na sua conta. Trocou de celular, entrou de novo, está tudo lá.</p></div>
+          </div>
+          <div class="recurso surge">
+            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></div>
+            <div><h3>Widgets na tela inicial</h3><p>Seus pensamentos e os hábitos do dia, sem nem abrir o aplicativo.</p></div>
+          </div>
+          <div class="recurso surge" style="--atraso:80ms">
+            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div><h3>Resolveu sozinho? Marque e solte</h3><p>Nem todo pensamento precisa virar tarefa. Alguns só precisavam sair da cabeça.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Planos -->
+    <section aria-labelledby="titulo-planos" style="padding-top:0">
+      <div class="envelope">
+        <div class="cabeca-secao surge">
+          <h2 id="titulo-planos">O essencial é grátis. Para sempre.</h2>
+          <p>Capturar, organizar e acompanhar não têm data para acabar. O Think Pro é para quem quer ir mais fundo.</p>
+        </div>
+        <div class="planos">
+          <div class="plano surge">
+            <span class="selo-do-pro"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.6 6.1 6.6.6-5 4.3 1.5 6.5L12 16.6 6.3 20l1.5-6.5-5-4.3 6.6-.6z"/></svg>Think Pro</span>
+            <h3>Para quem já não larga mais.</h3>
+            <p class="sub">Quando o aplicativo vira parte do dia, o Pro tira os limites de onde eles incomodam.</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tarefas, hábitos e anotações sem limite</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Lembretes em vários horários do dia</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Histórico completo do que você guardou</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Temas e cores do seu jeito</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Widgets com estilos e translúcido</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Novidades antes de todo mundo</li>
+            </ul>
+            <p class="depois-do-pro">Baixe grátis e use à vontade. O Pro fica esperando o dia em que
+              você quiser ir mais fundo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final -->
+    <section class="final" id="baixar" aria-labelledby="titulo-final" style="border-top:1px solid var(--linha)">
+      <div class="envelope surge">
+        <div class="kiro-final" id="kiro-final" role="button" tabindex="0" aria-label="Kiro acenando">
+          <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
+            <ellipse cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
+            <use href="#k-corpo" fill="var(--kiro-corpo)" />
+            <use href="#k-miolo" fill="var(--kiro-miolo)" />
+            <use href="#k-vinco" fill="var(--kiro-sombra)" />
+            <g id="k-boca-final"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
+            <use href="#k-olho-d" fill="var(--kiro-corpo)" />
+            <use href="#k-olho-e" fill="var(--kiro-corpo)" />
+          </svg>
+        </div>
+        <h2 id="titulo-final">Cabeça leve, todos os dias.</h2>
+        <p>Baixe o Think Capture e guarde o primeiro pensamento agora. O Kiro cuida do resto.</p>
+        <div class="lojas">
+          <a class="loja" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.770-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
+            <span><small>Baixar na</small><b>App Store</b></span>
+          </a>
+          <a class="loja contorno" href="https://play.google.com/store/apps/details?id=com.douglassdj.thinkcapture" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M3.6 1.8 13.3 11.5 3.6 21.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FBBC04" d="M16.6 14.8 13.3 11.5l3.3-3.3 3.8 2.2c1.1.6 1.1 1.6 0 2.2z"/><path fill="#EA4335" d="M13.3 11.5 3.6 21.2c.36.2.83.18 1.3-.08l11.7-6.32z"/><path fill="#4285F4" d="M3.6 1.8c.36-.2.83-.18 1.3.08l11.7 6.32-3.3 3.3z"/></svg>
+            <span><small>Disponível no</small><b>Google Play</b></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="envelope">
+      <span>Think Capture · feito no Brasil</span>
+      <nav aria-label="Rodapé">
+        <a href="politica-de-privacidade.html">Política de privacidade</a>
+        <a href="https://douglassdj.github.io/thinkcapture-site/excluir-conta.html">Excluir conta</a>
+        <a href="mailto:douglas.santosads@gmail.com">Contato</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var parado = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function semMovimento() { return parado.matches; }
+
+    // ---------- Tema: segue o sistema, e o botão fixa a escolha ----------
+    var raiz = document.documentElement;
+    function lerTema() { try { return localStorage.getItem('tema'); } catch (e) { return null; } }
+    function gravarTema(t) { try { localStorage.setItem('tema', t); } catch (e) { /* sem armazenamento, só nesta visita */ } }
+    var temaGuardado = lerTema();
+    if (temaGuardado === 'claro' || temaGuardado === 'escuro') raiz.setAttribute('data-tema', temaGuardado);
+    document.getElementById('botao-tema').addEventListener('click', function () {
+      var atual = raiz.getAttribute('data-tema') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
+      var novo = atual === 'escuro' ? 'claro' : 'escuro';
+      raiz.setAttribute('data-tema', novo);
+      gravarTema(novo);
+    });
+
+    // ---------- Topo ganha linha ao rolar ----------
+    var topo = document.getElementById('topo');
+    window.addEventListener('scroll', function () {
+      topo.classList.toggle('rolou', window.scrollY > 8);
+    }, { passive: true });
+
+    // ---------- Entrada ao rolar ----------
+    var surgem = document.querySelectorAll('.surge');
+    if ('IntersectionObserver' in window && !semMovimento()) {
+      var observador = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visivel'); observador.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      surgem.forEach(function (el) { observador.observe(el); });
+    } else {
+      surgem.forEach(function (el) { el.classList.add('visivel'); });
+    }
+
+    // ---------- Pequeno motor de animação ----------
+    function curva(t) { return 1 - Math.pow(1 - t, 3); }
+    function animar(duracao, aoQuadro, aoFim) {
+      if (semMovimento()) { aoQuadro(1); if (aoFim) aoFim(); return; }
+      var inicio = performance.now();
+      function passo(agora) {
+        var t = Math.min(1, (agora - inicio) / duracao);
+        aoQuadro(t);
+        if (t < 1) requestAnimationFrame(passo); else if (aoFim) aoFim();
+      }
+      requestAnimationFrame(passo);
+    }
+
+    // ---------- O Kiro ----------
+    // Pontos lidos do desenho: o alto da boca (pivô do aceno) e o meio dos olhos.
+    var PIVO = '824 1030';
+    var OLHOS_X = 1125, OLHOS_Y = 761;
+
+    var kiro = document.getElementById('kiro');
+    var pulo = document.getElementById('kiro-pulo');
+    var olhos = document.getElementById('k-olhos');
+    var piscar = document.getElementById('k-piscar');
+    var boca = document.getElementById('k-boca-giro');
+    var fala = document.getElementById('fala');
+    var palco = document.getElementById('palco');
+
+    // Os olhos seguem o ponteiro, dentro de um raio pequeno.
+    var palcoNaTela = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        var antes = palcoNaTela;
+        palcoNaTela = e[0].isIntersecting;
+        palco.classList.toggle('fora', !palcoNaTela);
+        if (palcoNaTela && !antes) { requestAnimationFrame(aplicarCorpo); if (!semMovimento()) requestAnimationFrame(loopDosOlhos); }
+      }).observe(palco);
+    }
+    var olharAlvo = { x: 0, y: 0 }, olharAgora = { x: 0, y: 0 };
+    function olharPara(clienteX, clienteY) {
+      var r = kiro.getBoundingClientRect();
+      var cx = r.left + r.width * 0.62, cy = r.top + r.height * 0.36;
+      var dx = clienteX - cx, dy = clienteY - cy;
+      var d = Math.hypot(dx, dy) || 1;
+      var forca = Math.min(1, d / 320);
+      olharAlvo.x = (dx / d) * 34 * forca;
+      olharAlvo.y = (dy / d) * 26 * forca;
+    }
+    window.addEventListener('pointermove', function (e) { olharPara(e.clientX, e.clientY); }, { passive: true });
+    function loopDosOlhos() {
+      olharAgora.x += (olharAlvo.x - olharAgora.x) * 0.12;
+      olharAgora.y += (olharAlvo.y - olharAgora.y) * 0.12;
+      olhos.setAttribute('transform', 'translate(' + olharAgora.x.toFixed(1) + ' ' + olharAgora.y.toFixed(1) + ')');
+      if (palcoNaTela) requestAnimationFrame(loopDosOlhos);
+    }
+    if (!semMovimento()) requestAnimationFrame(loopDosOlhos);
+
+    // Piscar, de tempos em tempos.
+    function piscarUmaVez() {
+      animar(180, function (t) {
+        var s = t < 0.5 ? 1 - t * 1.8 : 0.1 + (t - 0.5) * 1.8;
+        piscar.setAttribute('transform', 'translate(0 ' + OLHOS_Y + ') scale(1 ' + s.toFixed(3) + ') translate(0 ' + (-OLHOS_Y) + ')');
+      }, function () { piscar.removeAttribute('transform'); });
+    }
+    (function agendarPiscada() {
+      setTimeout(function () { if (!semMovimento() && palcoNaTela) piscarUmaVez(); agendarPiscada(); }, 2600 + Math.random() * 2600);
+    })();
+
+    // Respirar: o corpo sobe e desce devagar, a sombra acompanha.
+    var respirando = true, tempoBase = performance.now();
+    var sombra = document.getElementById('k-sombra');
+    var deformacao = { sx: 1, sy: 1, y: 0 };
+    function aplicarCorpo() {
+      var respiro = respirando && !semMovimento() ? Math.sin((performance.now() - tempoBase) / 900) * 0.012 : 0;
+      pulo.style.transform = 'translateY(' + deformacao.y.toFixed(2) + 'px) scale(' +
+        (deformacao.sx - respiro).toFixed(4) + ',' + (deformacao.sy + respiro).toFixed(4) + ')';
+      var altura = Math.max(0, -deformacao.y);
+      sombra.setAttribute('rx', (508.5 * (1 - altura / 260)).toFixed(1));
+      if (palcoNaTela) requestAnimationFrame(aplicarCorpo);
+    }
+    requestAnimationFrame(aplicarCorpo);
+
+    // Acenar: a boca sobe, vai e vem três vezes, e desce. Igual ao app.
+    var acenando = false;
+    function acenar(alvo) {
+      var g = alvo || boca;
+      if (g === boca && acenando) return;
+      if (g === boca) acenando = true;
+      animar(1500, function (t) {
+        var ang;
+        if (t < 0.18) ang = -72 * curva(t / 0.18);
+        else if (t < 0.82) ang = -72 + Math.sin(((t - 0.18) / 0.64) * Math.PI * 3) * 24 - 0;
+        else ang = -72 * (1 - curva((t - 0.82) / 0.18));
+        g.setAttribute('transform', 'rotate(' + ang.toFixed(2) + ' ' + PIVO + ')');
+      }, function () { g.removeAttribute('transform'); if (g === boca) acenando = false; });
+    }
+
+    // Pular: amassa, sobe, cai e quica pouco. Sem elástico exagerado.
+    var pulando = false;
+    function pular() {
+      if (pulando) return;
+      pulando = true;
+      animar(760, function (t) {
+        if (t < 0.15) { var a = t / 0.15; deformacao.sx = 1 + 0.08 * a; deformacao.sy = 1 - 0.1 * a; deformacao.y = 0; }
+        else if (t < 0.55) { var b = (t - 0.15) / 0.4; var h = Math.sin(b * Math.PI); deformacao.y = -46 * h; deformacao.sx = 1 - 0.04 * h; deformacao.sy = 1 + 0.06 * h; }
+        else if (t < 0.7) { var c = (t - 0.55) / 0.15; deformacao.y = 0; deformacao.sx = 1 + 0.06 * Math.sin(c * Math.PI); deformacao.sy = 1 - 0.07 * Math.sin(c * Math.PI); }
+        else { deformacao.sx = 1; deformacao.sy = 1; deformacao.y = 0; }
+      }, function () { deformacao.sx = 1; deformacao.sy = 1; deformacao.y = 0; pulando = false; });
+    }
+
+    // Engolir: amassa largo, como quem recebe alguma coisa.
+    function receber() {
+      animar(520, function (t) {
+        var k = Math.sin(t * Math.PI) * (1 - t * 0.4);
+        deformacao.sx = 1 + 0.1 * k; deformacao.sy = 1 - 0.09 * k; deformacao.y = 0;
+      }, function () { deformacao.sx = 1; deformacao.sy = 1; });
+    }
+
+    var FALAS = [
+      'Oi! Eu sou o Kiro.',
+      'Me dá um pensamento que eu guardo.',
+      'Cabeça leve decide melhor.',
+      'O que está anotado não precisa ficar rodando na sua cabeça.',
+      'Toque nos pensamentos em volta de mim.'
+    ];
+    var indiceFala = 0, relogioFala = null;
+    function dizer(texto) {
+      fala.textContent = texto;
+      fala.classList.add('visivel');
+      clearTimeout(relogioFala);
+      relogioFala = setTimeout(function () { fala.classList.remove('visivel'); }, 2600);
+    }
+
+    function tocarNoKiro() {
+      acenar();
+      pular();
+      dizer(FALAS[indiceFala % FALAS.length]);
+      indiceFala++;
+    }
+    kiro.addEventListener('click', tocarNoKiro);
+    kiro.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tocarNoKiro(); }
+    });
+
+    // Aceno de chegada.
+    setTimeout(function () { acenar(); dizer(FALAS[0]); indiceFala = 1; }, semMovimento() ? 0 : 700);
+
+    // ---------- Os pensamentos em volta do Kiro ----------
+    var PENSAMENTOS = [
+      ['Ligar pro dentista', 'esq', 0, 12], ['Responder o Rafael', 'esq', 26, 0],
+      ['Aquele livro…', 'dir', 0, 4], ['Conta de luz', 'dir', 2, 24],
+      ['Voltar a correr', 'esq', 2, 40], ['Presente da Ana', 'dir', 0, 46],
+      ['Reunião às 15h', 'esq', 4, 66], ['Ideia pro projeto', 'dir', 2, 72]
+    ];
+    var restantes = 0;
+    function criarPensamento(texto, lado, x, y, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pensamento';
+      b.textContent = texto;
+      b.style[lado === 'esq' ? 'left' : 'right'] = x + '%';
+      b.style.top = y + '%';
+      b.style.animationDelay = (-i * 0.75) + 's';
+      b.setAttribute('aria-label', 'Entregar ao Kiro: ' + texto);
+      b.addEventListener('click', function () { entregarAoKiro(b, texto); });
+      palco.appendChild(b);
+      restantes++;
+    }
+    PENSAMENTOS.forEach(function (p, i) { criarPensamento(p[0], p[1], p[2], p[3], i); });
+
+    function entregarAoKiro(el, texto) {
+      if (el.classList.contains('indo')) return;
+      el.classList.add('indo');
+      var rp = palco.getBoundingClientRect();
+      var rb = el.getBoundingClientRect();
+      var rk = kiro.getBoundingClientRect();
+      var dx = (rk.left + rk.width * 0.5) - (rb.left + rb.width / 2);
+      var dy = (rk.top + rk.height * 0.45) - (rb.top + rb.height / 2);
+      animar(560, function (t) {
+        var e = t * t;
+        el.style.transform = 'translate(' + (dx * e).toFixed(1) + 'px,' + (dy * e - Math.sin(t * Math.PI) * 40).toFixed(1) + 'px) scale(' + (1 - 0.8 * e).toFixed(3) + ')';
+        el.style.opacity = String(1 - e);
+      }, function () {
+        el.remove();
+        restantes--;
+        receber();
+        guardarNaLista(texto);
+        if (restantes === 0) {
+          dizer('Pronto. Cabeça vazia. Que leveza!');
+          acenar();
+          setTimeout(function () {
+            PENSAMENTOS.forEach(function (p, i) { criarPensamento(p[0], p[1], p[2], p[3], i); });
+          }, 3200);
+        } else {
+          dizer('Um a menos na sua cabeça.');
+        }
+      });
+    }
+
+    // ---------- Experimente: a captura de verdade ----------
+    /*
+      Duas superfícies capturam nesta página: o **aparelho vivo** (a tela de
+      Início do aplicativo, rodando) e a caixa de texto abaixo dele. As duas
+      falam com o mesmo motor de voz — `criarEscuta` —, porque duas cópias da
+      mesma escuta divergiriam no primeiro ajuste, e porque só uma pode ouvir
+      por vez: o microfone é um só.
+
+      A voz é a do próprio navegador e o áudio não vira arquivo — a secao 17
+      do CLAUDE.md vale aqui como vale no aplicativo. Onde o navegador não
+      transcreve (Firefox, Safari antigo), o microfone toca uma demonstração
+      que se anuncia como tal: fingir que ouviu seria mentir sobre o produto.
+
+      ⚠ O microfone só existe em contexto seguro: https, ou `localhost`.
+      Servida pelo IP da máquina a página cai sozinha na demonstração.
+    */
+    var Reconhecimento = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var TEM_MICROFONE = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    var TEM_VOZ = !!Reconhecimento && TEM_MICROFONE;
+
+    /*
+      **O microfone só mostra o que a pessoa falou** — 11/10, correção do
+      proprietário. A primeira versão tinha um "modo demonstração" que
+      escrevia um pensamento sozinho onde o navegador não transcreve. Era
+      bonito e era mentira: a página passava a prometer uma transcrição que
+      aquele navegador não faz, e quem testasse ali acharia que o aplicativo
+      inventa texto.
+
+      Onde não dá, a página **diz** que não dá e aponta o lápis, que é o
+      caminho que existe — a mesma regra da secao 33 do CLAUDE.md para o
+      módulo nativo ausente: responder que está indisponível, nunca falhar em
+      silêncio nem fingir.
+    */
+    function porQueNaoDaParaFalar() {
+      if (!TEM_MICROFONE) {
+        // Contexto inseguro (servida por IP, por exemplo): o navegador nem
+        // oferece o microfone. Em https isto não acontece.
+        return 'O microfone só funciona em conexão segura. Toque no lápis para escrever.';
+      }
+      return 'Este navegador não transcreve voz. Toque no lápis para escrever.';
+    }
+    /** Só uma superfície ouve por vez: o microfone é um só. */
+    var quemOuve = null;
+
+    function horaAgora() {
+      var d = new Date();
+      return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    }
+
+    /**
+     * O motor: abre o microfone, lê o espectro e entrega texto e força.
+     *
+     * `ganchos.aoTexto(t)` recebe o parcial, que se corrige sozinho conforme a
+     * frase avança. `ganchos.aoQuadro(forca, alturas)` é chamado a cada quadro
+     * com o que desenhar. `ganchos.aoParar(porQue)` fecha.
+     */
+    function criarEscuta(ganchos) {
+      var barras = ganchos.barras || 14;
+      var ouvindo = false;
+      var reconhecimento = null, contexto = null, analisador = null, fluxo = null, faixas = null;
+      var forca = 0, pedido = 0;
+
+      function quadro(agora) {
+        if (!ouvindo) return;
+        var alturas = new Array(barras);
+
+        if (analisador) {
+          analisador.getByteFrequencyData(faixas);
+          // A voz vive nas faixas baixas; as altas são quase só sopro. É daqui
+          // que vem o TOM, e não só o quanto se fala alto (secao 17).
+          var ate = Math.floor(faixas.length * 0.42), soma = 0;
+          for (var b = 0; b < barras; b++) {
+            var de = Math.floor((b / barras) * ate);
+            var fim = Math.max(de + 1, Math.floor(((b + 1) / barras) * ate));
+            var parcial = 0;
+            for (var k = de; k < fim; k++) parcial += faixas[k];
+            var media = parcial / (fim - de) / 255;
+            alturas[b] = media;
+            soma += media;
+          }
+          forca += (Math.min(1, (soma / barras) * 2.6) - forca) * 0.25;
+        } else {
+          /*
+            Sem espectro — a permissão do `getUserMedia` foi recusada, mas o
+            reconhecimento segue —, as barras ficam **paradas no mínimo**. Elas
+            existem para mostrar a voz; inventar movimento aqui seria desenhar
+            uma voz que ninguém mediu. O anel continua aceso, dizendo a única
+            coisa que é verdade: está ouvindo.
+          */
+          for (var c = 0; c < barras; c++) alturas[c] = 0;
+          forca += (0.12 - forca) * 0.12;
+        }
+
+        ganchos.aoQuadro(forca, alturas);
+        pedido = requestAnimationFrame(quadro);
+      }
+
+      function ligarOEspectro() {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(function (entrada) {
+          if (!ouvindo) { entrada.getTracks().forEach(function (fx) { fx.stop(); }); return; }
+          fluxo = entrada;
+          var Contexto = window.AudioContext || window.webkitAudioContext;
+          contexto = new Contexto();
+          analisador = contexto.createAnalyser();
+          analisador.fftSize = 256;
+          analisador.smoothingTimeConstant = 0.72;
+          contexto.createMediaStreamSource(entrada).connect(analisador);
+          faixas = new Uint8Array(analisador.frequencyBinCount);
+        }).catch(function () {
+          // Sem permissão para o espectro, a onda inventada segue, e o texto
+          // continua vindo do reconhecimento, que pede a sua própria permissão.
+        });
+      }
+
+      function ligarOReconhecimento() {
+        reconhecimento = new Reconhecimento();
+        reconhecimento.lang = 'pt-BR';
+        reconhecimento.interimResults = true;
+        reconhecimento.continuous = false;
+        var pronto = '';
+
+        reconhecimento.onresult = function (evento) {
+          var parcial = '';
+          for (var i = evento.resultIndex; i < evento.results.length; i++) {
+            var trecho = evento.results[i][0].transcript;
+            if (evento.results[i].isFinal) pronto += trecho; else parcial += trecho;
+          }
+          ganchos.aoTexto((pronto + parcial).trim().slice(0, 140));
+        };
+
+        reconhecimento.onerror = function (evento) {
+          var recado = null;
+          if (evento.error === 'not-allowed' || evento.error === 'service-not-allowed') {
+            recado = 'Sem permissão do microfone. Dá para escrever.';
+          } else if (evento.error !== 'aborted' && evento.error !== 'no-speech') {
+            recado = 'Não consegui ouvir agora. Tente de novo, ou escreva.';
+          }
+          parar(true, recado);
+        };
+
+        // Silêncio prolongado encerra sozinho, como no aplicativo.
+        reconhecimento.onend = function () { if (ouvindo) parar(true); };
+
+        try { reconhecimento.start(); } catch (e) { reconhecimento = null; }
+      }
+
+      function comecar() {
+        if (ouvindo) return;
+        // Sem transcrição não se entra em "ouvindo": a tela diria que está
+        // escutando sem ter como mostrar uma palavra do que foi dito.
+        if (!TEM_VOZ) { ganchos.aoNaoDar(porQueNaoDaParaFalar()); return; }
+        if (quemOuve && quemOuve !== api) quemOuve.parar(false);
+        quemOuve = api;
+        ouvindo = true;
+        forca = 0;
+        ligarOEspectro();
+        ligarOReconhecimento();
+        ganchos.aoComecar();
+        pedido = requestAnimationFrame(quadro);
+      }
+
+      /*
+        `guardando` é a diferença entre os dois botões: **parar leva o
+        reconhecido para o campo; cancelar joga fora.** É a razão de um ser o
+        círculo grande e o outro, texto discreto — a mesma do aplicativo.
+      */
+      function parar(guardando, recado) {
+        if (!ouvindo) return;
+        ouvindo = false;
+        if (quemOuve === api) quemOuve = null;
+        cancelAnimationFrame(pedido);
+
+        if (reconhecimento) {
+          reconhecimento.onend = null;
+          try { reconhecimento.stop(); } catch (e) { /* já havia parado */ }
+          reconhecimento = null;
+        }
+        /*
+          O áudio não fica aberto depois: o ponto vermelho do navegador tem de
+          apagar junto. Senão a página diz uma coisa e o aparelho diz outra.
+        */
+        if (fluxo) { fluxo.getTracks().forEach(function (fx) { fx.stop(); }); fluxo = null; }
+        if (contexto) { try { contexto.close(); } catch (e) { /* já fechado */ } contexto = null; }
+        analisador = null;
+        ganchos.aoParar(guardando !== false, recado || null);
+      }
+
+      var api = { comecar: comecar, parar: parar, estaOuvindo: function () { return ouvindo; } };
+      return api;
+    }
+
+    // ---------- A caixa de entrada dos dois ----------
+    /*
+      O que é capturado vai para a tela de Pensamentos do aparelho — 12/10.
+      Até aqui ia também para uma caixa de texto embaixo da moldura, que
+      existia para o caso de o aparelho vivo não convencer. Convenceu, e duas
+      capturas na mesma página davam a entender dois produtos.
+    */
+    var listaDoApp = document.getElementById('lista-do-app');
+    var hojeDoApp = document.getElementById('hoje-do-app');
+    var vazioDoApp = document.getElementById('vazio-do-app');
+    var quantosDoApp = document.getElementById('quantos-do-app');
+    var dataDoApp = document.getElementById('data-do-app');
+    var total = 0;
+
+    var MESES = ['janeiro','fevereiro','março','abril','maio','junho',
+                 'julho','agosto','setembro','outubro','novembro','dezembro'];
+    (function () {
+      var d = new Date();
+      dataDoApp.textContent = d.getDate() + ' de ' + MESES[d.getMonth()];
+    })();
+
+    /*
+      `porVoz` muda só o ícone, e é de propósito: no aplicativo o pensamento
+      falado é um pensamento de texto cuja origem foi a voz (secao 17). A
+      lista mostra a procedência, e nada mais muda.
+    */
+    function guardarPensamento(texto) {
+      total++;
+      var hora = horaAgora();
+      vazioDoApp.hidden = true;
+      hojeDoApp.hidden = false;
+      var linha = document.createElement('div');
+      linha.className = 'linha-do-pensamento';
+      linha.innerHTML = '<time>' + hora + '</time><span class="bolinha"></span><p></p>';
+      linha.querySelector('p').textContent = texto;
+      listaDoApp.insertBefore(linha, listaDoApp.firstChild);
+      while (listaDoApp.children.length > 6) listaDoApp.removeChild(listaDoApp.lastChild);
+      quantosDoApp.textContent = total === 1
+        ? '1 pensamento capturado'
+        : total + ' pensamentos capturados';
+    }
+
+    // ---------- O aparelho vivo: a tela de Início ----------
+    var tela = document.getElementById('tela-inicio');
+    var ditoDoApp = document.getElementById('dito-do-app');
+    var molduraDoApp = document.getElementById('moldura-do-app');
+    var anelDoApp = document.getElementById('anel-do-app');
+    var ondaDoApp = document.getElementById('onda-do-app');
+    var relogioDoApp = document.getElementById('relogio-do-app');
+    var conviteDoApp = document.getElementById('convite-do-app');
+    var esperandoDoApp = document.getElementById('esperando-do-app');
+    var saudacaoDoApp = document.getElementById('saudacao-do-app');
+    var guardarDoApp = document.getElementById('app-guardar');
+    var cancelarVoz = document.getElementById('app-cancelar-voz');
+    var recadoDoApp = document.getElementById('recado-do-app');
+    var chuvaDoApp = document.getElementById('chuva-do-app');
+    var kiroDoApp = document.getElementById('kiro-do-app');
+
+    // O Kiro do aparelho é o **mesmo desenho** do topo da página, clonado sem
+    // os `id` — dois mascotes diferentes na mesma página seriam dois produtos.
+    (function () {
+      var desenho = document.querySelector('#kiro-pulo svg');
+      if (!desenho) return;
+      var copia = desenho.cloneNode(true);
+      copia.removeAttribute('id');
+      copia.querySelectorAll('[id]').forEach(function (n) { n.removeAttribute('id'); });
+      kiroDoApp.appendChild(copia);
+    })();
+
+    var barrasDoApp = [];
+    for (var iApp = 0; iApp < 14; iApp++) {
+      var bApp = document.createElement('i');
+      ondaDoApp.appendChild(bApp);
+      barrasDoApp.push(bApp);
+    }
+
+    var giroDoApp = 0, porVozNoApp = false, segundosDoApp = 0, relogioLigado = 0;
+
+    /** Quantas capturas a demonstração aceita antes de convidar a baixar. */
+    var LIMITE_DA_DEMO = 5;
+
+    /** Já deu o que tinha de dar: daqui em diante o convite é baixar. */
+    function demoCheia() { return total >= LIMITE_DA_DEMO; }
+
+    function estadoDoApp(novo) {
+      // Depois do limite não se volta ao repouso: a doca já deu lugar ao convite.
+      if (novo === 'repouso' && total >= LIMITE_DA_DEMO) novo = 'cheio';
+      tela.setAttribute('data-estado', novo);
+      var ouvindo = novo === 'ouvindo';
+      var repouso = novo === 'repouso';
+      var cheio = novo === 'cheio';
+      conviteDoApp.hidden = !(repouso || cheio);
+      esperandoDoApp.hidden = !(repouso || cheio);
+      relogioDoApp.hidden = !ouvindo;
+      molduraDoApp.hidden = repouso || cheio;
+      cancelarVoz.hidden = !ouvindo;
+      chuvaDoApp.style.opacity = repouso ? '1' : '0';
+      saudacaoDoApp.textContent = ouvindo ? 'Ouvindo' : novo === 'escrevendo' ? 'Escrevendo' : 'Bom dia';
+      if (cheio) {
+        conviteDoApp.textContent = 'Cinco a menos na sua cabeça.';
+        esperandoDoApp.textContent = 'E o dia mal começou.';
+      }
+    }
+
+    function conferirGuardarDoApp() {
+      var vazioAgora = ditoDoApp.value.trim() === '';
+      guardarDoApp.disabled = vazioAgora;
+      tela.classList.toggle('sem-texto', vazioAgora);
+      ondaDoApp.style.display = vazioAgora && tela.getAttribute('data-estado') === 'ouvindo' ? 'flex' : 'none';
+      ditoDoApp.style.display = vazioAgora && tela.getAttribute('data-estado') === 'ouvindo' ? 'none' : 'block';
+    }
+    ditoDoApp.addEventListener('input', conferirGuardarDoApp);
+
+    var escutaDoApp = criarEscuta({
+      barras: 14,
+      aoNaoDar: function (recado) { mostrarRecado(recado); },
+      aoComecar: function () {
+        porVozNoApp = true;
+        ditoDoApp.value = '';
+        segundosDoApp = 0;
+        relogioDoApp.textContent = '0:00';
+        estadoDoApp('ouvindo');
+        conferirGuardarDoApp();
+        clearInterval(relogioLigado);
+        relogioLigado = setInterval(function () {
+          segundosDoApp++;
+          relogioDoApp.textContent = Math.floor(segundosDoApp / 60) + ':' +
+            String(segundosDoApp % 60).padStart(2, '0');
+        }, 1000);
+      },
+      aoTexto: function (t) { ditoDoApp.value = t; conferirGuardarDoApp(); },
+      aoQuadro: function (forca, alturas) {
+        for (var i = 0; i < barrasDoApp.length; i++) {
+          barrasDoApp[i].style.height = (4 + Math.min(1, alturas[i]) * 16).toFixed(1) + 'px';
+        }
+        giroDoApp = (giroDoApp + 1.6) % 360;
+        anelDoApp.style.setProperty('--giro', giroDoApp + 'deg');
+        tela.style.setProperty('--forca', forca.toFixed(3));
+      },
+      aoParar: function (guardando, recado) {
+        clearInterval(relogioLigado);
+        tela.style.setProperty('--forca', '0');
+        if (!guardando) { ditoDoApp.value = ''; porVozNoApp = false; }
+        conferirGuardarDoApp();
+        if (ditoDoApp.value.trim()) { estadoDoApp('escrevendo'); ditoDoApp.focus(); }
+        else estadoDoApp('repouso');
+        if (recado) mostrarRecado(recado);
+      }
+    });
+
+    document.getElementById('app-falar').addEventListener('click', function () {
+      if (demoCheia()) return;
+      tirarOConvite();
+      escutaDoApp.comecar();
+    });
+    document.getElementById('app-trocar-voz').addEventListener('click', function () {
+      if (demoCheia()) return;
+      escutaDoApp.comecar();
+    });
+    document.getElementById('app-parar').addEventListener('click', function () { escutaDoApp.parar(true); });
+    cancelarVoz.addEventListener('click', function () { escutaDoApp.parar(false); });
+
+    document.getElementById('app-escrever').addEventListener('click', function () {
+      if (demoCheia()) return;
+      tirarOConvite();
+      porVozNoApp = false;
+      estadoDoApp('escrevendo');
+      conferirGuardarDoApp();
+      ditoDoApp.focus();
+    });
+    document.getElementById('app-cancelar').addEventListener('click', function () {
+      ditoDoApp.value = '';
+      porVozNoApp = false;
+      conferirGuardarDoApp();
+      estadoDoApp('repouso');
+    });
+    guardarDoApp.addEventListener('click', function () {
+      var texto = ditoDoApp.value.trim();
+      if (!texto || demoCheia()) return;
+      if (escutaDoApp.estaOuvindo()) escutaDoApp.parar(true);
+      guardarPensamento(texto);
+      ditoDoApp.value = '';
+      porVozNoApp = false;
+      conferirGuardarDoApp();
+      estadoDoApp('repouso');
+      mostrarRecado('Capturado. Toque em Pensamentos para ver.');
+    });
+
+    /*
+      As abas estão desenhadas porque a tela tem um menu, e **só o Início
+      responde** — pedido do proprietário. Tocar nas outras diz isso: um botão
+      que não faz nada parece defeito; um que explica é informação.
+    */
+    var relogioDoRecado = 0;
+    function mostrarRecado(texto) {
+      recadoDoApp.textContent = texto;
+      recadoDoApp.classList.add('visto');
+      clearTimeout(relogioDoRecado);
+      relogioDoRecado = setTimeout(function () { recadoDoApp.classList.remove('visto'); }, 2600);
+    }
+    document.querySelectorAll('.aba-parada').forEach(function (aba) {
+      aba.addEventListener('click', function () {
+        mostrarRecado('Acompanhar e Perfil estão no aplicativo. Aqui dá para capturar.');
+      });
+    });
+
+    /*
+      Início e Pensamentos são duas páginas da mesma moldura, e quem troca é o
+      menu — 11/10. Antes eram dois aparelhos lado a lado, o que mostrava dois
+      celulares em vez do produto; e o menu não fazia nada, que é a pior coisa
+      que um menu pode fazer.
+    */
+    function irParaPagina(qual) {
+      tela.setAttribute('data-pagina', qual);
+      // A saudação é do Início. Em Pensamentos quem dá o nome é o título da
+      // própria página, e "Bom dia" ali seria a tela dizendo que é outra.
+      saudacaoDoApp.textContent = qual === 'pensamentos' ? '' : 'Bom dia';
+      document.querySelectorAll('.aba-viva').forEach(function (aba) {
+        if (aba.getAttribute('data-pagina') === qual) aba.setAttribute('aria-current', 'page');
+        else aba.removeAttribute('aria-current');
+      });
+    }
+    document.querySelectorAll('.aba-viva').forEach(function (aba) {
+      aba.addEventListener('click', function () {
+        // Sair do Início no meio de uma captura perderia o que foi dito.
+        if (escutaDoApp.estaOuvindo()) escutaDoApp.parar(true);
+        irParaPagina(aba.getAttribute('data-pagina'));
+      });
+    });
+
+    /*
+      O convite some no primeiro toque do microfone: depois de aceito ele vira
+      ruído, e a pessoa já sabe onde o botão está.
+    */
+    var balaoDoConvite = document.getElementById('balao-do-convite');
+    var botaoDeFalar = document.getElementById('app-falar');
+    /*
+      Onde a voz não existe, o convite não convida para ela: ele muda de
+      alvo. Um botão que pulsa pedindo um toque que não vai funcionar é pior
+      que botão nenhum.
+    */
+    if (!TEM_VOZ) {
+      botaoDeFalar.classList.remove('convidando');
+      document.getElementById('app-escrever').classList.add('convidando');
+      if (balaoDoConvite) balaoDoConvite.textContent = 'Clique aqui e escreva';
+      document.getElementById('esperando-do-app').textContent = 'Toque no lápis e escreva';
+    }
+    function tirarOConvite() {
+      botaoDeFalar.classList.remove('convidando');
+      if (balaoDoConvite) balaoDoConvite.remove();
+    }
+
+    /*
+      Os pensamentos caindo no Kiro, como na tela em repouso do aplicativo:
+      ele fica ali absorvendo o que cai.
+
+      **E eles só caem com a moldura à vista** — 12/10, atrás da rolagem que
+      travava no celular. A primeira versão chovia para sempre: um `setTimeout`
+      a cada 1,5s criando um elemento que animava num `requestAnimationFrame`
+      próprio, mesmo com a seção a três telas de distância. Num aparelho
+      modesto isso é trabalho de thread principal que ninguém vê e todo mundo
+      sente — e o sintoma é a rolagem engasgando perto da seção.
+
+      A lição, que vale para qualquer laço desta página: **animação fora da
+      vista é só custo.** Quem anima pergunta antes se está sendo visto.
+    */
+    var CAINDO = ['Ligar pro dentista', 'Conta de luz', 'Responder o Rafael',
+                  'Voltar a correr', 'Reunião às 15h', 'Presente da Ana'];
+    var molduraNaTela = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        var antes = molduraNaTela;
+        molduraNaTela = e[0].isIntersecting;
+        // Voltou à vista depois de parada: recomeça a chuva.
+        if (molduraNaTela && !antes) chover(0);
+      }, { rootMargin: '120px' }).observe(tela);
+    }
+    function chover(i) {
+      if (semMovimento()) return;
+      // Fora da vista, ou capturando, ela não existe: nada a desenhar.
+      if (!molduraNaTela || tela.getAttribute('data-estado') !== 'repouso' ||
+          tela.getAttribute('data-pagina') !== 'inicio') {
+        setTimeout(function () { chover(i); }, 900);
+        return;
+      }
+      var b = document.createElement('b');
+      b.textContent = CAINDO[i % CAINDO.length];
+      b.style.left = (8 + Math.random() * 54) + '%';
+      chuvaDoApp.appendChild(b);
+      var comeco = performance.now();
+      (function passo(agora) {
+        var t = Math.min(1, (agora - comeco) / 2600);
+        // Eles somem **antes** de alcançar o Kiro: ele absorve o pensamento,
+        // não o usa de chapéu. O percurso é curto de propósito.
+        b.style.transform = 'translateY(' + (t * 104).toFixed(1) + 'px) scale(' + (1 - t * 0.5).toFixed(3) + ')';
+        b.style.opacity = String(t < 0.16 ? t / 0.16 : t > 0.62 ? Math.max(0, (1 - t) / 0.38) : 1);
+        if (t < 1) requestAnimationFrame(passo); else b.remove();
+      })(comeco);
+      setTimeout(function () { chover(i + 1); }, 1500);
+    }
+    chover(0);
+
+    /*
+      Quem liga "reduzir movimento" recebe o estado, nunca o percurso: as
+      auras e as barras ficam de fora, e o texto continua aparecendo enquanto
+      a pessoa fala, que é a informação.
+    */
+    if (semMovimento()) {
+      anelDoApp.style.display = 'none';
+      ondaDoApp.style.display = 'none';
+    }
+
+    // ---------- O número sobe quando aparece ----------
+    var numero = document.getElementById('numero');
+    if ('IntersectionObserver' in window && !semMovimento()) {
+      numero.textContent = '0';
+      var obsNumero = new IntersectionObserver(function (entradas) {
+        if (!entradas[0].isIntersecting) return;
+        obsNumero.disconnect();
+        animar(1600, function (t) {
+          numero.textContent = Math.round(6200 * curva(t)).toLocaleString('pt-BR');
+        });
+      }, { threshold: 0.6 });
+      obsNumero.observe(numero);
+    }
+
+    // ---------- Kiro do final acena quando aparece e quando é tocado ----------
+    var kiroFinal = document.getElementById('kiro-final');
+    var bocaFinal = document.getElementById('k-boca-final');
+    if ('IntersectionObserver' in window) {
+      var obsFinal = new IntersectionObserver(function (entradas) {
+        if (entradas[0].isIntersecting) { acenar(bocaFinal); obsFinal.disconnect(); }
+      }, { threshold: 0.8 });
+      obsFinal.observe(kiroFinal);
+    }
+    kiroFinal.addEventListener('click', function () { acenar(bocaFinal); });
+    kiroFinal.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); acenar(bocaFinal); }
+    });
+  })();
+  </script>
+</body>
 </html>
