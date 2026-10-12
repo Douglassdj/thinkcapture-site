@@ -249,7 +249,7 @@
 
     /*
       O exemplo de cada cartão é a **linha de verdade** da trilha de
-      Acompanhar — 11/10, pedido do proprietário. As medidas saem de
+      Acompanhar - 11/10, pedido do proprietário. As medidas saem de
       `src/componentes/linha-do-dia.tsx`: o quadrado de 22 com canto de 7 na
       tarefa, o círculo de 24 no hábito, as sete bolinhas de 14, e a etiqueta
       da anotação na tinta dela. Um desenho inventado aqui mostraria um
@@ -325,18 +325,18 @@
     }
 
     /*
-      Os dois aparelhos vivos — 11/10, pedido do proprietário: "a moldura do
+      Os dois aparelhos vivos - 11/10, pedido do proprietário: "a moldura do
       celular, na tela de início, igualzinho ao app; o mascote mexendo,
       recebendo os pensamentos; os menus embaixo, mas os menus não devem
       funcionar; só o microfone e a escrita". O que a pessoa captura aqui
-      aparece na tela de Pensamentos ao lado — no celular, logo abaixo.
+      aparece na tela de Pensamentos ao lado - no celular, logo abaixo.
 
       Não é um vídeo nem um screenshot: é a tela do produto rodando. As
       medidas e os textos saem do aplicativo, para a página não mostrar um
       app que não existe.
     */
     /*
-      **Uma moldura só** — 11/10, pedido do proprietário: Início e Pensamentos
+      **Uma moldura só** - 11/10, pedido do proprietário: Início e Pensamentos
       viraram duas páginas do mesmo aparelho, e quem troca é o menu. Duas
       molduras lado a lado mostravam dois celulares; uma só mostra o produto,
       e o menu passa a fazer o que um menu faz.
@@ -419,7 +419,7 @@
     .onda-do-app { display: flex; align-items: center; gap: 2.5px; height: 20px; }
     .onda-do-app i { display: block; width: 2.5px; border-radius: 99px; background: var(--acento); height: 4px; transition: height .07s linear; }
 
-    /* A doca, nos três momentos — as medidas do aplicativo, em escala. */
+    /* A doca, nos três momentos - as medidas do aplicativo, em escala. */
     .doca-do-app { flex: none; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 18px 12px; }
     .doca-do-app .grupo { display: none; align-items: center; }
     .tela-do-app[data-estado="repouso"] .grupo.repouso,
@@ -445,7 +445,7 @@
     .quadrado-de-parar { width: 17px; height: 17px; border-radius: 6px; background: var(--sobre-acento); }
 
     /*
-      O convite no microfone — 11/10, pedido do proprietário: "deixar o botão
+      O convite no microfone - 11/10, pedido do proprietário: "deixar o botão
       pulsando e um balãozinho clique aqui, para indicar que é clicável". Ele
       **some no primeiro toque**: um convite que fica depois de aceito vira
       ruído, e a partir dali a pessoa já sabe onde ele está.
@@ -471,7 +471,7 @@
     .cancelar-do-app { border: 0; background: transparent; cursor: pointer; padding: 2px 10px; font: 400 12px var(--fonte-texto); color: var(--texto-suave); }
 
     /*
-      O fim da demonstração — 12/10, pedido do proprietário.
+      O fim da demonstração - 12/10, pedido do proprietário.
 
       **Não é limite de segurança**: nada daqui sai do navegador de quem está
       vendo, não há servidor para derrubar e a lista já é cortada em seis. O
@@ -548,14 +548,14 @@
 
     /* Planos. */
     /*
-      **Um cartão só** — 12/10, pedido do proprietário. O do Grátis saiu e o do
+      **Um cartão só** - 12/10, pedido do proprietário. O do Grátis saiu e o do
       Pro ficou com o palco inteiro.
 
       O plano gratuito **não sumiu da página**: ele está dito no título da
       seção e no parágrafo acima, que é onde a promessa "para sempre" cabe
       melhor que numa lista de checks. A secao 38 do CLAUDE.md manda a tela de
       planos comparar em vez de elogiar, e o que ela protege é justamente isso
-      — que ninguém saia achando que o aplicativo é pago.
+      - que ninguém saia achando que o aplicativo é pago.
 
       E **sem preço nem botão de assinar**: a cobrança ainda não existe
       (secao 21), e um "Assinar R$ 17,90" aqui seria vender o que não dá para
@@ -730,11 +730,11 @@
         </div>
 
         <!--
-          Os dois aparelhos vivos — 11/10. O da esquerda é a tela de Início
+          Os dois aparelhos vivos - 11/10. O da esquerda é a tela de Início
           rodando: o Kiro recebendo os pensamentos, o convite e a doca de
           verdade. O da direita é Pensamentos, e enche com o que foi
           capturado. O menu está lá porque a tela tem um, mas **só o Início
-          responde** — tocar nas outras abas diz isso, em vez de não fazer nada.
+          responde** - tocar nas outras abas diz isso, em vez de não fazer nada.
         -->
         <div class="palco-dos-aparelhos">
           <figure class="aparelho-vivo surge">
@@ -1223,11 +1223,11 @@
     /*
       Duas superfícies capturam nesta página: o **aparelho vivo** (a tela de
       Início do aplicativo, rodando) e a caixa de texto abaixo dele. As duas
-      falam com o mesmo motor de voz — `criarEscuta` —, porque duas cópias da
+      falam com o mesmo motor de voz - `criarEscuta` -, porque duas cópias da
       mesma escuta divergiriam no primeiro ajuste, e porque só uma pode ouvir
       por vez: o microfone é um só.
 
-      A voz é a do próprio navegador e o áudio não vira arquivo — a secao 17
+      A voz é a do próprio navegador e o áudio não vira arquivo - a secao 17
       do CLAUDE.md vale aqui como vale no aplicativo. Onde o navegador não
       transcreve (Firefox, Safari antigo), o microfone toca uma demonstração
       que se anuncia como tal: fingir que ouviu seria mentir sobre o produto.
@@ -1240,7 +1240,7 @@
     var TEM_VOZ = !!Reconhecimento && TEM_MICROFONE;
 
     /*
-      **O microfone só mostra o que a pessoa falou** — 11/10, correção do
+      **O microfone só mostra o que a pessoa falou** - 11/10, correção do
       proprietário. A primeira versão tinha um "modo demonstração" que
       escrevia um pensamento sozinho onde o navegador não transcreve. Era
       bonito e era mentira: a página passava a prometer uma transcrição que
@@ -1248,7 +1248,7 @@
       inventa texto.
 
       Onde não dá, a página **diz** que não dá e aponta o lápis, que é o
-      caminho que existe — a mesma regra da secao 33 do CLAUDE.md para o
+      caminho que existe - a mesma regra da secao 33 do CLAUDE.md para o
       módulo nativo ausente: responder que está indisponível, nunca falhar em
       silêncio nem fingir.
     */
@@ -1302,8 +1302,8 @@
           forca += (Math.min(1, (soma / barras) * 2.6) - forca) * 0.25;
         } else {
           /*
-            Sem espectro — a permissão do `getUserMedia` foi recusada, mas o
-            reconhecimento segue —, as barras ficam **paradas no mínimo**. Elas
+            Sem espectro - a permissão do `getUserMedia` foi recusada, mas o
+            reconhecimento segue -, as barras ficam **paradas no mínimo**. Elas
             existem para mostrar a voz; inventar movimento aqui seria desenhar
             uma voz que ninguém mediu. O anel continua aceso, dizendo a única
             coisa que é verdade: está ouvindo.
@@ -1383,7 +1383,7 @@
       /*
         `guardando` é a diferença entre os dois botões: **parar leva o
         reconhecido para o campo; cancelar joga fora.** É a razão de um ser o
-        círculo grande e o outro, texto discreto — a mesma do aplicativo.
+        círculo grande e o outro, texto discreto - a mesma do aplicativo.
       */
       function parar(guardando, recado) {
         if (!ouvindo) return;
@@ -1412,7 +1412,7 @@
 
     // ---------- A caixa de entrada dos dois ----------
     /*
-      O que é capturado vai para a tela de Pensamentos do aparelho — 12/10.
+      O que é capturado vai para a tela de Pensamentos do aparelho - 12/10.
       Até aqui ia também para uma caixa de texto embaixo da moldura, que
       existia para o caso de o aparelho vivo não convencer. Convenceu, e duas
       capturas na mesma página davam a entender dois produtos.
@@ -1469,7 +1469,7 @@
     var kiroDoApp = document.getElementById('kiro-do-app');
 
     // O Kiro do aparelho é o **mesmo desenho** do topo da página, clonado sem
-    // os `id` — dois mascotes diferentes na mesma página seriam dois produtos.
+    // os `id` - dois mascotes diferentes na mesma página seriam dois produtos.
     (function () {
       var desenho = document.querySelector('#kiro-pulo svg');
       if (!desenho) return;
@@ -1600,7 +1600,7 @@
 
     /*
       As abas estão desenhadas porque a tela tem um menu, e **só o Início
-      responde** — pedido do proprietário. Tocar nas outras diz isso: um botão
+      responde** - pedido do proprietário. Tocar nas outras diz isso: um botão
       que não faz nada parece defeito; um que explica é informação.
     */
     var relogioDoRecado = 0;
@@ -1618,7 +1618,7 @@
 
     /*
       Início e Pensamentos são duas páginas da mesma moldura, e quem troca é o
-      menu — 11/10. Antes eram dois aparelhos lado a lado, o que mostrava dois
+      menu - 11/10. Antes eram dois aparelhos lado a lado, o que mostrava dois
       celulares em vez do produto; e o menu não fazia nada, que é a pior coisa
       que um menu pode fazer.
     */
@@ -1666,12 +1666,12 @@
       Os pensamentos caindo no Kiro, como na tela em repouso do aplicativo:
       ele fica ali absorvendo o que cai.
 
-      **E eles só caem com a moldura à vista** — 12/10, atrás da rolagem que
+      **E eles só caem com a moldura à vista** - 12/10, atrás da rolagem que
       travava no celular. A primeira versão chovia para sempre: um `setTimeout`
       a cada 1,5s criando um elemento que animava num `requestAnimationFrame`
       próprio, mesmo com a seção a três telas de distância. Num aparelho
       modesto isso é trabalho de thread principal que ninguém vê e todo mundo
-      sente — e o sintoma é a rolagem engasgando perto da seção.
+      sente - e o sintoma é a rolagem engasgando perto da seção.
 
       A lição, que vale para qualquer laço desta página: **animação fora da
       vista é só custo.** Quem anima pergunta antes se está sendo visto.
