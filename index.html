@@ -246,6 +246,77 @@
     .pensamento.indo { animation: none; pointer-events: none; }
     .palco.fora .pensamento { animation-play-state: paused; }
 
+    /*
+      O iPhone da abertura - 23/10, pedido do proprietário: no lugar do Kiro
+      sozinho, um celular passando pelas telas de verdade (Início,
+      Pensamentos, Acompanhar), e o Kiro encostado nele. Os balões de
+      pensamento saíram daqui: o celular é o foco, e a captura de verdade
+      mora no aparelho vivo, mais abaixo.
+    */
+    .palco-com-iphone { aspect-ratio: auto; display: flex; flex-direction: column; align-items: center; padding: 8px 0 0; }
+    .iphone-da-abertura { width: min(300px, 64%); }
+    /*
+      A moldura de verdade - 23/10, pedido do proprietário, com o Undertone
+      de referência: o aro de titânio pegando luz, a borda preta em volta da
+      tela e os botões do iPhone 17 nos dois lados, nas proporções do
+      aparelho. A ilha e a barra de status vêm na própria captura.
+    */
+    .iphone-real {
+      position: relative; padding: 1.5%; border-radius: 15.6% / 7.2%;
+      background: linear-gradient(135deg, #a3a3a6 0%, #48484b 14%, #1f1f21 42%, #2b2b2e 68%, #8e8e92 100%);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+        inset 0 0 0 2.5px rgba(0, 0, 0, 0.6),
+        0 40px 80px -40px rgba(0, 0, 0, 0.6);
+    }
+    .iphone-real .borda-da-tela {
+      padding: 3.1%; border-radius: 14.6% / 6.75%; background: #050505;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+    .iphone-real .telas-que-passam { border-radius: 12.4% / 5.7%; }
+    .iphone-real .botao-lateral {
+      position: absolute; width: 1.3%;
+      background: linear-gradient(90deg, #a8a8ab, #3c3c3f 70%, #252527);
+      border-radius: 3px 0 0 3px;
+    }
+    .iphone-real .botao-lateral.direita { background: linear-gradient(270deg, #a8a8ab, #3c3c3f 70%, #252527); border-radius: 0 3px 3px 0; }
+    .iphone-real .acao { left: -1.1%; top: 17%; height: 5%; }
+    .iphone-real .volume-mais { left: -1.1%; top: 25.5%; height: 8.5%; }
+    .iphone-real .volume-menos { left: -1.1%; top: 36%; height: 8.5%; }
+    .iphone-real .liga { right: -1.1%; top: 27%; height: 13%; }
+    .iphone-real .camera { right: -0.9%; top: 56%; height: 7%; width: 1.1%; }
+    .telas-que-passam {
+      position: relative; aspect-ratio: 1206 / 2622; overflow: hidden;
+      border-radius: 12.8% / 5.9%; background: var(--superficie-suave);
+    }
+    .telas-que-passam img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transform: translateX(8%);
+      transition: opacity .6s var(--curva), transform .6s var(--curva);
+    }
+    .telas-que-passam img.ativa { opacity: 1; transform: none; }
+    .telas-que-passam img.saindo { opacity: 0; transform: translateX(-8%); }
+    .seletor-de-telas { display: flex; gap: 6px; margin-top: 22px; }
+    .seletor-de-telas button {
+      position: relative; overflow: hidden; height: 36px; padding: 0 14px; border-radius: 999px;
+      border: 0; background: transparent; color: var(--texto-suave); cursor: pointer;
+      font: 600 14px var(--fonte-texto); transition: color .2s var(--curva), background-color .2s var(--curva);
+    }
+    .seletor-de-telas button:hover { color: var(--texto); }
+    .seletor-de-telas button[aria-pressed="true"] { color: var(--texto); background: var(--superficie-suave); }
+    /* A barrinha que enche diz quando a tela vai trocar. */
+    .seletor-de-telas button i {
+      position: absolute; left: 14px; right: 14px; bottom: 6px; height: 2px; border-radius: 2px;
+      background: var(--texto); transform: scaleX(0); transform-origin: left; opacity: 0;
+    }
+    .seletor-de-telas button[aria-pressed="true"] i { opacity: .5; animation: encher-a-barra var(--tempo-da-tela, 4s) linear forwards; }
+    .palco.fora .seletor-de-telas button i, .seletor-de-telas.parado button i { animation-play-state: paused; }
+    @keyframes encher-a-barra { to { transform: scaleX(1); } }
+    /* O Kiro fica do lado de fora, com os pés na base do celular, para não tapar a tela. */
+    .palco-com-iphone .kiro-caixa { left: 0; bottom: 64px; width: 23%; transform: none; z-index: 3; }
+    .palco-com-iphone .fala { left: 0; top: auto; bottom: calc(64px + 30%); max-width: 44%; text-align: left; transform: translateY(6px); }
+    .palco-com-iphone .fala.visivel { transform: none; }
+
     /* ---------- Seções ---------- */
     section { padding: clamp(64px, 10vw, 128px) 0; }
     .cabeca-secao { max-width: 640px; }
@@ -642,6 +713,7 @@
     @media (max-width: 860px) {
       .abertura .envelope { grid-template-columns: minmax(0, 1fr); }
       .palco { max-width: 320px; order: -1; }
+      .palco-com-iphone { max-width: 420px; order: 1; }
       .abertura { padding-top: 12px; }
       .destinos { grid-template-columns: minmax(0, 1fr); }
       .destino { min-height: 0; }
@@ -656,6 +728,8 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .pensamento { animation: none; }
+      .seletor-de-telas button i { animation: none; }
+      .telas-que-passam img { transform: none; }
       /* O brilho do cartão do Pro fica parado: a cor continua lá, o giro não. */
       .plano::before { animation: none; }
       .js .surge { opacity: 1; transform: none; transition: none; }
@@ -709,7 +783,7 @@
         <div>
           <p class="rotulo surge">Para iPhone e Android</p>
           <h1 id="titulo-abertura" class="surge" style="--atraso:80ms">Sua cabeça não foi feita para guardar tudo.</h1>
-          <p class="apoio surge" style="--atraso:160ms">Fale ou escreva no instante em que o pensamento vem. O Kiro guarda, e você organiza depois.</p>
+          <p class="apoio surge" style="--atraso:160ms">O Think Capture ajuda você a tirar da cabeça o que fica rodando, não perder o que importa e cuidar de cada coisa na hora certa.</p>
           <div class="lojas surge" style="--atraso:240ms">
             <a class="loja" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
@@ -722,8 +796,27 @@
           </div>
         </div>
 
-        <div class="palco" id="palco">
+        <div class="palco palco-com-iphone" id="palco">
           <div class="fala" id="fala" aria-live="polite"></div>
+          <div class="iphone-real iphone-da-abertura">
+            <span class="botao-lateral acao"></span>
+            <span class="botao-lateral volume-mais"></span>
+            <span class="botao-lateral volume-menos"></span>
+            <span class="botao-lateral direita liga"></span>
+            <span class="botao-lateral direita camera"></span>
+            <div class="borda-da-tela">
+            <div class="telas-que-passam" id="telas-que-passam">
+              <img class="ativa" src="telas/inicio.jpg" alt="A tela de início do Think Capture, com o Kiro e os botões de falar e escrever" width="860" height="1870" />
+              <img src="telas/pensamentos.jpg" alt="A tela Pensamentos, com a caixa de entrada dos pensamentos guardados" width="860" height="1870" />
+              <img src="telas/acompanhar.jpg" alt="A tela Acompanhar, com os hábitos e as tarefas do dia" width="860" height="1870" />
+            </div>
+            </div>
+          </div>
+          <div class="seletor-de-telas" id="seletor-de-telas" aria-label="Telas do aplicativo">
+            <button type="button" aria-pressed="true">Início<i></i></button>
+            <button type="button" aria-pressed="false">Pensamentos<i></i></button>
+            <button type="button" aria-pressed="false">Acompanhar<i></i></button>
+          </div>
           <div class="kiro-caixa" id="kiro" role="button" tabindex="0" aria-label="Kiro, o mascote do Think Capture. Toque para ele acenar.">
             <div class="kiro-pulo" id="kiro-pulo">
               <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
@@ -752,8 +845,7 @@
       <div class="envelope">
         <div class="cabeca-secao surge">
           <h2 id="titulo-experimente">Tire da cabeça em segundos.</h2>
-          <p>Este é o aplicativo de verdade, rodando aqui. Fale ou escreva, e veja o pensamento
-            chegar na sua caixa de entrada.</p>
+          <p>Experimente aqui: fale ou escreva o que está na sua cabeça e veja como é rápido tirar um pensamento dela. No aplicativo, ele ainda ganha um lembrete na hora certa e vira tarefa, hábito ou anotação quando você quiser.</p>
         </div>
 
         <!--
@@ -838,7 +930,7 @@
                 <p class="recado-do-app" id="recado-do-app" aria-live="polite">Aqui só o Início funciona. O resto está no aplicativo.</p>
               </div>
             </div>
-            <figcaption class="legenda"><b>O aplicativo, rodando aqui</b><span>Fale ou escreva, e toque em Pensamentos para ver onde ele foi parar.</span></figcaption>
+            <figcaption class="legenda"><b>Teste a captura</b><span>Fale ou escreva, e toque em Pensamentos para ver onde ele foi parar.</span></figcaption>
           </figure>
 
           
@@ -1170,7 +1262,7 @@
       'Me dá um pensamento que eu guardo.',
       'Cabeça leve decide melhor.',
       'O que está anotado não precisa ficar rodando na sua cabeça.',
-      'Toque nos pensamentos em volta de mim.'
+      'Essas são as telas do aplicativo.'
     ];
     var indiceFala = 0, relogioFala = null;
     function dizer(texto) {
@@ -1194,57 +1286,40 @@
     // Aceno de chegada.
     setTimeout(function () { acenar(); dizer(FALAS[0]); indiceFala = 1; }, semMovimento() ? 0 : 700);
 
-    // ---------- Os pensamentos em volta do Kiro ----------
-    var PENSAMENTOS = [
-      ['Ligar pro dentista', 'esq', 0, 12], ['Responder o Rafael', 'esq', 26, 0],
-      ['Aquele livro…', 'dir', 0, 4], ['Conta de luz', 'dir', 2, 24],
-      ['Voltar a correr', 'esq', 2, 40], ['Presente da Ana', 'dir', 0, 46],
-      ['Reunião às 15h', 'esq', 4, 66], ['Ideia pro projeto', 'dir', 2, 72]
-    ];
-    var restantes = 0;
-    function criarPensamento(texto, lado, x, y, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'pensamento';
-      b.textContent = texto;
-      b.style[lado === 'esq' ? 'left' : 'right'] = x + '%';
-      b.style.top = y + '%';
-      b.style.animationDelay = (-i * 0.75) + 's';
-      b.setAttribute('aria-label', 'Entregar ao Kiro: ' + texto);
-      b.addEventListener('click', function () { entregarAoKiro(b, texto); });
-      palco.appendChild(b);
-      restantes++;
+    // ---------- O iPhone da abertura passa pelas telas ----------
+    var TEMPO_DA_TELA = 4000;
+    var telas = document.querySelectorAll('#telas-que-passam img');
+    var seletor = document.getElementById('seletor-de-telas');
+    var botoesDasTelas = seletor.querySelectorAll('button');
+    seletor.style.setProperty('--tempo-da-tela', TEMPO_DA_TELA + 'ms');
+    var telaAtual = 0, relogioDaTela = null;
+    function mostrarTela(n) {
+      if (n === telaAtual) return;
+      var antiga = telas[telaAtual];
+      antiga.classList.remove('ativa');
+      antiga.classList.add('saindo');
+      setTimeout(function () { antiga.classList.remove('saindo'); }, 650);
+      telas[n].classList.add('ativa');
+      botoesDasTelas[telaAtual].setAttribute('aria-pressed', 'false');
+      botoesDasTelas[n].setAttribute('aria-pressed', 'true');
+      telaAtual = n;
     }
-    PENSAMENTOS.forEach(function (p, i) { criarPensamento(p[0], p[1], p[2], p[3], i); });
-
-    function entregarAoKiro(el, texto) {
-      if (el.classList.contains('indo')) return;
-      el.classList.add('indo');
-      var rp = palco.getBoundingClientRect();
-      var rb = el.getBoundingClientRect();
-      var rk = kiro.getBoundingClientRect();
-      var dx = (rk.left + rk.width * 0.5) - (rb.left + rb.width / 2);
-      var dy = (rk.top + rk.height * 0.45) - (rb.top + rb.height / 2);
-      animar(560, function (t) {
-        var e = t * t;
-        el.style.transform = 'translate(' + (dx * e).toFixed(1) + 'px,' + (dy * e - Math.sin(t * Math.PI) * 40).toFixed(1) + 'px) scale(' + (1 - 0.8 * e).toFixed(3) + ')';
-        el.style.opacity = String(1 - e);
-      }, function () {
-        el.remove();
-        restantes--;
-        receber();
-        guardarNaLista(texto);
-        if (restantes === 0) {
-          dizer('Pronto. Cabeça vazia. Que leveza!');
-          acenar();
-          setTimeout(function () {
-            PENSAMENTOS.forEach(function (p, i) { criarPensamento(p[0], p[1], p[2], p[3], i); });
-          }, 3200);
-        } else {
-          dizer('Um a menos na sua cabeça.');
-        }
+    function passarSozinho() {
+      clearInterval(relogioDaTela);
+      relogioDaTela = setInterval(function () {
+        if (palcoNaTela && !document.hidden) mostrarTela((telaAtual + 1) % telas.length);
+      }, TEMPO_DA_TELA);
+    }
+    botoesDasTelas.forEach(function (b, n) {
+      b.addEventListener('click', function () {
+        mostrarTela(n);
+        // A barrinha recomeça do zero na tela escolhida.
+        var barra = b.querySelector('i');
+        barra.style.animation = 'none'; void barra.offsetWidth; barra.style.animation = '';
+        passarSozinho();
       });
-    }
+    });
+    passarSozinho();
 
     // ---------- Experimente: a captura de verdade ----------
     /*
