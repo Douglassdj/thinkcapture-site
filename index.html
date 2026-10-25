@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 <script>document.documentElement.classList.add('js')</script>
 <head>
-  <meta charset="utf-8" />
   <!-- Consentimento (Consent Mode do Google): nada de cookie de análise até a pessoa aceitar -->
   <script>
   window.dataLayer = window.dataLayer || [];
@@ -22,17 +21,14 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-MCTM2M4W');</script>
   <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Think Capture</title>
-  <!-- Google Search Console: a propriedade e verificada por esta metatag e
-       tambem pelo arquivo `google4be89bd96991bc00.html`. Nenhum dos dois
-       pode sair da pagina, ou a verificacao cai. -->
-  <meta name="google-site-verification" content="XTOSObfnCeIpvqGqeA8oQJndquPlPQqNE55DZrEMcXU" />
-  <meta name="description" content="Tire da cabeça em segundos. Fale ou escreva o que veio, e organize depois em tarefa, hábito ou anotação. Grátis para iPhone e Android." />
+  <meta name="description" content="O Think Capture ajuda você a tirar da cabeça o que fica rodando, não perder o que importa e cuidar de cada coisa na hora certa. Grátis para iPhone e Android." />
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
   <meta property="og:title" content="Think Capture" />
-  <meta property="og:description" content="Sua cabeça não foi feita para guardar tudo. Tire dela em segundos." />
+  <meta property="og:description" content="Sua cabeça não foi feita para guardar tudo." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="icone.png" />
   <link rel="icon" type="image/png" href="icone.png" />
@@ -41,393 +37,337 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* Cores do aplicativo (src/biblioteca/cores.ts). O escuro é preto puro,
-       pedido do proprietário para a página: o Kiro vira contorno claro. */
+    /*
+      Think Capture, v2 - 23/10, pedido do proprietário, com o undertone.co de
+      referência: página editorial, de fios finos, rótulos em fonte mono e
+      manchete pesada. O escuro continua preto puro e o claro é branco puro,
+      as duas decisões dele.
+    */
     :root {
-      --fundo: #FAFAF8;
-      --superficie: #FFFFFF;
+      --fundo: #FFFFFF;
+      --texto: #121411;
+      --suave: #4E554A;
+      --linha: rgba(18, 20, 17, 0.22);
+      --linha-fraca: rgba(18, 20, 17, 0.1);
+      --superficie: #F5F5F3;
+      --botao: #121411;
+      --sobre-botao: #FFFFFF;
+      --destaque: #2F7A4C;
+      --kiro-corpo: #121411;
+      --kiro-miolo: #FFFFFF;
+      --apple-fundo: #000000;
       --superficie-suave: #F0F0EC;
-      --texto: #111111;
-      --texto-suave: #6B6B66;
-      --linha: rgba(17, 17, 17, 0.09);
-      --acento: #111111;
-      --sobre-acento: #FAFAF8;
-      --tarefa-tinta: #DCF1EC;
       --tarefa-acento: #1F6F80;
-      --habito-tinta: #DEF0E1;
       --habito-acento: #3E8A5C;
-      --anotacao-tinta: #E6E4FF;
       --anotacao-acento: #6A61CF;
-      --lembrete-tinta: #FAF0D8;
-      --lembrete-acento: #976712;
-      --kiro-corpo: #111111;
-      --kiro-miolo: #FCFCF9;
-      --kiro-sombra: #E7E6DF;
-      --bolha: #FFFFFF;
-      --bolha-borda: rgba(17, 17, 17, 0.08);
       --trilha-forte: rgba(17, 17, 17, 0.22);
-      --moldura: #1B1B1A;
-      --moldura-aro: #3A3A38;
+      --apple-texto: #FFFFFF;
+      --kiro-sombra: #E7E6DF;
       color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
       :root:not([data-tema="claro"]) {
         --fundo: #000000;
-        --superficie: #0E0E0E;
-        --superficie-suave: #171717;
-        --texto: #F2F2F2;
-        --texto-suave: #9A9A96;
-        --linha: rgba(242, 242, 242, 0.09);
-        --trilha-forte: rgba(242, 242, 242, 0.24);
-        --acento: #F2F2F2;
-        --sobre-acento: #000000;
-        --tarefa-tinta: #12303A;
-        --tarefa-acento: #8FD3E4;
-        --habito-tinta: #16342A;
-        --habito-acento: #7FC49B;
-        --anotacao-tinta: #24234A;
-        --anotacao-acento: #A9A2FF;
-        --lembrete-tinta: #3A3018;
-        --lembrete-acento: #EDC47D;
-        --kiro-corpo: #F2F2F2;
+        --texto: #F2F2EE;
+        --suave: #9C9C96;
+        --linha: rgba(242, 242, 238, 0.2);
+        --linha-fraca: rgba(242, 242, 238, 0.09);
+        --superficie: #111110;
+        --botao: #7FC49B;
+        --sobre-botao: #FFFFFF;
+        --destaque: #7FC49B;
+        --kiro-corpo: #F2F2EE;
         --kiro-miolo: #000000;
+        --apple-fundo: #FFFFFF;
+        --superficie-suave: #171717;
+        --tarefa-acento: #8FD3E4;
+        --habito-acento: #7FC49B;
+        --anotacao-acento: #A9A2FF;
+        --trilha-forte: rgba(242, 242, 242, 0.24);
+        --apple-texto: #000000;
         --kiro-sombra: #1C1C1C;
-        --bolha: #141414;
-        --bolha-borda: rgba(242, 242, 242, 0.08);
-        --moldura: #161616;
-        --moldura-aro: #3C3C3C;
         color-scheme: dark;
       }
     }
     :root[data-tema="escuro"] {
       --fundo: #000000;
-      --superficie: #0E0E0E;
-      --superficie-suave: #171717;
-      --texto: #F2F2F2;
-      --texto-suave: #9A9A96;
-      --linha: rgba(242, 242, 242, 0.09);
-      --acento: #F2F2F2;
-      --sobre-acento: #000000;
-      --tarefa-tinta: #12303A;
-      --tarefa-acento: #8FD3E4;
-      --habito-tinta: #16342A;
-      --habito-acento: #7FC49B;
-      --anotacao-tinta: #24234A;
-      --anotacao-acento: #A9A2FF;
-      --lembrete-tinta: #3A3018;
-      --lembrete-acento: #EDC47D;
-      --kiro-corpo: #F2F2F2;
+      --texto: #F2F2EE;
+      --suave: #9C9C96;
+      --linha: rgba(242, 242, 238, 0.2);
+      --linha-fraca: rgba(242, 242, 238, 0.09);
+      --superficie: #111110;
+      --botao: #7FC49B;
+      --sobre-botao: #FFFFFF;
+      --destaque: #7FC49B;
+      --kiro-corpo: #F2F2EE;
       --kiro-miolo: #000000;
+      --apple-fundo: #FFFFFF;
+      --superficie-suave: #171717;
+      --tarefa-acento: #8FD3E4;
+      --habito-acento: #7FC49B;
+      --anotacao-acento: #A9A2FF;
+      --trilha-forte: rgba(242, 242, 242, 0.24);
+      --apple-texto: #000000;
       --kiro-sombra: #1C1C1C;
-      --bolha: #141414;
-      --bolha-borda: rgba(242, 242, 242, 0.08);
-      --moldura: #161616;
-      --moldura-aro: #3C3C3C;
       color-scheme: dark;
     }
-
     :root {
-      --fonte-titulo: 'Quicksand', ui-rounded, system-ui, sans-serif;
-      --fonte-texto: 'Nunito', system-ui, sans-serif;
+      /* As fontes do aplicativo: Quicksand nos títulos, Nunito no resto. */
+      --titulo: 'Quicksand', ui-rounded, system-ui, sans-serif;
+      --fonte: 'Nunito', system-ui, sans-serif;
+      --mono: 'Nunito', system-ui, sans-serif;
       --curva: cubic-bezier(0.16, 1, 0.3, 1);
-      --margem: clamp(16px, 5vw, 32px);
-      --largura: 1120px;
+      --margem: clamp(16px, 4.5vw, 56px);
     }
 
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
     body {
-      margin: 0;
-      background: var(--fundo);
-      color: var(--texto);
-      font: 400 17px/1.6 var(--fonte-texto);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      margin: 0; background: var(--fundo); color: var(--texto);
+      font: 400 18px/1.6 var(--fonte);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
       transition: background-color .35s var(--curva), color .35s var(--curva);
     }
-    a { color: inherit; }
     ::selection { background: var(--texto); color: var(--fundo); }
-    input { caret-color: var(--texto); }
-    h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 700; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+    a { color: inherit; }
+    h1, h2, h3 { margin: 0; font-family: var(--titulo); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
     p { margin: 0; text-wrap: pretty; }
-    .envelope { width: 100%; max-width: var(--largura); margin: 0 auto; padding: 0 var(--margem); }
-    .rotulo {
-      font: 700 12px/1 var(--fonte-texto);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--texto-suave);
+    .envelope { max-width: 1280px; margin: 0 auto; padding: 0 var(--margem); }
+
+    /* O rótulo mono: número da seção de um lado, o assunto do outro. */
+    .mono { font: 700 12px/1.4 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; }
+    .faixa {
+      display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center;
+      padding: 16px 0; border-bottom: 1px solid var(--linha);
     }
+    .faixa .mono:first-child { color: var(--suave); }
 
     /* ---------- Topo ---------- */
+    /* O topo da v1: sem linha, meio transparente e desfocando o que passa por baixo. */
     .topo {
       position: sticky; top: 0; z-index: 20;
       background: color-mix(in srgb, var(--fundo) 78%, transparent);
       -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-      border-bottom: 1px solid transparent;
-      transition: border-color .3s var(--curva);
     }
-    .topo.rolou { border-bottom-color: var(--linha); }
-    .topo .envelope { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 19px/1 var(--fonte-titulo); letter-spacing: -0.02em; }
-    .marca svg { width: 26px; height: 31px; }
-    .topo-acoes { display: flex; align-items: center; gap: 8px; }
+    .topo .envelope { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+    .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 22px/1 var(--titulo); letter-spacing: -0.02em; }
+    .marca svg { width: 28px; height: 33px; }
+    .navegacao { display: flex; align-items: center; gap: 28px; }
+    .navegacao a { text-decoration: none; padding: 12px 0; transition: opacity .2s; }
+    .navegacao a:hover { opacity: .6; }
     .botao-tema {
       width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--linha);
       background: transparent; color: var(--texto); display: grid; place-items: center; cursor: pointer;
-      transition: background-color .2s var(--curva), transform .2s var(--curva);
     }
-    .botao-tema:hover { background: var(--superficie-suave); }
-    .botao-tema:active { transform: scale(0.95); }
     .botao-tema svg { width: 18px; height: 18px; }
-    .baixar-topo {
-      height: 44px; padding: 0 20px; border-radius: 999px; background: var(--acento); color: var(--sobre-acento);
-      font: 700 15px/44px var(--fonte-texto); text-decoration: none; white-space: nowrap;
-      transition: transform .2s var(--curva), opacity .2s;
-    }
-    .baixar-topo:active { transform: scale(0.97); }
 
-    /* ---------- Abertura ---------- */
-    .abertura { padding: clamp(32px, 7vw, 88px) 0 clamp(56px, 8vw, 112px); }
-    .abertura .envelope {
-      display: grid; gap: clamp(32px, 5vw, 64px); align-items: center;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    /* O botão do menu: duas linhas que viram um ✕. Só existe no celular. */
+    .botao-menu {
+      display: none; position: relative; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--linha);
+      background: transparent; color: var(--texto); cursor: pointer;
     }
-    .abertura h1 { font-size: clamp(38px, 4.9vw, 66px); line-height: 1.06; letter-spacing: -0.03em; }
-    .abertura .apoio { margin-top: 22px; font-size: clamp(17px, 1.6vw, 20px); color: var(--texto-suave); max-width: 30em; }
-    .lojas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .botao-menu span {
+      position: absolute; left: 13px; right: 13px; height: 1.8px; border-radius: 2px; background: currentColor;
+      transition: transform .3s var(--curva), top .3s var(--curva);
+    }
+    .botao-menu span:first-child { top: 17px; }
+    .botao-menu span:last-child { top: 25px; }
+    .botao-menu[aria-expanded="true"] span:first-child { top: 21px; transform: rotate(45deg); }
+    .botao-menu[aria-expanded="true"] span:last-child { top: 21px; transform: rotate(-45deg); }
+
+    /* O painel desce por baixo do topo: a altura anima de 0 ao conteúdo. */
+    .menu-celular {
+      position: absolute; left: 0; right: 0; top: 100%;
+      display: grid; grid-template-rows: 0fr; background: var(--fundo);
+      opacity: 0; visibility: hidden;
+      transition: grid-template-rows .35s var(--curva), opacity .25s var(--curva), visibility 0s linear .35s;
+    }
+    .menu-celular.aberto {
+      grid-template-rows: 1fr; opacity: 1; visibility: visible; border-bottom: 1px solid var(--linha);
+      transition: grid-template-rows .35s var(--curva), opacity .25s var(--curva), visibility 0s;
+    }
+    .menu-celular .dentro { overflow: hidden; min-height: 0; }
+    .menu-celular .lista-do-menu { display: flex; flex-direction: column; max-width: 1280px; margin: 0 auto; padding: 8px var(--margem) 24px; }
+    .menu-celular nav a:not(.cta) {
+      display: flex; justify-content: space-between; align-items: center; padding: 18px 0;
+      border-bottom: 1px solid var(--linha-fraca); text-decoration: none;
+      font: 700 26px/1.2 var(--titulo); letter-spacing: -0.02em;
+    }
+    .menu-celular nav a:not(.cta) span { color: var(--suave); font-size: 22px; }
+    .menu-celular .cta { margin-top: 24px; justify-content: center; }
+
+    /* ---------- Botões ---------- */
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 26px;
+      border-radius: 999px; background: var(--botao); color: var(--sobre-botao);
+      font: 700 17px/1 var(--fonte); text-decoration: none;
+      transition: transform .2s var(--curva);
+    }
+    .cta:hover { transform: translateY(-1px); }
+    .cta:active { transform: scale(0.98); }
+    .cta span { transition: transform .25s var(--curva); }
+    .cta:hover span { transform: translateX(3px); }
+    .lojas { display: flex; flex-wrap: wrap; gap: 12px; }
+    /* Os botões das lojas no formato da v1: cantos de 16px, "Baixar na" em letra pequena normal. */
     .loja {
       display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 10px 22px 10px 18px;
-      border-radius: 16px; text-decoration: none; background: var(--acento); color: var(--sobre-acento);
-      transition: transform .2s var(--curva), box-shadow .3s var(--curva);
+      border-radius: 16px; text-decoration: none; color: var(--texto);
+      box-shadow: inset 0 0 0 1px var(--linha); transition: box-shadow .2s, transform .2s var(--curva);
     }
-    .loja.contorno { background: transparent; color: var(--texto); box-shadow: inset 0 0 0 1.5px var(--linha); }
-    .loja.contorno:hover { box-shadow: inset 0 0 0 1.5px var(--texto-suave); }
-    .loja:hover { transform: translateY(-2px); }
-    .loja:active { transform: scale(0.97); }
-    .loja svg { width: 26px; height: 26px; flex: none; }
-    .loja span { display: flex; flex-direction: column; line-height: 1.15; }
-    .loja small { font: 600 11px/1.2 var(--fonte-texto); opacity: .72; letter-spacing: .02em; }
-    .loja b { font: 700 18px/1.15 var(--fonte-titulo); letter-spacing: -0.01em; }
-    .nota-gratis { margin-top: 16px; font-size: 14px; color: var(--texto-suave); }
+    .loja:hover { box-shadow: inset 0 0 0 1px var(--texto); }
+    .loja:active { transform: scale(0.98); }
+    .loja svg { width: 24px; height: 24px; flex: none; }
+    /* O da Apple é cheio: preto no claro, branco no escuro. */
+    .loja.apple { background: var(--apple-fundo); color: var(--apple-texto); box-shadow: none; }
+    .loja.apple:hover { box-shadow: none; opacity: .88; }
+    .loja.apple small { opacity: .72; }
+    .loja span { display: flex; flex-direction: column; line-height: 1.1; }
+    .loja small { font: 600 11px/1.2 var(--fonte); letter-spacing: .02em; opacity: .72; }
+    .loja b { font: 700 18px/1.2 var(--titulo); }
 
-    /* O palco do Kiro: ele, a sombra e os pensamentos que o rodeiam. */
-    .palco {
-      position: relative; aspect-ratio: 1 / 1.02; width: 100%; max-width: 540px; justify-self: center;
-      touch-action: manipulation; user-select: none; -webkit-user-select: none;
+    /* ---------- Abertura ---------- */
+    .abertura .grade {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: clamp(32px, 6vw, 96px); padding: clamp(28px, 5vw, 64px) 0 clamp(48px, 7vw, 96px);
     }
-    .kiro-caixa {
-      position: absolute; left: 50%; bottom: 6%; width: 52%; transform: translateX(-50%);
-      cursor: pointer; -webkit-tap-highlight-color: transparent;
-    }
-    .kiro-caixa:focus-visible { outline: 2px solid var(--texto-suave); outline-offset: 12px; border-radius: 40%; }
-    .kiro-pulo { transform-origin: 50% 100%; will-change: transform; }
-    .kiro-caixa svg { display: block; width: 100%; height: auto; overflow: visible; }
-    .fala {
-      position: absolute; z-index: 5; left: 50%; top: 14%; transform: translate(-50%, 6px); opacity: 0;
-      background: var(--bolha); border: 1px solid var(--bolha-borda); border-radius: 18px;
-      padding: 10px 16px; font: 600 15px/1.35 var(--fonte-texto); max-width: 78%; text-align: center;
-      transition: opacity .3s var(--curva), transform .3s var(--curva); pointer-events: none;
-    }
-    .fala.visivel { opacity: 1; transform: translate(-50%, 0); }
+    .abertura h1 { font-size: clamp(44px, 7vw, 92px); line-height: 1; letter-spacing: -0.03em; }
+    /* A frase de apoio como na v1: fina, no tom suave. */
+    .abertura .apoio { margin-top: 22px; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.6; font-weight: 400; color: var(--suave); max-width: 32em; }
+    .abertura .lojas { margin-top: 30px; }
+    .tres-batidas { margin-top: 32px; font-family: var(--titulo); font-size: clamp(20px, 2vw, 25px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; }
+    .tres-batidas span { display: block; }
 
-    .pensamento {
-      position: absolute; padding: 9px 15px; border-radius: 999px; cursor: pointer;
-      background: var(--bolha); border: 1px solid var(--bolha-borda); color: var(--texto);
-      font: 600 14px/1.2 var(--fonte-texto); white-space: nowrap;
-      transition: opacity .3s var(--curva), background-color .2s;
-      animation: flutuar 6s ease-in-out infinite;
-    }
-    .pensamento:hover { background: var(--superficie-suave); }
-    .pensamento:focus-visible { outline: 2px solid var(--texto-suave); outline-offset: 3px; }
-    @keyframes flutuar {
-      0%, 100% { translate: 0 0; }
-      50% { translate: 0 -8px; }
-    }
-    .pensamento.indo { animation: none; pointer-events: none; }
-    .palco.fora .pensamento { animation-play-state: paused; }
-
-    /*
-      O iPhone da abertura - 23/10, pedido do proprietário: no lugar do Kiro
-      sozinho, um celular passando pelas telas de verdade (Início,
-      Pensamentos, Acompanhar), e o Kiro encostado nele. Os balões de
-      pensamento saíram daqui: o celular é o foco, e a captura de verdade
-      mora no aparelho vivo, mais abaixo.
-    */
-    .palco-com-iphone { aspect-ratio: auto; display: flex; flex-direction: column; align-items: center; padding: 8px 0 0; }
-    .iphone-da-abertura { width: min(300px, 64%); }
-    /*
-      A moldura de verdade - 23/10, pedido do proprietário, com o Undertone
-      de referência: o aro de titânio pegando luz, a borda preta em volta da
-      tela e os botões do iPhone 17 nos dois lados, nas proporções do
-      aparelho. A ilha e a barra de status vêm na própria captura.
-    */
+    /* O celular da abertura, passando pelas telas, e o Kiro encostado nele. */
+    .palco { position: relative; display: flex; flex-direction: column; align-items: center; align-self: center; }
     .iphone-real {
-      position: relative; padding: 1.5%; border-radius: 15.6% / 7.2%;
+      position: relative; width: 100%; max-width: 320px; padding: 1.5%; border-radius: 15.6% / 7.2%;
       background: linear-gradient(135deg, #a3a3a6 0%, #48484b 14%, #1f1f21 42%, #2b2b2e 68%, #8e8e92 100%);
-      box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.38),
-        inset 0 0 0 2.5px rgba(0, 0, 0, 0.6),
-        0 40px 80px -40px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38), inset 0 0 0 2.5px rgba(0, 0, 0, 0.6), 0 40px 80px -40px rgba(0, 0, 0, 0.5);
     }
-    .iphone-real .borda-da-tela {
-      padding: 3.1%; border-radius: 14.6% / 6.75%; background: #050505;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
-    }
-    .iphone-real .telas-que-passam { border-radius: 12.4% / 5.7%; }
-    .iphone-real .botao-lateral {
-      position: absolute; width: 1.3%;
-      background: linear-gradient(90deg, #a8a8ab, #3c3c3f 70%, #252527);
-      border-radius: 3px 0 0 3px;
-    }
+    .iphone-real .borda-da-tela { padding: 3.1%; border-radius: 14.6% / 6.75%; background: #050505; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07); }
+    .iphone-real .botao-lateral { position: absolute; width: 1.3%; background: linear-gradient(90deg, #a8a8ab, #3c3c3f 70%, #252527); border-radius: 3px 0 0 3px; }
     .iphone-real .botao-lateral.direita { background: linear-gradient(270deg, #a8a8ab, #3c3c3f 70%, #252527); border-radius: 0 3px 3px 0; }
     .iphone-real .acao { left: -1.1%; top: 17%; height: 5%; }
     .iphone-real .volume-mais { left: -1.1%; top: 25.5%; height: 8.5%; }
     .iphone-real .volume-menos { left: -1.1%; top: 36%; height: 8.5%; }
     .iphone-real .liga { right: -1.1%; top: 27%; height: 13%; }
     .iphone-real .camera { right: -0.9%; top: 56%; height: 7%; width: 1.1%; }
-    .telas-que-passam {
-      position: relative; aspect-ratio: 1206 / 2622; overflow: hidden;
-      border-radius: 12.8% / 5.9%; background: var(--superficie-suave);
-    }
-    .telas-que-passam img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      opacity: 0; transform: translateX(8%);
-      transition: opacity .6s var(--curva), transform .6s var(--curva);
-    }
+    .tela { position: relative; aspect-ratio: 1206 / 2622; overflow: hidden; border-radius: 12.4% / 5.7%; background: #1a1a1a; }
+    .tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .telas-que-passam img { opacity: 0; transform: translateX(8%); transition: opacity .6s var(--curva), transform .6s var(--curva); }
     .telas-que-passam img.ativa { opacity: 1; transform: none; }
     .telas-que-passam img.saindo { opacity: 0; transform: translateX(-8%); }
-    .seletor-de-telas { display: flex; gap: 6px; margin-top: 22px; }
-    .seletor-de-telas button {
-      position: relative; overflow: hidden; height: 36px; padding: 0 14px; border-radius: 999px;
-      border: 0; background: transparent; color: var(--texto-suave); cursor: pointer;
-      font: 600 14px var(--fonte-texto); transition: color .2s var(--curva), background-color .2s var(--curva);
+    .seletor { display: flex; gap: 4px; margin-top: 20px; }
+    .seletor button {
+      position: relative; overflow: hidden; height: 40px; padding: 0 14px; border-radius: 999px;
+      border: 0; background: transparent; color: var(--suave); cursor: pointer;
+      font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase;
     }
-    .seletor-de-telas button:hover { color: var(--texto); }
-    .seletor-de-telas button[aria-pressed="true"] { color: var(--texto); background: var(--superficie-suave); }
-    /* A barrinha que enche diz quando a tela vai trocar. */
-    .seletor-de-telas button i {
-      position: absolute; left: 14px; right: 14px; bottom: 6px; height: 2px; border-radius: 2px;
+    .seletor button[aria-pressed="true"] { color: var(--texto); box-shadow: inset 0 0 0 1px var(--linha); }
+    .seletor button i {
+      position: absolute; left: 14px; right: 14px; bottom: 7px; height: 1.5px; border-radius: 2px;
       background: var(--texto); transform: scaleX(0); transform-origin: left; opacity: 0;
     }
-    .seletor-de-telas button[aria-pressed="true"] i { opacity: .5; animation: encher-a-barra var(--tempo-da-tela, 4s) linear forwards; }
-    .palco.fora .seletor-de-telas button i, .seletor-de-telas.parado button i { animation-play-state: paused; }
-    @keyframes encher-a-barra { to { transform: scaleX(1); } }
-    /* O Kiro fica do lado de fora, com os pés na base do celular, para não tapar a tela. */
-    .palco-com-iphone .kiro-caixa { left: 0; bottom: 64px; width: 23%; transform: none; z-index: 3; }
-    .palco-com-iphone .fala { left: 0; top: auto; bottom: calc(64px + 30%); max-width: 44%; text-align: left; transform: translateY(6px); }
-    .palco-com-iphone .fala.visivel { transform: none; }
+    .seletor button[aria-pressed="true"] i { opacity: .55; animation: encher var(--tempo, 4s) linear forwards; }
+    @keyframes encher { to { transform: scaleX(1); } }
+    .kiro {
+      position: absolute; left: -22%; bottom: 72px; width: 30%; cursor: pointer; z-index: 3;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .kiro:focus-visible { outline: 2px solid var(--suave); outline-offset: 8px; border-radius: 40%; }
+    .kiro svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .kiro-pulo { transform-origin: 50% 100%; }
+    .fala {
+      position: absolute; left: -26%; bottom: calc(72px + 38%); z-index: 4; max-width: 70%;
+      padding: 10px 14px; border-radius: 16px; background: var(--fundo); box-shadow: inset 0 0 0 1px var(--linha);
+      font: 600 15px/1.35 var(--fonte); opacity: 0; transform: translateY(6px);
+      transition: opacity .3s var(--curva), transform .3s var(--curva); pointer-events: none;
+    }
+    .fala.visivel { opacity: 1; transform: none; }
+
+    /* ---------- Faixa de confiança ---------- */
+    .confianca { margin-top: clamp(56px, 8vw, 104px); }
+    .confianca .envelope { padding: 0; width: calc(100% - 2 * var(--margem)); max-width: calc(1280px - 2 * var(--margem)); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+    .confianca .item { display: flex; align-items: center; gap: 12px; padding: 22px 20px 22px 0; }
+    .confianca .item + .item { padding-left: 20px; border-left: 1px solid var(--linha-fraca); }
+    .confianca svg { width: 22px; height: 22px; flex: none; color: var(--destaque); }
+    .confianca .lojas { padding: 14px 0 14px 20px; border-left: 1px solid var(--linha-fraca); }
+    .confianca .loja { min-height: 48px; padding: 6px 16px 6px 14px; }
 
     /* ---------- Seções ---------- */
-    section { padding: clamp(64px, 10vw, 128px) 0; }
-    .cabeca-secao { max-width: 640px; }
-    .cabeca-secao h2 { font-size: clamp(32px, 4.4vw, 52px); line-height: 1.06; margin-top: 14px; }
-    .cabeca-secao p { margin-top: 16px; color: var(--texto-suave); font-size: 18px; max-width: 34em; }
+    .secao { padding: clamp(72px, 10vw, 140px) 0 0; }
+    .secao h2 { font-size: clamp(38px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -0.03em; margin: clamp(28px, 4vw, 48px) 0 0; max-width: 14em; }
+    .secao .apoio-secao { margin-top: 18px; color: var(--suave); font-size: 20px; max-width: 32em; }
 
-    /* Experimente: o campo que manda o pensamento para o Kiro. */
-    .experimente { border-top: 1px solid var(--linha); }
-    /* Texto à esquerda e o celular à direita, como na abertura - 23/10. */
-    .experimente .envelope {
+    /* Colunas numeradas, separadas por fio - sem cartão dentro de cartão. */
+    .colunas { display: grid; gap: 0; margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--linha); }
+    .colunas.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .colunas.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .coluna { padding: 28px 28px 36px 0; }
+    .coluna + .coluna { padding-left: 28px; border-left: 1px solid var(--linha-fraca); }
+    .coluna .mono { color: var(--suave); }
+    .coluna h3 { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.1; margin-top: 44px; }
+    .coluna p { margin-top: 12px; color: var(--suave); font-size: 17px; }
+
+    /* A ciência: o número grande, o que ele diz e de onde vem. */
+    .numero-grande { display: block; margin-top: 36px; font: 700 clamp(56px, 6.4vw, 92px)/0.95 var(--titulo); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .numero-grande.frase { font-size: clamp(32px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.035em; }
+    .fonte { display: inline-block; margin-top: 18px; color: var(--suave); text-decoration: none; border-bottom: 1px solid var(--linha); padding-bottom: 2px; }
+    .fonte:hover { color: var(--texto); }
+
+    /* A figura: as três telas lado a lado. */
+    .figura { margin-top: clamp(72px, 10vw, 140px); border-top: 1px solid var(--linha); }
+    .figura .faixa { border-bottom: 0; }
+    .telas-lado-a-lado { display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); justify-content: space-between; gap: 24px; padding: 24px 0 0; }
+    .telas-lado-a-lado figure { margin: 0; }
+    .telas-lado-a-lado figcaption { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--linha-fraca); }
+    .telas-lado-a-lado figcaption b { display: block; font-size: 20px; letter-spacing: -0.02em; }
+    .telas-lado-a-lado figcaption span { display: block; margin-top: 2px; color: var(--suave); font-size: 16px; }
+
+    /* Planos: duas colunas que comparam, o Pro sem enfeite a mais. */
+    .planos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--linha); }
+    .plano { padding: 28px 28px 36px 0; }
+    .plano + .plano { padding-left: 28px; border-left: 1px solid var(--linha-fraca); }
+    .plano h3 { font-size: 32px; margin-top: 36px; }
+    .plano > p { margin-top: 8px; color: var(--suave); }
+    .plano ul { list-style: none; padding: 0; margin: 28px 0 0; }
+    .plano li { padding: 12px 0; border-top: 1px solid var(--linha-fraca); display: flex; gap: 12px; }
+    .plano li::before { content: '+'; font-weight: 700; color: var(--destaque); }
+
+    /* Final. */
+    .final { padding: clamp(80px, 11vw, 160px) 0 clamp(64px, 8vw, 112px); }
+    .final .grade { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; margin-top: clamp(28px, 4vw, 48px); }
+    .final h2 { font-size: clamp(46px, 7.4vw, 104px); line-height: 1; letter-spacing: -0.035em; }
+    .final p { margin-top: 20px; color: var(--suave); font-size: 20px; max-width: 30em; }
+    .final .lojas { margin-top: 32px; }
+    .kiro-final { width: clamp(110px, 14vw, 170px); cursor: pointer; }
+    .kiro-final svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+    footer { border-top: 1px solid var(--linha); padding: 28px 0 calc(28px + env(safe-area-inset-bottom)); }
+    footer .envelope { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: center; color: var(--suave); }
+    footer nav { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+    footer a { text-decoration: none; padding: 8px 0; }
+    footer a:hover { color: var(--texto); }
+
+    /* ---------- A demonstração (vinda da v1) ----------
+       Os nomes de cor da v1 apontam para os da v2, só dentro desta seção. */
+    .experimente {
+      --acento: var(--texto); --sobre-acento: var(--fundo);
+      --fonte-texto: var(--fonte); --fonte-titulo: var(--titulo);
+      --texto-suave: var(--suave);
+    }
+    .grade-demo {
       display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: clamp(32px, 6vw, 80px); align-items: center;
+      gap: clamp(32px, 6vw, 80px); align-items: center; margin-top: clamp(28px, 4vw, 48px);
     }
-    .experimente .palco-dos-aparelhos { margin-top: 0; }
+    .experimente .cabeca-secao h2 { margin-top: 0; }
+    .experimente .cabeca-secao p { margin-top: 18px; color: var(--suave); font-size: 20px; max-width: 32em; }
+    .experimente .iphone-real { max-width: none; }
     .iphone-real .tela-do-app { border-radius: 12.4% / 6.2%; }
-    @media (max-width: 860px) {
-      .experimente .envelope { grid-template-columns: minmax(0, 1fr); }
-      .experimente .palco-dos-aparelhos { margin-top: 12px; }
+    @keyframes entrar { from { opacity: 0; transform: translateY(-10px) scale(.98); } }
+    @media (max-width: 960px) {
+      .grade-demo { grid-template-columns: minmax(0, 1fr); }
     }
-    /* Destinos: tarefa, hábito, anotação. */
-    .destinos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
-    .destino {
-      border-radius: 28px; padding: 28px 26px 30px; background: var(--tinta); color: var(--texto);
-      display: flex; flex-direction: column; min-height: 300px;
-      transition: transform .35s var(--curva);
-    }
-    .destino:hover { transform: translateY(-4px); }
-    .destino .icone { width: 44px; height: 44px; border-radius: 14px; flex: none; display: grid; place-items: center; background: color-mix(in srgb, var(--acento-tipo) 18%, transparent); color: var(--acento-tipo); }
-    .destino .icone svg { width: 22px; height: 22px; }
-    .destino .cabeca { display: flex; align-items: center; gap: 14px; }
-    .destino h3 { font-size: 28px; }
-    .destino p { margin-top: 8px; color: var(--texto-suave); }
-    .destino p { margin-bottom: 24px; }
-
-    /*
-      O exemplo de cada cartão é a **linha de verdade** da trilha de
-      Acompanhar - 11/10, pedido do proprietário. As medidas saem de
-      `src/componentes/linha-do-dia.tsx`: o quadrado de 22 com canto de 7 na
-      tarefa, o círculo de 24 no hábito, as sete bolinhas de 14, e a etiqueta
-      da anotação na tinta dela. Um desenho inventado aqui mostraria um
-      produto que não existe.
-    */
-    .exemplo {
-      margin-top: auto; display: flex; align-items: flex-start; gap: 12px; padding: 16px;
-      border-radius: 18px; background: color-mix(in srgb, var(--fundo) 55%, transparent);
-    }
-    .exemplo .corpo { flex: 1; min-width: 0; }
-    .exemplo .titulo { font: 700 15px var(--fonte-titulo); color: var(--texto); }
-    .exemplo .no { flex: none; display: grid; place-items: center; width: 24px; height: 24px; margin-top: 1px; }
-
-    /* O nó da tarefa: quadrado de 22, canto 7, contorno de 1.6. */
-    .no-da-tarefa { width: 22px; height: 22px; border-radius: 7px; border: 1.6px solid var(--trilha-forte); }
-    /* O do hábito: círculo de 24, cheio quando o dia está feito. */
-    .no-do-habito {
-      width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center;
-      background: var(--habito-acento); color: var(--sobre-acento);
-    }
-    .no-do-habito svg { width: 14px; height: 14px; }
-    .no-da-anotacao { color: var(--anotacao-acento); }
-    .no-da-anotacao svg { width: 22px; height: 22px; }
-
-    /* As sete bolinhas da semana, de segunda a domingo. */
-    .semana { display: flex; gap: 6px; margin-top: 7px; }
-    .semana i { width: 14px; height: 14px; border-radius: 999px; background: var(--superficie-suave); }
-    .semana i.feito { background: var(--habito-acento); }
-    .semana i.hoje { background: var(--habito-acento); }
-
-    .lado-da-linha { flex: none; display: flex; align-items: center; gap: 5px; margin-top: 1px; }
-    .chama { width: 15px; height: 15px; color: #E8793A; }
-    .sequencia { font: 700 14px var(--fonte-titulo); color: var(--habito-acento); }
-    .etiqueta-da-linha {
-      flex: none; margin-top: 1px; padding: 3px 7px; border-radius: 7px;
-      background: var(--anotacao-tinta); color: var(--anotacao-acento);
-      font: 700 12px var(--fonte-titulo);
-    }
-    .tarefa { --tinta: var(--tarefa-tinta); --acento-tipo: var(--tarefa-acento); }
-    .habito { --tinta: var(--habito-tinta); --acento-tipo: var(--habito-acento); }
-    .anotacao { --tinta: var(--anotacao-tinta); --acento-tipo: var(--anotacao-acento); }
-
-    /* As telas do app, capturas reais dentro de uma moldura de iPhone. */
-    .vitrine .envelope { display: grid; gap: clamp(40px, 6vw, 72px); }
-    .aparelhos { display: grid; grid-template-columns: repeat(3, minmax(0, 290px)); justify-content: center; gap: clamp(20px, 4vw, 56px); align-items: start; }
-    .aparelho:nth-child(2) { margin-top: clamp(32px, 6vw, 88px); }
-    @media (max-width: 720px) {
-      /* No celular as três viram uma fileira que corre de lado, sem rolar a página. */
-      .aparelhos {
-        display: flex; justify-content: flex-start; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity;
-        margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem) 8px; scroll-padding: 0 var(--margem); scrollbar-width: none;
-      }
-      .aparelhos::-webkit-scrollbar { display: none; }
-      .aparelho { flex: 0 0 68%; scroll-snap-align: start; }
-      .aparelho:nth-child(2) { margin-top: 0; }
-    }
-    .aparelho figcaption { margin-top: 20px; text-align: center; }
-    .aparelho figcaption b { display: block; font: 700 20px/1.3 var(--fonte-titulo); }
-    .aparelho figcaption span { display: block; margin-top: 4px; color: var(--texto-suave); font-size: 15px; }
-    .iphone {
-      position: relative; padding: 3.6%; border-radius: 16% / 7.4%;
-      background: var(--moldura);
-      box-shadow: inset 0 0 0 1.5px var(--moldura-aro), 0 40px 80px -40px rgba(0, 0, 0, 0.45);
-    }
-    .iphone::before, .iphone::after {
-      content: ''; position: absolute; width: 1.2%; border-radius: 2px; background: var(--moldura-aro);
-    }
-    .iphone::before { left: -1.1%; top: 22%; height: 10%; }
-    .iphone::after { right: -1.1%; top: 27%; height: 15%; }
-    .iphone img {
-      display: block; width: 100%; height: auto; aspect-ratio: 1206 / 2622; object-fit: cover;
-      border-radius: 12.8% / 5.9%; background: var(--superficie-suave);
-    }
-
     /*
       Os dois aparelhos vivos - 11/10, pedido do proprietário: "a moldura do
       celular, na tela de início, igualzinho ao app; o mascote mexendo,
@@ -635,115 +575,123 @@
     }
     .recado-do-app.visto { opacity: 1; transform: none; }
 
-    /* O número. */
-    .numero { text-align: center; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
-    .numero { text-align: left; }
-    .numero .frase { font: 700 clamp(34px, 5.2vw, 64px)/1.1 var(--fonte-titulo); letter-spacing: -0.03em; max-width: 16em; color: var(--texto-suave); text-wrap: balance; }
-    .numero .frase strong { color: var(--texto); font-variant-numeric: tabular-nums; }
-    .numero .depois { margin-top: 24px; font-size: 18px; color: var(--texto-suave); max-width: 32em; }
-
-    /* Recursos: uma lista em duas colunas, sem cartão dentro de cartão. */
-    .recursos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 6vw, 96px); margin-top: 56px; }
-    .recurso { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 18px; padding: 28px 0; border-top: 1px solid var(--linha); }
-    .recurso .icone { width: 48px; height: 48px; border-radius: 14px; background: var(--superficie-suave); display: grid; place-items: center; }
-    .recurso .icone svg { width: 22px; height: 22px; }
-    .recurso h3 { font-size: 21px; line-height: 1.25; }
-    .recurso p { margin-top: 6px; color: var(--texto-suave); }
-
-    /* Planos. */
-    /*
-      **Um cartão só** - 12/10, pedido do proprietário. O do Grátis saiu e o do
-      Pro ficou com o palco inteiro.
-
-      O plano gratuito **não sumiu da página**: ele está dito no título da
-      seção e no parágrafo acima, que é onde a promessa "para sempre" cabe
-      melhor que numa lista de checks. A secao 38 do CLAUDE.md manda a tela de
-      planos comparar em vez de elogiar, e o que ela protege é justamente isso
-      - que ninguém saia achando que o aplicativo é pago.
-
-      E **sem preço nem botão de assinar**: a cobrança ainda não existe
-      (secao 21), e um "Assinar R$ 17,90" aqui seria vender o que não dá para
-      comprar.
-    */
-    .planos { display: flex; justify-content: center; margin-top: 48px; }
-    .plano {
-      position: relative; width: 100%; max-width: 660px; border-radius: 32px;
-      padding: clamp(32px, 5vw, 48px); background: var(--acento); color: var(--sobre-acento);
-      overflow: hidden; transition: transform .35s var(--curva);
+    /* O "Capturado" da demonstração: cobre a tela e chega em cascata. */
+    .capturado-do-app {
+      position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px 18px; background: var(--fundo); text-align: center;
+      opacity: 0; transition: opacity .3s var(--curva);
     }
-    .plano:hover { transform: translateY(-4px); }
-    /* O brilho que corre por trás: um só, lento, e atrás do texto. */
-    .plano::before {
-      content: ''; position: absolute; inset: -40%; pointer-events: none;
-      background: radial-gradient(42% 42% at 30% 20%,
-        color-mix(in srgb, var(--habito-acento) 42%, transparent), transparent 70%),
-        radial-gradient(38% 38% at 78% 72%,
-        color-mix(in srgb, var(--anotacao-acento) 38%, transparent), transparent 70%);
-      animation: girar-brilho 18s linear infinite;
+    .capturado-do-app[hidden] { display: none; }
+    .capturado-do-app.visivel { opacity: 1; }
+    .capturado-do-app > * {
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .45s var(--curva), transform .45s var(--curva);
+      transition-delay: calc(var(--i) * 80ms + 80ms);
     }
-    @keyframes girar-brilho { to { transform: rotate(360deg); } }
-    .plano > * { position: relative; }
-    .selo-do-pro {
-      display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border-radius: 999px;
-      background: color-mix(in srgb, var(--sobre-acento) 16%, transparent);
-      font: 700 12.5px var(--fonte-texto); letter-spacing: .08em; text-transform: uppercase;
+    .capturado-do-app.visivel > * { opacity: 1; transform: none; }
+    .selo-capturado {
+      width: 54px; height: 54px; border-radius: 999px; display: grid; place-items: center;
+      background: var(--habito-acento); color: var(--fundo);
     }
-    .selo-do-pro svg { width: 14px; height: 14px; }
-    .plano h3 { margin-top: 18px; font-size: clamp(34px, 5vw, 46px); letter-spacing: -0.02em; }
-    .plano .sub { margin-top: 10px; font-size: clamp(17px, 2.2vw, 20px); opacity: .78; max-width: 24em; }
-    .plano ul {
-      list-style: none; padding: 0; margin: 30px 0 0;
-      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px;
+    .selo-capturado svg { width: 26px; height: 26px; }
+    .selo-capturado .traco { stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset .45s var(--curva) .35s; }
+    .capturado-do-app.visivel .traco { stroke-dashoffset: 0; }
+    .titulo-capturado { margin-top: 14px; font: 700 22px/1.2 var(--fonte-titulo); }
+    .apoio-capturado { margin-top: 4px; font-size: 12.5px; color: var(--texto-suave); }
+    .cartao-capturado {
+      width: 100%; margin-top: 16px; padding: 12px 14px; border-radius: 16px; text-align: left;
+      background: var(--superficie-suave);
     }
-    .plano li { display: flex; gap: 12px; align-items: flex-start; font-weight: 600; }
-    .plano li svg { width: 20px; height: 20px; flex: none; margin-top: 3px; opacity: .85; }
-    .plano .depois-do-pro {
-      margin-top: 30px; padding-top: 22px; font-size: 15px; opacity: .72;
-      border-top: 1px solid color-mix(in srgb, var(--sobre-acento) 18%, transparent);
+    .cartao-capturado p { font-size: 13.5px; line-height: 1.4; overflow-wrap: anywhere; }
+    .cartao-capturado span { display: block; margin-top: 6px; font-size: 11px; color: var(--texto-suave); }
+    .ir-para-pensamentos {
+      width: 100%; margin-top: 18px; min-height: 40px; border: 0; border-radius: 999px; cursor: pointer;
+      background: var(--texto); color: var(--fundo); font: 700 13px var(--fonte-texto);
+    }
+    .ir-para-pensamentos:active, .capturar-outro:active { transform: scale(0.97); }
+    .capturado-do-app :focus-visible { outline: 2px solid var(--habito-acento); outline-offset: 2px; }
+    .capturar-outro {
+      margin-top: 6px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; cursor: pointer;
+      background: transparent; color: var(--texto-suave); font: 600 12.5px var(--fonte-texto);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .capturado-do-app, .capturado-do-app > *, .selo-capturado .traco { transition: none; }
     }
 
-    /* Final. */
-    .final { text-align: center; }
-    .final .kiro-final { width: 128px; margin: 0 auto 28px; cursor: pointer; }
-    .final .kiro-final svg { width: 100%; height: auto; display: block; overflow: visible; }
-    .final h2 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; }
-    .final p { margin: 18px auto 0; color: var(--texto-suave); font-size: 18px; max-width: 28em; }
-    .final .lojas { justify-content: center; }
 
-    footer { border-top: 1px solid var(--linha); padding: 32px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14px; color: var(--texto-suave); }
-    footer .envelope { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; }
-    footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
-    footer a { text-decoration: none; padding: 8px 0; }
-    footer a:hover { color: var(--texto); }
-
-    /* Entrada ao rolar. */
-    .js .surge { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--curva), transform .7s var(--curva); transition-delay: var(--atraso, 0ms); }
-    .surge.visivel { opacity: 1; transform: none; }
-
-    @media (max-width: 860px) {
-      .abertura .envelope { grid-template-columns: minmax(0, 1fr); }
-      .palco { max-width: 320px; order: -1; }
-      .palco-com-iphone { max-width: 420px; order: 1; }
-      .abertura { padding-top: 12px; }
-      .destinos { grid-template-columns: minmax(0, 1fr); }
-      .destino { min-height: 0; }
-      .recursos { grid-template-columns: minmax(0, 1fr); }
-      .plano ul { grid-template-columns: minmax(0, 1fr); }
+    /* A janela de contato: o e-mail de suporte, para copiar ou escrever. */
+    .janela {
+      width: min(440px, calc(100% - 32px)); padding: 28px; border: 0; border-radius: 28px;
+      background: var(--fundo); color: var(--texto); box-shadow: inset 0 0 0 1px var(--linha), 0 30px 80px -30px rgba(0, 0, 0, 0.5);
+      opacity: 0; transform: translateY(12px) scale(0.98); transition: opacity .25s var(--curva), transform .25s var(--curva);
     }
-    @media (max-width: 520px) {
-      .baixar-topo { display: none; }
+    .janela[open].aberta { opacity: 1; transform: none; }
+    .janela::backdrop { background: rgba(0, 0, 0, 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .janela .mono { color: var(--suave); }
+    .janela h2 { font-size: 32px; line-height: 1.1; margin-top: 14px; }
+    .janela p { margin-top: 10px; color: var(--suave); font-size: 17px; }
+    .janela .email {
+      margin-top: 22px; padding: 16px 18px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--linha);
+      font: 700 18px/1.3 var(--fonte); overflow-wrap: anywhere; user-select: all;
+    }
+    .janela .acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .janela .acoes > * { flex: 1 1 160px; justify-content: center; }
+    .janela .secundario {
+      display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 999px; border: 0;
+      background: transparent; color: var(--texto); box-shadow: inset 0 0 0 1px var(--linha);
+      font: 700 17px/1 var(--fonte); cursor: pointer; transition: box-shadow .2s, transform .2s var(--curva);
+    }
+    .janela .secundario:hover { box-shadow: inset 0 0 0 1px var(--texto); }
+    .janela .secundario:active { transform: scale(0.98); }
+    .janela .fechar {
+      position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 999px; border: 0;
+      background: transparent; color: var(--texto); box-shadow: inset 0 0 0 1px var(--linha); cursor: pointer;
+      display: grid; place-items: center;
+    }
+    .janela .fechar svg { width: 16px; height: 16px; }
+    .janela :focus-visible { outline: 2px solid var(--texto); outline-offset: 2px; }
+
+    /* Entrada ao rolar: só deslocamento curto e opacidade. Sem JS, tudo à vista. */
+    .js .surge { opacity: 0; transform: translateY(14px); transition: opacity .7s var(--curva), transform .7s var(--curva); transition-delay: var(--atraso, 0ms); }
+    .js .surge.visivel { opacity: 1; transform: none; }
+
+    @media (max-width: 960px) {
+      .navegacao a { display: none; }
+      .navegacao { gap: 8px; }
+      .botao-menu { display: block; }
+      .abertura .grade { grid-template-columns: minmax(0, 1fr); }
+      .palco { margin-top: 8px; }
+      .iphone-real { max-width: 280px; }
+      .kiro { left: 2%; width: 24%; }
+      .fala { left: 0; }
+      .confianca .envelope { grid-template-columns: minmax(0, 1fr); }
+      .confianca .item + .item, .confianca .lojas { padding-left: 0; border-left: 0; border-top: 1px solid var(--linha-fraca); }
+      .confianca .lojas { padding: 16px 0; }
+      .colunas.c3, .colunas.c4, .planos { grid-template-columns: minmax(0, 1fr); }
+      .coluna, .coluna + .coluna, .plano, .plano + .plano { padding: 24px 0 28px; border-left: 0; }
+      .coluna + .coluna, .plano + .plano { border-top: 1px solid var(--linha-fraca); }
+      .coluna h3 { margin-top: 20px; }
+      .faixa { grid-template-columns: max-content minmax(0, 1fr); column-gap: 24px; }
+      .final .grade { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 720px) {
+      /* No celular as três telas viram uma fileira que corre de lado. */
+      .telas-lado-a-lado {
+        display: flex; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x proximity;
+        margin: 0 calc(-1 * var(--margem)); padding: 24px var(--margem) 8px; scroll-padding: 0 var(--margem); scrollbar-width: none;
+      }
+      .telas-lado-a-lado::-webkit-scrollbar { display: none; }
+      .telas-lado-a-lado figure { flex: 0 0 66%; scroll-snap-align: start; }
       .loja { flex: 1 1 100%; justify-content: center; }
-      .pensamento { font-size: 13px; padding: 8px 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .pensamento { animation: none; }
-      .seletor-de-telas button i { animation: none; }
-      .telas-que-passam img { transform: none; }
-      /* O brilho do cartão do Pro fica parado: a cor continua lá, o giro não. */
-      .plano::before { animation: none; }
       .js .surge { opacity: 1; transform: none; transition: none; }
-      * { transition-duration: 0.01ms !important; }
+      .telas-que-passam img { transition: none; transform: none; }
+      .seletor button i { animation: none; }
+      .fala { transition: none; }
+      .janela { transition: none; }
+      .menu-celular, .menu-celular.aberto, .botao-menu span { transition: none; }
     }
   </style>
 </head>
@@ -752,9 +700,6 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCTM2M4W"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-
-  <!-- O desenho do Kiro, uma vez, e usado por <use> em todo lugar.
-       Os caminhos são os de referencias/assets/mascote-novo.svg, letra por letra. -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <path id="k-corpo" d="M 907.65 1459.18 C 906.217 1470.22 904.03 1481.16 901.105 1491.91 C 893.621 1518.53 882.157 1538.29 857.594 1552.43 C 827.382 1569.83 766.12 1569.7 733.293 1560.41 C 678.182 1545.43 682.428 1502.75 684.382 1456.77 C 684.807 1446.78 683.555 1429.44 676.188 1422.66 C 662.929 1410.47 643.564 1402.73 628.66 1392.4 C 618.997 1385.7 610.302 1379.27 601.37 1371.89 C 570.81 1346.52 545.427 1315.49 526.61 1280.51 C 457.451 1154.11 488.299 1002.76 526.658 871.514 C 544.496 811.122 566.26 751.961 591.814 694.408 C 645.967 573.781 718.693 460.046 838 394.923 C 933.379 341.871 1045.91 328.842 1150.89 358.699 C 1376.8 425.262 1413.62 669.629 1445.89 869.98 C 1449.15 890.127 1452.25 910.301 1455.19 930.497 C 1456.66 940.194 1458.56 954.634 1460.65 963.772 C 1463.88 977.965 1473.29 994.668 1479.23 1008.41 C 1491.05 1035.47 1498.9 1064.09 1502.52 1093.4 C 1507.12 1128.32 1504.45 1163.81 1494.68 1197.65 C 1482.75 1237.54 1460.92 1268.95 1423.99 1288.75 C 1420.15 1291.4 1415.84 1302.2 1413.4 1307.16 C 1390.28 1347.11 1358.47 1381.35 1320.32 1407.33 C 1292.74 1426.13 1277.45 1423.95 1272.18 1462.54 C 1266.76 1502.28 1261.36 1529.72 1225.9 1552.22 L 1214.83 1557.35 C 1191.03 1565.32 1173.68 1566.52 1148.51 1566.67 C 1118.19 1566.84 1082.54 1563.12 1059.82 1540.58 C 1038.87 1519.81 1039.64 1488.33 1039.95 1460.89 C 1001.1 1460.98 945.637 1461.24 907.65 1459.18 z" />
@@ -766,7 +711,7 @@
     </defs>
   </svg>
 
-  <header class="topo" id="topo">
+  <header class="topo">
     <div class="envelope">
       <a class="marca" href="#" aria-label="Think Capture, início">
         <svg viewBox="461.333 318.667 1068 1272" aria-hidden="true">
@@ -777,94 +722,108 @@
         </svg>
         Think Capture
       </a>
-      <div class="topo-acoes">
+      <nav class="navegacao mono" aria-label="Principal">
+        <a href="#experimente">Experimente →</a>
+        <a href="#como-funciona">Como funciona →</a>
+        <a href="#planos">Planos →</a>
+        <a href="#contato" id="abrir-contato">Contato →</a>
         <button class="botao-tema" id="botao-tema" type="button" aria-label="Trocar entre claro e escuro">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         </button>
-        <a class="baixar-topo" href="#baixar">Baixar grátis</a>
+        <button class="botao-menu" id="botao-menu" type="button" aria-expanded="false" aria-controls="menu-celular" aria-label="Abrir menu">
+          <span></span><span></span>
+        </button>
+      </nav>
+    </div>
+    <!-- O menu do celular: abaixo de 960px os links do topo saem e moram aqui. -->
+    <div class="menu-celular" id="menu-celular">
+      <div class="dentro">
+        <nav class="lista-do-menu" aria-label="Menu">
+          <a href="#experimente">Experimente <span aria-hidden="true">→</span></a>
+          <a href="#como-funciona">Como funciona <span aria-hidden="true">→</span></a>
+          <a href="#planos">Planos <span aria-hidden="true">→</span></a>
+          <a href="#contato" id="abrir-contato-menu">Contato <span aria-hidden="true">→</span></a>
+          <a class="cta" href="#baixar">Baixar o Think Capture <span aria-hidden="true">→</span></a>
+        </nav>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Abertura -->
+    <!-- 00 Abertura -->
     <section class="abertura" aria-labelledby="titulo-abertura">
       <div class="envelope">
-        <div>
-          <p class="rotulo surge">Para iPhone e Android</p>
-          <h1 id="titulo-abertura" class="surge" style="--atraso:80ms">Sua cabeça não foi feita para guardar tudo.</h1>
-          <p class="apoio surge" style="--atraso:160ms">O Think Capture ajuda você a tirar da cabeça o que fica rodando, não perder o que importa e cuidar de cada coisa na hora certa.</p>
-          <div class="lojas surge" style="--atraso:240ms">
-            <a class="loja" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
-              <span><small>Baixar na</small><b>App Store</b></span>
-            </a>
-            <a class="loja contorno" href="https://play.google.com/store/apps/details?id=com.douglassdj.thinkcapture" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M3.6 1.8 13.3 11.5 3.6 21.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FBBC04" d="M16.6 14.8 13.3 11.5l3.3-3.3 3.8 2.2c1.1.6 1.1 1.6 0 2.2z"/><path fill="#EA4335" d="M13.3 11.5 3.6 21.2c.36.2.83.18 1.3-.08l11.7-6.32z"/><path fill="#4285F4" d="M3.6 1.8c.36-.2.83-.18 1.3.08l11.7 6.32-3.3 3.3z"/></svg>
-              <span><small>Disponível no</small><b>Google Play</b></span>
-            </a>
+        <div class="grade">
+          <div>
+            <h1 id="titulo-abertura" class="surge">Sua cabeça não foi feita para guardar tudo.</h1>
+            <p class="apoio surge" style="--atraso:80ms">O Think Capture ajuda você a tirar da cabeça o que fica rodando, não perder o que importa e cuidar de cada coisa na hora certa.</p>
+            <div class="lojas surge" style="--atraso:140ms">
+              <a class="loja apple" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
+            <span><small>Baixar na</small><b>App Store</b></span>
+          </a>
+          <a class="loja" href="https://play.google.com/store/apps/details?id=com.douglassdj.thinkcapture" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M3.6 1.8 13.3 11.5 3.6 21.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FBBC04" d="M16.6 14.8 13.3 11.5l3.3-3.3 3.8 2.2c1.1.6 1.1 1.6 0 2.2z"/><path fill="#EA4335" d="M13.3 11.5 3.6 21.2c.36.2.83.18 1.3-.08l11.7-6.32z"/><path fill="#4285F4" d="M3.6 1.8c.36-.2.83-.18 1.3.08l11.7 6.32-3.3 3.3z"/></svg>
+            <span><small>Disponível no</small><b>Google Play</b></span>
+          </a>
+            </div>
+            <p class="tres-batidas surge" style="--atraso:200ms">
+              <span>Tire da cabeça em segundos.</span>
+              <span>Organize quando tiver calma.</span>
+              <span>Veja o que está andando.</span>
+            </p>
           </div>
-        </div>
 
-        <div class="palco palco-com-iphone" id="palco">
-          <div class="fala" id="fala" aria-live="polite"></div>
-          <div class="iphone-real iphone-da-abertura">
-            <span class="botao-lateral acao"></span>
-            <span class="botao-lateral volume-mais"></span>
-            <span class="botao-lateral volume-menos"></span>
-            <span class="botao-lateral direita liga"></span>
-            <span class="botao-lateral direita camera"></span>
-            <div class="borda-da-tela">
-            <div class="telas-que-passam" id="telas-que-passam">
-              <img class="ativa" src="telas/inicio.jpg" alt="A tela de início do Think Capture, com o Kiro e os botões de falar e escrever" width="860" height="1870" />
-              <img src="telas/pensamentos.jpg" alt="A tela Pensamentos, com a caixa de entrada dos pensamentos guardados" width="860" height="1870" />
-              <img src="telas/acompanhar.jpg" alt="A tela Acompanhar, com os hábitos e as tarefas do dia" width="860" height="1870" />
+          <div class="palco" id="palco">
+            <div class="fala" id="fala" aria-live="polite"></div>
+            <div class="iphone-real">
+              <span class="botao-lateral acao"></span>
+              <span class="botao-lateral volume-mais"></span>
+              <span class="botao-lateral volume-menos"></span>
+              <span class="botao-lateral direita liga"></span>
+              <span class="botao-lateral direita camera"></span>
+              <div class="borda-da-tela">
+                <div class="tela telas-que-passam" id="telas-que-passam">
+                  <img class="ativa" src="telas/inicio.jpg" alt="A tela de início do Think Capture, com o Kiro e os botões de falar e escrever" width="860" height="1870" />
+                  <img src="telas/pensamentos.jpg" alt="A tela Pensamentos, com a caixa de entrada dos pensamentos guardados" width="860" height="1870" />
+                  <img src="telas/acompanhar.jpg" alt="A tela Acompanhar, com os hábitos e as tarefas do dia" width="860" height="1870" />
+                </div>
+              </div>
             </div>
+            <div class="seletor" id="seletor" aria-label="Telas do aplicativo">
+              <button type="button" aria-pressed="true">Início<i></i></button>
+              <button type="button" aria-pressed="false">Pensamentos<i></i></button>
+              <button type="button" aria-pressed="false">Acompanhar<i></i></button>
             </div>
-          </div>
-          <div class="seletor-de-telas" id="seletor-de-telas" aria-label="Telas do aplicativo">
-            <button type="button" aria-pressed="true">Início<i></i></button>
-            <button type="button" aria-pressed="false">Pensamentos<i></i></button>
-            <button type="button" aria-pressed="false">Acompanhar<i></i></button>
-          </div>
-          <div class="kiro-caixa" id="kiro" role="button" tabindex="0" aria-label="Kiro, o mascote do Think Capture. Toque para ele acenar.">
-            <div class="kiro-pulo" id="kiro-pulo">
-              <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
-                <ellipse id="k-sombra" cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
-                <g id="k-corpo-todo">
+            <div class="kiro" id="kiro" role="button" tabindex="0" aria-label="Kiro, o mascote do Think Capture. Toque para ele acenar.">
+              <div class="kiro-pulo" id="kiro-pulo">
+                <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
+                  <ellipse cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
                   <use href="#k-corpo" fill="var(--kiro-corpo)" />
                   <use href="#k-miolo" fill="var(--kiro-miolo)" />
                   <use href="#k-vinco" fill="var(--kiro-sombra)" />
                   <g id="k-boca-giro"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
-                  <g id="k-olhos">
-                    <g id="k-piscar">
-                      <use href="#k-olho-d" fill="var(--kiro-corpo)" />
-                      <use href="#k-olho-e" fill="var(--kiro-corpo)" />
-                    </g>
-                  </g>
-                </g>
-              </svg>
+                  <g id="k-olhos"><g id="k-piscar">
+                    <use href="#k-olho-d" fill="var(--kiro-corpo)" />
+                    <use href="#k-olho-e" fill="var(--kiro-corpo)" />
+                  </g></g>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Experimente -->
-    <section class="experimente" aria-labelledby="titulo-experimente">
+    <!-- 01 Experimente: a demonstração da captura, trazida da v1 -->
+    <section class="secao experimente" id="experimente" aria-labelledby="titulo-experimente">
       <div class="envelope">
+        <div class="faixa"><span class="mono">01</span><span class="mono">Experimente</span></div>
+        <div class="grade-demo">
         <div class="cabeca-secao surge">
           <h2 id="titulo-experimente">Tire da cabeça em segundos.</h2>
           <p>Experimente aqui: fale ou escreva o que está na sua cabeça e veja como é rápido tirar um pensamento dela. No aplicativo, ele ainda ganha um lembrete na hora certa e vira tarefa, hábito ou anotação quando você quiser.</p>
         </div>
-
-        <!--
-          Os dois aparelhos vivos - 11/10. O da esquerda é a tela de Início
-          rodando: o Kiro recebendo os pensamentos, o convite e a doca de
-          verdade. O da direita é Pensamentos, e enche com o que foi
-          capturado. O menu está lá porque a tela tem um, mas **só o Início
-          responde** - tocar nas outras abas diz isso, em vez de não fazer nada.
-        -->
         <div class="palco-dos-aparelhos">
           <figure class="aparelho-vivo surge">
             <div class="iphone-real">
@@ -944,399 +903,317 @@
                 </nav>
 
                 <p class="recado-do-app" id="recado-do-app" aria-live="polite">Aqui só o Início funciona. O resto está no aplicativo.</p>
+
+                <!-- O "Capturado": a confirmação depois de guardar, no jeito do app. -->
+                <div class="capturado-do-app" id="capturado-do-app" hidden role="status" aria-live="polite">
+                  <span class="selo-capturado" style="--i:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="traco" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+                  <p class="titulo-capturado" style="--i:1">Capturado</p>
+                  <p class="apoio-capturado" id="apoio-capturado" style="--i:2">Um a menos na sua cabeça.</p>
+                  <div class="cartao-capturado" style="--i:3">
+                    <p id="texto-capturado"></p>
+                    <span id="origem-capturado"></span>
+                  </div>
+                  <button type="button" class="ir-para-pensamentos" id="ir-para-pensamentos" style="--i:4">Ver em Pensamentos <span aria-hidden="true">→</span></button>
+                  <button type="button" class="capturar-outro" id="capturar-outro" style="--i:5">Capturar outro</button>
+                </div>
               </div>
               </div>
             </div>
-            <figcaption class="legenda"><b>Teste a captura</b><span>Fale ou escreva, e toque em Pensamentos para ver onde ele foi parar.</span></figcaption>
           </figure>
 
           
         </div>
-
       </div>
     </section>
 
-    <!-- Destinos -->
-    <section aria-labelledby="titulo-destinos">
+    <!-- Faixa de confiança: só o que é verdade sobre o produto -->
+    <section class="confianca" aria-label="Privacidade">
       <div class="envelope">
-        <div class="cabeca-secao surge">
-          <h2 id="titulo-destinos">Depois, cada um encontra seu lugar.</h2>
-          <p>Quando fizer sentido, transforme o que guardou em tarefa, hábito ou anotação. O pensamento original fica com você.</p>
+        <div class="item mono">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M4 4l16 16"/></svg>
+          Sua voz nunca é guardada
         </div>
-        <div class="destinos">
-          <article class="destino tarefa surge">
-            <div class="cabeca"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="m8 12.2 2.7 2.7L16.2 9.4"/></svg></div><h3>Tarefa</h3></div>
-            <p>Com quando fazer, prazo final e um lembrete na hora certa. Pode se repetir, como a conta de todo mês.</p>
-            <div class="exemplo"><span class="no"><span class="no-da-tarefa"></span></span><span class="corpo"><span class="titulo">Ligar pro dentista</span></span><span class="etiqueta-da-linha" style="background:var(--superficie-suave);color:var(--texto-suave)">14:00</span></div>
-          </article>
-          <article class="destino habito surge" style="--atraso:90ms">
-            <div class="cabeca"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.5 2 2.5 0-3 0-5 1-8z"/></svg></div><h3>Hábito</h3></div>
-            <p>Uma meta do seu jeito, um mapa dos dias e a sequência que cresce. Meio copo de água também aparece.</p>
-            <div class="exemplo"><span class="no"><span class="no-do-habito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span></span><span class="corpo"><span class="titulo">Voltar a correr</span><span class="semana"><i class="feito"></i><i></i><i class="feito"></i><i></i><i class="feito"></i><i></i><i class="hoje"></i></span></span><span class="lado-da-linha"><span class="sequencia">12</span><svg class="chama" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.5 2 2.5 0-3 0-5 1-8z"/></svg></span></div>
-          </article>
-          <article class="destino anotacao surge" style="--atraso:180ms">
-            <div class="cabeca"><div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div><h3>Anotação</h3></div>
-            <p>A frase que você quer ver de novo ao longo do dia, nos horários que escolher.</p>
-            <div class="exemplo"><span class="no no-da-anotacao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span><span class="corpo"><span class="titulo">Reclamar o menos possível</span></span><span class="etiqueta-da-linha">09:00</span></div>
-          </article>
+        <div class="item mono">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Seus pensamentos, só seus
+        </div>
+        <div class="item mono">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="13" height="10" rx="2"/><rect x="15" y="9" width="7" height="12" rx="2"/><path d="M6 18h6"/></svg>
+          Os mesmos em todo aparelho
         </div>
       </div>
     </section>
 
-    <!-- As telas do app -->
-    <section class="vitrine" aria-labelledby="titulo-vitrine" style="padding-top:0">
+    <!-- 02 O que você ganha -->
+    <section class="secao" aria-labelledby="titulo-ganha">
       <div class="envelope">
-        <div class="cabeca-secao surge">
-          <h2 id="titulo-vitrine">Tudo o que saiu da cabeça, num lugar só.</h2>
-          <p>Guarde num toque, encontre tudo na caixa de entrada e acompanhe o que virou tarefa, hábito ou anotação.</p>
-        </div>
-        <div class="aparelhos">
-          <figure class="aparelho surge" style="margin:0">
-            <div class="iphone"><img src="telas/inicio.jpg" alt="A tela de início do Think Capture, com o Kiro e os botões de falar e escrever" loading="lazy" width="860" height="1870" /></div>
-            <figcaption><b>Início</b><span>Fale ou escreva, e pronto</span></figcaption>
-          </figure>
-          <figure class="aparelho surge" style="margin:0;--atraso:100ms">
-            <div class="iphone"><img src="telas/pensamentos.jpg" alt="A tela Pensamentos do Think Capture, com a caixa de entrada dos pensamentos guardados" loading="lazy" width="860" height="1870" /></div>
-            <figcaption><b>Pensamentos</b><span>A caixa de entrada do que você guardou</span></figcaption>
-          </figure>
-          <figure class="aparelho surge" style="margin:0;--atraso:200ms">
-            <div class="iphone"><img src="telas/acompanhar.jpg" alt="A tela Acompanhar do Think Capture, com as tarefas e os hábitos do dia" loading="lazy" width="860" height="1870" /></div>
-            <figcaption><b>Acompanhar</b><span>Hábitos e tarefas do dia, com a sequência</span></figcaption>
-          </figure>
+        <div class="faixa"><span class="mono">02</span><span class="mono">O que você ganha</span></div>
+        <h2 id="titulo-ganha" class="surge">Cabeça leve, todos os dias.</h2>
+        <div class="colunas c3">
+          <div class="coluna surge">
+            <span class="mono">01</span>
+            <h3>Nada importante esquecido.</h3>
+            <p>O que veio à cabeça fica guardado no instante em que veio, e espera por você.</p>
+          </div>
+          <div class="coluna surge" style="--atraso:90ms">
+            <span class="mono">02</span>
+            <h3>Um lembrete na hora certa.</h3>
+            <p>Hoje, amanhã ou em uma semana. Saber que alguém avisa deixa você seguir o dia em paz.</p>
+          </div>
+          <div class="coluna surge" style="--atraso:180ms">
+            <span class="mono">03</span>
+            <h3>Hábitos que ficam.</h3>
+            <p>Uma meta do seu jeito, um mapa dos dias e a sequência que cresce. Meio copo de água também conta.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- O número -->
-    <section class="numero" aria-label="Quantos pensamentos por dia">
-      <div class="envelope surge">
-        <p class="frase">Cerca de <strong id="numero">6.200</strong> pensamentos passam pela cabeça de uma pessoa num único dia.</p>
-        <p class="depois">Tarefas abertas voltam à mente até serem anotadas. Tirar da cabeça é o que faz elas pararem de pesar.</p>
-      </div>
-    </section>
-
-    <!-- Recursos -->
-    <section aria-labelledby="titulo-recursos">
+    <!-- 03 Como funciona -->
+    <section class="secao" id="como-funciona" aria-labelledby="titulo-como">
       <div class="envelope">
-        <div class="cabeca-secao surge">
-          <h2 id="titulo-recursos">Rápido de guardar. Calmo de voltar.</h2>
-        </div>
-        <div class="recursos">
-          <div class="recurso surge">
-            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
-            <div><h3>Fale, e o texto aparece enquanto você fala</h3><p>A transcrição acontece no seu celular. Você revisa e guarda, sem esperar processar.</p></div>
+        <div class="faixa"><span class="mono">03</span><span class="mono">Como funciona</span></div>
+        <h2 id="titulo-como" class="surge">Do pensamento ao que anda.</h2>
+        <div class="colunas c4">
+          <div class="coluna surge">
+            <span class="mono">01</span>
+            <h3>Fale ou escreva.</h3>
+            <p>O texto aparece enquanto você fala. Um toque e está guardado.</p>
           </div>
-          <div class="recurso surge" style="--atraso:80ms">
-            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
-            <div><h3>Um lembrete na hora certa</h3><p>Hoje, amanhã ou em uma semana. Anotar tira da cabeça; saber que o Kiro avisa deixa você seguir o dia em paz.</p></div>
+          <div class="coluna surge" style="--atraso:80ms">
+            <span class="mono">02</span>
+            <h3>Deixe para depois.</h3>
+            <p>Ponha por que importa e um lembrete. Não precisa decidir nada agora.</p>
           </div>
-          <div class="recurso surge">
-            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
-            <div><h3>Sua voz não fica guardada</h3><p>Do pensamento falado fica só o texto. O áudio não é salvo em lugar nenhum, nem no aparelho, nem na nuvem.</p></div>
+          <div class="coluna surge" style="--atraso:160ms">
+            <span class="mono">03</span>
+            <h3>Organize com calma.</h3>
+            <p>Quando fizer sentido, o pensamento vira tarefa, hábito ou anotação.</p>
           </div>
-          <div class="recurso surge" style="--atraso:80ms">
-            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><rect x="15" y="9" width="7" height="12" rx="2"/><path d="M6 18h6"/></svg></div>
-            <div><h3>Os mesmos pensamentos em todo aparelho</h3><p>Tudo fica salvo na sua conta. Trocou de celular, entrou de novo, está tudo lá.</p></div>
-          </div>
-          <div class="recurso surge">
-            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></div>
-            <div><h3>Widgets na tela inicial</h3><p>Seus pensamentos e os hábitos do dia, sem nem abrir o aplicativo.</p></div>
-          </div>
-          <div class="recurso surge" style="--atraso:80ms">
-            <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
-            <div><h3>Resolveu sozinho? Marque e solte</h3><p>Nem todo pensamento precisa virar tarefa. Alguns só precisavam sair da cabeça.</p></div>
+          <div class="coluna surge" style="--atraso:240ms">
+            <span class="mono">04</span>
+            <h3>Acompanhe.</h3>
+            <p>As tarefas do dia, os hábitos com a sequência e o que já saiu da cabeça.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Planos -->
-    <section aria-labelledby="titulo-planos" style="padding-top:0">
+    <!-- 04 O que a ciência diz -->
+    <section class="secao" aria-labelledby="titulo-ciencia">
       <div class="envelope">
-        <div class="cabeca-secao surge">
-          <h2 id="titulo-planos">O essencial é grátis. Para sempre.</h2>
-          <p>Capturar, organizar e acompanhar não têm data para acabar. O Think Pro é para quem quer ir mais fundo.</p>
+        <div class="faixa"><span class="mono">04</span><span class="mono">O que a pesquisa sugere</span></div>
+        <h2 id="titulo-ciencia" class="surge">Anotar é o que faz parar de pesar.</h2>
+        <div class="colunas c3">
+          <div class="coluna surge">
+            <span class="mono">01 · Pensamentos</span>
+            <strong class="numero-grande" data-contar="6200">6.200</strong>
+            <p>mudanças de pensamento passam pela cabeça de uma pessoa num dia comum.</p>
+            <a class="fonte mono" href="https://doi.org/10.1038/s41467-020-17255-9" rel="noopener">Tseng e Poppenk, 2020 →</a>
+          </div>
+          <div class="coluna surge" style="--atraso:90ms">
+            <span class="mono">02 · Plano</span>
+            <strong class="numero-grande frase">Plano feito, cabeça livre.</strong>
+            <p>Tarefas por fazer voltam à mente sem pedir licença. Fazer um plano para elas é o que as cala.</p>
+            <a class="fonte mono" href="https://doi.org/10.1037/a0024192" rel="noopener">Masicampo e Baumeister, 2011 →</a>
+          </div>
+          <div class="coluna surge" style="--atraso:180ms">
+            <span class="mono">03 · Sono</span>
+            <strong class="numero-grande"><span data-contar="9">9</span> min</strong>
+            <p>mais rápido para dormir, em média, para quem anotou o que tinha por fazer antes de deitar.</p>
+            <a class="fonte mono" href="https://doi.org/10.1037/xge0000374" rel="noopener">Scullin e colegas, 2018 →</a>
+          </div>
         </div>
+      </div>
+
+    </section>
+
+    <!-- 05 Planos -->
+    <section class="secao" id="planos" aria-labelledby="titulo-planos">
+      <div class="envelope">
+        <div class="faixa"><span class="mono">05</span><span class="mono">Planos</span></div>
+        <h2 id="titulo-planos" class="surge">O essencial é grátis. Para sempre.</h2>
+        <p class="apoio-secao surge">Capturar, organizar e acompanhar não têm data para acabar. O Think Pro é para quem quer ir mais fundo.</p>
         <div class="planos">
           <div class="plano surge">
-            <span class="selo-do-pro"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.6 6.1 6.6.6-5 4.3 1.5 6.5L12 16.6 6.3 20l1.5-6.5-5-4.3 6.6-.6z"/></svg>Think Pro</span>
-            <h3>Para quem já não larga mais.</h3>
-            <p class="sub">Quando o aplicativo vira parte do dia, o Pro tira os limites de onde eles incomodam.</p>
+            <span class="mono">Think Grátis</span>
+            <h3>Para começar hoje.</h3>
+            <p>Para criar o hábito de tirar da cabeça.</p>
             <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tarefas, hábitos e anotações sem limite</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Lembretes em vários horários do dia</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Histórico completo do que você guardou</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Temas e cores do seu jeito</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Widgets com estilos e translúcido</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Novidades antes de todo mundo</li>
+              <li>Pensamentos sem limite, por voz ou texto</li>
+              <li>Tarefas, hábitos e anotações</li>
+              <li>Um lembrete para cada coisa</li>
+              <li>Sincronização entre aparelhos</li>
             </ul>
-            <p class="depois-do-pro">Baixe grátis e use à vontade. O Pro fica esperando o dia em que
-              você quiser ir mais fundo.</p>
+          </div>
+          <div class="plano surge" style="--atraso:90ms">
+            <span class="mono">Think Pro</span>
+            <h3>Para quem já não larga mais.</h3>
+            <p>Quando o aplicativo vira parte do dia.</p>
+            <ul>
+              <li>Tarefas, hábitos e anotações sem limite</li>
+              <li>Lembretes em vários horários do dia</li>
+              <li>Histórico completo do que você guardou</li>
+              <li>Temas, cores e widgets do seu jeito</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Final -->
-    <section class="final" id="baixar" aria-labelledby="titulo-final" style="border-top:1px solid var(--linha)">
-      <div class="envelope surge">
-        <div class="kiro-final" id="kiro-final" role="button" tabindex="0" aria-label="Kiro acenando">
-          <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
-            <ellipse cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
-            <use href="#k-corpo" fill="var(--kiro-corpo)" />
-            <use href="#k-miolo" fill="var(--kiro-miolo)" />
-            <use href="#k-vinco" fill="var(--kiro-sombra)" />
-            <g id="k-boca-final"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
-            <use href="#k-olho-d" fill="var(--kiro-corpo)" />
-            <use href="#k-olho-e" fill="var(--kiro-corpo)" />
-          </svg>
-        </div>
-        <h2 id="titulo-final">Cabeça leve, todos os dias.</h2>
-        <p>Baixe o Think Capture e guarde o primeiro pensamento agora. O Kiro cuida do resto.</p>
-        <div class="lojas">
-          <a class="loja" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.770-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
+    <!-- 06 Baixe -->
+    <section class="final" id="baixar" aria-labelledby="titulo-final">
+      <div class="envelope">
+        <div class="faixa"><span class="mono">06</span><span class="mono">Baixe o aplicativo</span></div>
+        <div class="grade">
+          <div>
+            <h2 id="titulo-final" class="surge">Baixe o Think Capture.</h2>
+            <p class="surge" style="--atraso:80ms">Guarde o primeiro pensamento agora. O Kiro cuida do resto. Grátis para iPhone e Android.</p>
+            <div class="lojas surge" style="--atraso:140ms">
+              <a class="loja apple" href="https://apps.apple.com/br/app/id6816753423" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.03-2.6 2.13-3.86 2.22-3.92-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.95-3.94.95-.82 0-2.07-.93-3.4-.9-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.81 1.3 10.37.87 1.25 1.9 2.65 3.25 2.6 1.31-.05 1.8-.84 3.38-.84 1.57 0 2.02.84 3.4.82 1.4-.03 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.05-2.75-4.16zM13.8 4.96c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/></svg>
             <span><small>Baixar na</small><b>App Store</b></span>
           </a>
-          <a class="loja contorno" href="https://play.google.com/store/apps/details?id=com.douglassdj.thinkcapture" rel="noopener">
+          <a class="loja" href="https://play.google.com/store/apps/details?id=com.douglassdj.thinkcapture" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M3.6 1.8 13.3 11.5 3.6 21.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FBBC04" d="M16.6 14.8 13.3 11.5l3.3-3.3 3.8 2.2c1.1.6 1.1 1.6 0 2.2z"/><path fill="#EA4335" d="M13.3 11.5 3.6 21.2c.36.2.83.18 1.3-.08l11.7-6.32z"/><path fill="#4285F4" d="M3.6 1.8c.36-.2.83-.18 1.3.08l11.7 6.32-3.3 3.3z"/></svg>
             <span><small>Disponível no</small><b>Google Play</b></span>
           </a>
+            </div>
+          </div>
+          <div class="kiro-final" id="kiro-final" role="button" tabindex="0" aria-label="Kiro acenando">
+            <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
+              <ellipse cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
+              <use href="#k-corpo" fill="var(--kiro-corpo)" />
+              <use href="#k-miolo" fill="var(--kiro-miolo)" />
+              <use href="#k-vinco" fill="var(--kiro-sombra)" />
+              <g id="k-boca-final"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
+              <use href="#k-olho-d" fill="var(--kiro-corpo)" />
+              <use href="#k-olho-e" fill="var(--kiro-corpo)" />
+            </svg>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer id="contato">
     <div class="envelope">
-      <span>Think Capture · feito no Brasil</span>
-      <nav aria-label="Rodapé">
-        <a href="politica-de-privacidade.html">Política de privacidade</a>
-        <a href="https://douglassdj.github.io/thinkcapture-site/excluir-conta.html">Excluir conta</a>
-        <a href="mailto:douglas.santosads@gmail.com">Contato</a>
+      <span><b style="color:var(--texto)">think capture</b> · um lugar para os seus pensamentos</span>
+      <nav class="mono" aria-label="Rodapé">
+        <a href="politica-de-privacidade.html">Privacidade →</a>
+        <a href="excluir-conta.html">Excluir conta →</a>
+        <a href="mailto:suporte@thinkcaptured.com.br" style="text-transform:none;letter-spacing:0.02em">suporte@thinkcaptured.com.br</a>
       </nav>
     </div>
   </footer>
 
+  <dialog class="janela" id="janela-contato" aria-labelledby="titulo-contato">
+    <button type="button" class="fechar" id="fechar-contato" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <span class="mono">Contato</span>
+    <h2 id="titulo-contato">Fale com a gente.</h2>
+    <p>Dúvida, ideia ou algo que não funcionou? Escreva para o suporte.</p>
+    <div class="email">suporte@thinkcaptured.com.br</div>
+    <div class="acoes">
+      <button type="button" class="secundario" id="copiar-email">Copiar e-mail</button>
+      <a class="cta" href="mailto:suporte@thinkcaptured.com.br">Escrever e-mail</a>
+    </div>
+  </dialog>
+
   <script>
   (function () {
     'use strict';
-
     var parado = window.matchMedia('(prefers-reduced-motion: reduce)');
     function semMovimento() { return parado.matches; }
 
     // ---------- Tema: segue o sistema, e o botão fixa a escolha ----------
     var raiz = document.documentElement;
-    function lerTema() { try { return localStorage.getItem('tema'); } catch (e) { return null; } }
-    function gravarTema(t) { try { localStorage.setItem('tema', t); } catch (e) { /* sem armazenamento, só nesta visita */ } }
-    var temaGuardado = lerTema();
-    if (temaGuardado === 'claro' || temaGuardado === 'escuro') raiz.setAttribute('data-tema', temaGuardado);
+    try {
+      var guardado = localStorage.getItem('tema');
+      if (guardado === 'claro' || guardado === 'escuro') raiz.setAttribute('data-tema', guardado);
+    } catch (e) { /* sem armazenamento, segue o sistema */ }
     document.getElementById('botao-tema').addEventListener('click', function () {
-      var atual = raiz.getAttribute('data-tema') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
+      var atual = raiz.getAttribute('data-tema') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
       var novo = atual === 'escuro' ? 'claro' : 'escuro';
       raiz.setAttribute('data-tema', novo);
-      gravarTema(novo);
+      try { localStorage.setItem('tema', novo); } catch (e) { /* só nesta visita */ }
     });
 
-    // ---------- Topo ganha linha ao rolar ----------
-    var topo = document.getElementById('topo');
-    window.addEventListener('scroll', function () {
-      topo.classList.toggle('rolou', window.scrollY > 8);
-    }, { passive: true });
+    // ---------- A janela de contato ----------
+    var janela = document.getElementById('janela-contato');
+    var botaoCopiar = document.getElementById('copiar-email');
+    var EMAIL = 'suporte@thinkcaptured.com.br';
+    function abrirContato(e) {
+      if (!janela.showModal) return; // navegador antigo: o link segue para o rodapé
+      e.preventDefault();
+      janela.showModal();
+      requestAnimationFrame(function () { janela.classList.add('aberta'); });
+    }
+    function fecharContato() {
+      janela.classList.remove('aberta');
+      setTimeout(function () { janela.close(); }, semMovimento() ? 0 : 250);
+    }
+    document.getElementById('abrir-contato').addEventListener('click', abrirContato);
+    document.getElementById('fechar-contato').addEventListener('click', fecharContato);
+    // Esc também desce com movimento, em vez de sumir num quadro.
+    janela.addEventListener('cancel', function (e) { e.preventDefault(); fecharContato(); });
+    // Tocar fora do cartão fecha.
+    janela.addEventListener('click', function (e) {
+      var r = janela.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) fecharContato();
+    });
+    botaoCopiar.addEventListener('click', function () {
+      function avisar(texto) {
+        botaoCopiar.textContent = texto;
+        setTimeout(function () { botaoCopiar.textContent = 'Copiar e-mail'; }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(EMAIL).then(function () { avisar('Copiado ✓'); }, function () { avisar('Selecione e copie'); });
+      } else {
+        avisar('Selecione e copie');
+      }
+    });
+
+    // ---------- O menu do celular ----------
+    var botaoMenu = document.getElementById('botao-menu');
+    var menu = document.getElementById('menu-celular');
+    function mudarMenu(abrir) {
+      menu.classList.toggle('aberto', abrir);
+      botaoMenu.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+      botaoMenu.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
+    }
+    botaoMenu.addEventListener('click', function () { mudarMenu(!menu.classList.contains('aberto')); });
+    // Escolher um link fecha o menu; o Contato ainda abre a janela do e-mail.
+    menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { mudarMenu(false); }); });
+    document.getElementById('abrir-contato-menu').addEventListener('click', abrirContato);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('aberto')) { mudarMenu(false); botaoMenu.focus(); }
+    });
+    // Ao alargar a janela para o tamanho de computador, o menu se recolhe.
+    window.matchMedia('(min-width: 961px)').addEventListener('change', function (m) { if (m.matches) mudarMenu(false); });
 
     // ---------- Entrada ao rolar ----------
     var surgem = document.querySelectorAll('.surge');
     if ('IntersectionObserver' in window && !semMovimento()) {
-      var observador = new IntersectionObserver(function (entradas) {
-        entradas.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('visivel'); observador.unobserve(e.target); }
-        });
+      var obs = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visivel'); obs.unobserve(e.target); } });
       }, { rootMargin: '0px 0px -8% 0px' });
-      surgem.forEach(function (el) { observador.observe(el); });
+      surgem.forEach(function (el) { obs.observe(el); });
     } else {
       surgem.forEach(function (el) { el.classList.add('visivel'); });
     }
 
-    // ---------- Pequeno motor de animação ----------
     function curva(t) { return 1 - Math.pow(1 - t, 3); }
     function animar(duracao, aoQuadro, aoFim) {
       if (semMovimento()) { aoQuadro(1); if (aoFim) aoFim(); return; }
       var inicio = performance.now();
-      function passo(agora) {
+      (function passo(agora) {
         var t = Math.min(1, (agora - inicio) / duracao);
         aoQuadro(t);
         if (t < 1) requestAnimationFrame(passo); else if (aoFim) aoFim();
-      }
-      requestAnimationFrame(passo);
+      })(inicio);
     }
-
-    // ---------- O Kiro ----------
-    // Pontos lidos do desenho: o alto da boca (pivô do aceno) e o meio dos olhos.
-    var PIVO = '824 1030';
-    var OLHOS_X = 1125, OLHOS_Y = 761;
-
-    var kiro = document.getElementById('kiro');
-    var pulo = document.getElementById('kiro-pulo');
-    var olhos = document.getElementById('k-olhos');
-    var piscar = document.getElementById('k-piscar');
-    var boca = document.getElementById('k-boca-giro');
-    var fala = document.getElementById('fala');
-    var palco = document.getElementById('palco');
-
-    // Os olhos seguem o ponteiro, dentro de um raio pequeno.
-    var palcoNaTela = true;
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (e) {
-        var antes = palcoNaTela;
-        palcoNaTela = e[0].isIntersecting;
-        palco.classList.toggle('fora', !palcoNaTela);
-        if (palcoNaTela && !antes) { requestAnimationFrame(aplicarCorpo); if (!semMovimento()) requestAnimationFrame(loopDosOlhos); }
-      }).observe(palco);
-    }
-    var olharAlvo = { x: 0, y: 0 }, olharAgora = { x: 0, y: 0 };
-    function olharPara(clienteX, clienteY) {
-      var r = kiro.getBoundingClientRect();
-      var cx = r.left + r.width * 0.62, cy = r.top + r.height * 0.36;
-      var dx = clienteX - cx, dy = clienteY - cy;
-      var d = Math.hypot(dx, dy) || 1;
-      var forca = Math.min(1, d / 320);
-      olharAlvo.x = (dx / d) * 34 * forca;
-      olharAlvo.y = (dy / d) * 26 * forca;
-    }
-    window.addEventListener('pointermove', function (e) { olharPara(e.clientX, e.clientY); }, { passive: true });
-    function loopDosOlhos() {
-      olharAgora.x += (olharAlvo.x - olharAgora.x) * 0.12;
-      olharAgora.y += (olharAlvo.y - olharAgora.y) * 0.12;
-      olhos.setAttribute('transform', 'translate(' + olharAgora.x.toFixed(1) + ' ' + olharAgora.y.toFixed(1) + ')');
-      if (palcoNaTela) requestAnimationFrame(loopDosOlhos);
-    }
-    if (!semMovimento()) requestAnimationFrame(loopDosOlhos);
-
-    // Piscar, de tempos em tempos.
-    function piscarUmaVez() {
-      animar(180, function (t) {
-        var s = t < 0.5 ? 1 - t * 1.8 : 0.1 + (t - 0.5) * 1.8;
-        piscar.setAttribute('transform', 'translate(0 ' + OLHOS_Y + ') scale(1 ' + s.toFixed(3) + ') translate(0 ' + (-OLHOS_Y) + ')');
-      }, function () { piscar.removeAttribute('transform'); });
-    }
-    (function agendarPiscada() {
-      setTimeout(function () { if (!semMovimento() && palcoNaTela) piscarUmaVez(); agendarPiscada(); }, 2600 + Math.random() * 2600);
-    })();
-
-    // Respirar: o corpo sobe e desce devagar, a sombra acompanha.
-    var respirando = true, tempoBase = performance.now();
-    var sombra = document.getElementById('k-sombra');
-    var deformacao = { sx: 1, sy: 1, y: 0 };
-    function aplicarCorpo() {
-      var respiro = respirando && !semMovimento() ? Math.sin((performance.now() - tempoBase) / 900) * 0.012 : 0;
-      pulo.style.transform = 'translateY(' + deformacao.y.toFixed(2) + 'px) scale(' +
-        (deformacao.sx - respiro).toFixed(4) + ',' + (deformacao.sy + respiro).toFixed(4) + ')';
-      var altura = Math.max(0, -deformacao.y);
-      sombra.setAttribute('rx', (508.5 * (1 - altura / 260)).toFixed(1));
-      if (palcoNaTela) requestAnimationFrame(aplicarCorpo);
-    }
-    requestAnimationFrame(aplicarCorpo);
-
-    // Acenar: a boca sobe, vai e vem três vezes, e desce. Igual ao app.
-    var acenando = false;
-    function acenar(alvo) {
-      var g = alvo || boca;
-      if (g === boca && acenando) return;
-      if (g === boca) acenando = true;
-      animar(1500, function (t) {
-        var ang;
-        if (t < 0.18) ang = -72 * curva(t / 0.18);
-        else if (t < 0.82) ang = -72 + Math.sin(((t - 0.18) / 0.64) * Math.PI * 3) * 24 - 0;
-        else ang = -72 * (1 - curva((t - 0.82) / 0.18));
-        g.setAttribute('transform', 'rotate(' + ang.toFixed(2) + ' ' + PIVO + ')');
-      }, function () { g.removeAttribute('transform'); if (g === boca) acenando = false; });
-    }
-
-    // Pular: amassa, sobe, cai e quica pouco. Sem elástico exagerado.
-    var pulando = false;
-    function pular() {
-      if (pulando) return;
-      pulando = true;
-      animar(760, function (t) {
-        if (t < 0.15) { var a = t / 0.15; deformacao.sx = 1 + 0.08 * a; deformacao.sy = 1 - 0.1 * a; deformacao.y = 0; }
-        else if (t < 0.55) { var b = (t - 0.15) / 0.4; var h = Math.sin(b * Math.PI); deformacao.y = -46 * h; deformacao.sx = 1 - 0.04 * h; deformacao.sy = 1 + 0.06 * h; }
-        else if (t < 0.7) { var c = (t - 0.55) / 0.15; deformacao.y = 0; deformacao.sx = 1 + 0.06 * Math.sin(c * Math.PI); deformacao.sy = 1 - 0.07 * Math.sin(c * Math.PI); }
-        else { deformacao.sx = 1; deformacao.sy = 1; deformacao.y = 0; }
-      }, function () { deformacao.sx = 1; deformacao.sy = 1; deformacao.y = 0; pulando = false; });
-    }
-
-    // Engolir: amassa largo, como quem recebe alguma coisa.
-    function receber() {
-      animar(520, function (t) {
-        var k = Math.sin(t * Math.PI) * (1 - t * 0.4);
-        deformacao.sx = 1 + 0.1 * k; deformacao.sy = 1 - 0.09 * k; deformacao.y = 0;
-      }, function () { deformacao.sx = 1; deformacao.sy = 1; });
-    }
-
-    var FALAS = [
-      'Oi! Eu sou o Kiro.',
-      'Me dá um pensamento que eu guardo.',
-      'Cabeça leve decide melhor.',
-      'O que está anotado não precisa ficar rodando na sua cabeça.',
-      'Essas são as telas do aplicativo.'
-    ];
-    var indiceFala = 0, relogioFala = null;
-    function dizer(texto) {
-      fala.textContent = texto;
-      fala.classList.add('visivel');
-      clearTimeout(relogioFala);
-      relogioFala = setTimeout(function () { fala.classList.remove('visivel'); }, 2600);
-    }
-
-    function tocarNoKiro() {
-      acenar();
-      pular();
-      dizer(FALAS[indiceFala % FALAS.length]);
-      indiceFala++;
-    }
-    kiro.addEventListener('click', tocarNoKiro);
-    kiro.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tocarNoKiro(); }
-    });
-
-    // Aceno de chegada.
-    setTimeout(function () { acenar(); dizer(FALAS[0]); indiceFala = 1; }, semMovimento() ? 0 : 700);
-
-    // ---------- O iPhone da abertura passa pelas telas ----------
-    var TEMPO_DA_TELA = 4000;
-    var telas = document.querySelectorAll('#telas-que-passam img');
-    var seletor = document.getElementById('seletor-de-telas');
-    var botoesDasTelas = seletor.querySelectorAll('button');
-    seletor.style.setProperty('--tempo-da-tela', TEMPO_DA_TELA + 'ms');
-    var telaAtual = 0, relogioDaTela = null;
-    function mostrarTela(n) {
-      if (n === telaAtual) return;
-      var antiga = telas[telaAtual];
-      antiga.classList.remove('ativa');
-      antiga.classList.add('saindo');
-      setTimeout(function () { antiga.classList.remove('saindo'); }, 650);
-      telas[n].classList.add('ativa');
-      botoesDasTelas[telaAtual].setAttribute('aria-pressed', 'false');
-      botoesDasTelas[n].setAttribute('aria-pressed', 'true');
-      telaAtual = n;
-    }
-    function passarSozinho() {
-      clearInterval(relogioDaTela);
-      relogioDaTela = setInterval(function () {
-        if (palcoNaTela && !document.hidden) mostrarTela((telaAtual + 1) % telas.length);
-      }, TEMPO_DA_TELA);
-    }
-    botoesDasTelas.forEach(function (b, n) {
-      b.addEventListener('click', function () {
-        mostrarTela(n);
-        // A barrinha recomeça do zero na tela escolhida.
-        var barra = b.querySelector('i');
-        barra.style.animation = 'none'; void barra.offsetWidth; barra.style.animation = '';
-        passarSozinho();
-      });
-    });
-    passarSozinho();
 
     // ---------- Experimente: a captura de verdade ----------
     /*
@@ -1709,13 +1586,37 @@
       var texto = ditoDoApp.value.trim();
       if (!texto || demoCheia()) return;
       if (escutaDoApp.estaOuvindo()) escutaDoApp.parar(true);
+      var foiPorVoz = porVozNoApp;
       guardarPensamento(texto);
       ditoDoApp.value = '';
       porVozNoApp = false;
       conferirGuardarDoApp();
       estadoDoApp('repouso');
-      mostrarRecado('Capturado. Toque em Pensamentos para ver.');
+      mostrarCapturado(texto, foiPorVoz);
     });
+
+    // ---------- O "Capturado": a confirmação, com o caminho para Pensamentos ----------
+    var capturado = document.getElementById('capturado-do-app');
+    var NUMEROS = ['Um', 'Dois', 'Três', 'Quatro', 'Cinco'];
+    function mostrarCapturado(texto, porVoz) {
+      document.getElementById('texto-capturado').textContent = texto;
+      document.getElementById('origem-capturado').textContent = (porVoz ? 'Por voz' : 'Escrito') + ' · ' + horaAgora();
+      document.getElementById('apoio-capturado').textContent =
+        (NUMEROS[total - 1] || String(total)) + ' a menos na sua cabeça.';
+      capturado.hidden = false;
+      // Dois quadros: o primeiro desenha o estado de partida, o segundo anima.
+      requestAnimationFrame(function () { requestAnimationFrame(function () { capturado.classList.add('visivel'); }); });
+      setTimeout(function () { document.getElementById('ir-para-pensamentos').focus({ preventScroll: true }); }, 400);
+    }
+    function fecharCapturado() {
+      capturado.classList.remove('visivel');
+      setTimeout(function () { capturado.hidden = true; }, semMovimento() ? 0 : 300);
+    }
+    document.getElementById('ir-para-pensamentos').addEventListener('click', function () {
+      irParaPagina('pensamentos');
+      fecharCapturado();
+    });
+    document.getElementById('capturar-outro').addEventListener('click', fecharCapturado);
 
     /*
       As abas estão desenhadas porque a tela tem um menu, e **só o Início
@@ -1841,33 +1742,133 @@
       ondaDoApp.style.display = 'none';
     }
 
-    // ---------- O número sobe quando aparece ----------
-    var numero = document.getElementById('numero');
-    if ('IntersectionObserver' in window && !semMovimento()) {
-      numero.textContent = '0';
-      var obsNumero = new IntersectionObserver(function (entradas) {
-        if (!entradas[0].isIntersecting) return;
-        obsNumero.disconnect();
-        animar(1600, function (t) {
-          numero.textContent = Math.round(6200 * curva(t)).toLocaleString('pt-BR');
-        });
+    // ---------- Os números sobem quando aparecem ----------
+    document.querySelectorAll('[data-contar]').forEach(function (el) {
+      var alvo = Number(el.getAttribute('data-contar'));
+      if (!('IntersectionObserver' in window) || semMovimento()) return;
+      el.textContent = '0';
+      var o = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return;
+        o.disconnect();
+        animar(1500, function (t) { el.textContent = Math.round(alvo * curva(t)).toLocaleString('pt-BR'); });
       }, { threshold: 0.6 });
-      obsNumero.observe(numero);
-    }
+      o.observe(el);
+    });
 
-    // ---------- Kiro do final acena quando aparece e quando é tocado ----------
+    // ---------- O celular da abertura passa pelas telas ----------
+    var TEMPO_DA_TELA = 4000;
+    var palco = document.getElementById('palco');
+    var palcoNaTela = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { palcoNaTela = es[0].isIntersecting; }).observe(palco);
+    }
+    var telas = document.querySelectorAll('#telas-que-passam img');
+    var seletor = document.getElementById('seletor');
+    var botoes = seletor.querySelectorAll('button');
+    seletor.style.setProperty('--tempo', TEMPO_DA_TELA + 'ms');
+    var atual = 0, relogio = null;
+    function mostrar(n) {
+      if (n === atual) return;
+      var antiga = telas[atual];
+      antiga.classList.remove('ativa'); antiga.classList.add('saindo');
+      setTimeout(function () { antiga.classList.remove('saindo'); }, 650);
+      telas[n].classList.add('ativa');
+      botoes[atual].setAttribute('aria-pressed', 'false');
+      botoes[n].setAttribute('aria-pressed', 'true');
+      atual = n;
+    }
+    function passarSozinho() {
+      clearInterval(relogio);
+      relogio = setInterval(function () {
+        if (palcoNaTela && !document.hidden) mostrar((atual + 1) % telas.length);
+      }, TEMPO_DA_TELA);
+    }
+    botoes.forEach(function (b, n) {
+      b.addEventListener('click', function () {
+        mostrar(n);
+        var barra = b.querySelector('i');
+        barra.style.animation = 'none'; void barra.offsetWidth; barra.style.animation = '';
+        passarSozinho();
+      });
+    });
+    passarSozinho();
+
+    // ---------- O Kiro: olha, pisca, acena e pula ----------
+    var PIVO = '824 1030', OLHOS_Y = 761;
+    var kiro = document.getElementById('kiro');
+    var pulo = document.getElementById('kiro-pulo');
+    var olhos = document.getElementById('k-olhos');
+    var piscar = document.getElementById('k-piscar');
+    var boca = document.getElementById('k-boca-giro');
+    var fala = document.getElementById('fala');
+
+    var alvo = { x: 0, y: 0 }, agora = { x: 0, y: 0 };
+    window.addEventListener('pointermove', function (e) {
+      var r = kiro.getBoundingClientRect();
+      var dx = e.clientX - (r.left + r.width * 0.62), dy = e.clientY - (r.top + r.height * 0.36);
+      var d = Math.hypot(dx, dy) || 1, f = Math.min(1, d / 320);
+      alvo.x = (dx / d) * 34 * f; alvo.y = (dy / d) * 26 * f;
+    }, { passive: true });
+    (function olhar() {
+      if (palcoNaTela && !semMovimento()) {
+        agora.x += (alvo.x - agora.x) * 0.12; agora.y += (alvo.y - agora.y) * 0.12;
+        olhos.setAttribute('transform', 'translate(' + agora.x.toFixed(1) + ' ' + agora.y.toFixed(1) + ')');
+      }
+      requestAnimationFrame(olhar);
+    })();
+    (function agendarPiscada() {
+      setTimeout(function () {
+        if (!semMovimento() && palcoNaTela) animar(180, function (t) {
+          var s = t < 0.5 ? 1 - t * 1.8 : 0.1 + (t - 0.5) * 1.8;
+          piscar.setAttribute('transform', 'translate(0 ' + OLHOS_Y + ') scale(1 ' + s.toFixed(3) + ') translate(0 ' + (-OLHOS_Y) + ')');
+        }, function () { piscar.removeAttribute('transform'); });
+        agendarPiscada();
+      }, 2600 + Math.random() * 2600);
+    })();
+
+    var acenando = {};
+    function acenar(g) {
+      if (acenando[g.id]) return;
+      acenando[g.id] = true;
+      animar(1500, function (t) {
+        var ang;
+        if (t < 0.18) ang = -72 * curva(t / 0.18);
+        else if (t < 0.82) ang = -72 + Math.sin(((t - 0.18) / 0.64) * Math.PI * 3) * 24;
+        else ang = -72 * (1 - curva((t - 0.82) / 0.18));
+        g.setAttribute('transform', 'rotate(' + ang.toFixed(2) + ' ' + PIVO + ')');
+      }, function () { g.removeAttribute('transform'); acenando[g.id] = false; });
+    }
+    var pulando = false;
+    function pular() {
+      if (pulando || semMovimento()) return;
+      pulando = true;
+      animar(700, function (t) {
+        var y = 0, sx = 1, sy = 1;
+        if (t < 0.15) { var a = t / 0.15; sx = 1 + 0.07 * a; sy = 1 - 0.08 * a; }
+        else if (t < 0.6) { var h = Math.sin(((t - 0.15) / 0.45) * Math.PI); y = -36 * h; sx = 1 - 0.03 * h; sy = 1 + 0.05 * h; }
+        pulo.style.transform = 'translateY(' + y.toFixed(1) + 'px) scale(' + sx.toFixed(3) + ',' + sy.toFixed(3) + ')';
+      }, function () { pulo.style.transform = ''; pulando = false; });
+    }
+    var FALAS = ['Oi! Eu sou o Kiro.', 'Me dá um pensamento que eu guardo.', 'Cabeça leve decide melhor.', 'Essas são as telas do aplicativo.'];
+    var indice = 0, relogioFala = null;
+    function dizer(texto) {
+      fala.textContent = texto; fala.classList.add('visivel');
+      clearTimeout(relogioFala);
+      relogioFala = setTimeout(function () { fala.classList.remove('visivel'); }, 2600);
+    }
+    function tocarNoKiro() { acenar(boca); pular(); dizer(FALAS[indice++ % FALAS.length]); }
+    kiro.addEventListener('click', tocarNoKiro);
+    kiro.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tocarNoKiro(); } });
+    setTimeout(function () { acenar(boca); dizer(FALAS[0]); indice = 1; }, semMovimento() ? 0 : 900);
+
     var kiroFinal = document.getElementById('kiro-final');
     var bocaFinal = document.getElementById('k-boca-final');
     if ('IntersectionObserver' in window) {
-      var obsFinal = new IntersectionObserver(function (entradas) {
-        if (entradas[0].isIntersecting) { acenar(bocaFinal); obsFinal.disconnect(); }
-      }, { threshold: 0.8 });
-      obsFinal.observe(kiroFinal);
+      var oFinal = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { acenar(bocaFinal); oFinal.disconnect(); } }, { threshold: 0.8 });
+      oFinal.observe(kiroFinal);
     }
     kiroFinal.addEventListener('click', function () { acenar(bocaFinal); });
-    kiroFinal.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); acenar(bocaFinal); }
-    });
+    kiroFinal.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); acenar(bocaFinal); } });
   })();
   </script>
   <!-- Aviso de cookies: só o Google Analytics, só para contar visitas -->
@@ -1880,8 +1881,8 @@
   </div>
   <style>
     #aviso-cookies { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 1000; max-width: 560px; margin: 0 auto;
-      background: var(--superficie); color: var(--texto); border: 1px solid var(--linha); border-radius: 20px;
-      padding: 16px 18px; box-shadow: 0 12px 40px rgba(0,0,0,.14); font-size: 15px; line-height: 1.5;
+      background: var(--superficie); color: var(--texto); border: 0; border-radius: 28px;
+      padding: 18px 20px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.06); font-size: 15px; line-height: 1.5;
       display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;
       opacity: 0; transform: translateY(12px); transition: opacity .32s cubic-bezier(.22,.9,.24,1), transform .32s cubic-bezier(.22,.9,.24,1); }
     #aviso-cookies.visivel { opacity: 1; transform: none; }
@@ -1917,5 +1918,6 @@
     if (escolhaDeCookies !== 'aceito' && escolhaDeCookies !== 'recusado') mostrar();
   })();
   </script>
+
 </body>
 </html>
