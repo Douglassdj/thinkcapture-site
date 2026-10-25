@@ -325,7 +325,17 @@
 
     /* Experimente: o campo que manda o pensamento para o Kiro. */
     .experimente { border-top: 1px solid var(--linha); }
-    .experimente .envelope { display: block; }
+    /* Texto à esquerda e o celular à direita, como na abertura - 23/10. */
+    .experimente .envelope {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(32px, 6vw, 80px); align-items: center;
+    }
+    .experimente .palco-dos-aparelhos { margin-top: 0; }
+    .iphone-real .tela-do-app { border-radius: 12.4% / 6.2%; }
+    @media (max-width: 860px) {
+      .experimente .envelope { grid-template-columns: minmax(0, 1fr); }
+      .experimente .palco-dos-aparelhos { margin-top: 12px; }
+    }
     /* Destinos: tarefa, hábito, anotação. */
     .destinos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
     .destino {
@@ -857,7 +867,13 @@
         -->
         <div class="palco-dos-aparelhos">
           <figure class="aparelho-vivo surge">
-            <div class="iphone">
+            <div class="iphone-real">
+              <span class="botao-lateral acao"></span>
+              <span class="botao-lateral volume-mais"></span>
+              <span class="botao-lateral volume-menos"></span>
+              <span class="botao-lateral direita liga"></span>
+              <span class="botao-lateral direita camera"></span>
+              <div class="borda-da-tela">
               <div class="tela-do-app" id="tela-inicio" data-estado="repouso" data-pagina="inicio">
                 <div class="topo-do-app">
                   <span class="saudacao" id="saudacao-do-app">Bom dia</span>
@@ -928,6 +944,7 @@
                 </nav>
 
                 <p class="recado-do-app" id="recado-do-app" aria-live="polite">Aqui só o Início funciona. O resto está no aplicativo.</p>
+              </div>
               </div>
             </div>
             <figcaption class="legenda"><b>Teste a captura</b><span>Fale ou escreva, e toque em Pensamentos para ver onde ele foi parar.</span></figcaption>
