@@ -63,6 +63,7 @@
       --trilha-forte: rgba(17, 17, 17, 0.22);
       --apple-texto: #FFFFFF;
       --kiro-sombra: #E7E6DF;
+      --kiro-contorno: transparent;
       color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
@@ -87,6 +88,8 @@
         --trilha-forte: rgba(242, 242, 242, 0.24);
         --apple-texto: #000000;
         --kiro-sombra: #1C1C1C;
+      --kiro-contorno: rgba(242, 242, 242, 0.3);
+        --kiro-contorno: rgba(242, 242, 242, 0.3);
         color-scheme: dark;
       }
     }
@@ -155,7 +158,7 @@
     }
     .topo .envelope { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
     .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 22px/1 var(--titulo); letter-spacing: -0.02em; }
-    .marca svg { width: 28px; height: 33px; }
+    .marca svg { width: 28px; height: 30px; }
     .navegacao { display: flex; align-items: center; gap: 28px; }
     .navegacao a { text-decoration: none; padding: 12px 0; font: 600 15px/1 var(--fonte); color: var(--suave); transition: color .2s; }
     .navegacao a:hover { color: var(--texto); }
@@ -797,12 +800,21 @@
   <!-- End Google Tag Manager (noscript) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <path id="k-corpo" d="M 907.65 1459.18 C 906.217 1470.22 904.03 1481.16 901.105 1491.91 C 893.621 1518.53 882.157 1538.29 857.594 1552.43 C 827.382 1569.83 766.12 1569.7 733.293 1560.41 C 678.182 1545.43 682.428 1502.75 684.382 1456.77 C 684.807 1446.78 683.555 1429.44 676.188 1422.66 C 662.929 1410.47 643.564 1402.73 628.66 1392.4 C 618.997 1385.7 610.302 1379.27 601.37 1371.89 C 570.81 1346.52 545.427 1315.49 526.61 1280.51 C 457.451 1154.11 488.299 1002.76 526.658 871.514 C 544.496 811.122 566.26 751.961 591.814 694.408 C 645.967 573.781 718.693 460.046 838 394.923 C 933.379 341.871 1045.91 328.842 1150.89 358.699 C 1376.8 425.262 1413.62 669.629 1445.89 869.98 C 1449.15 890.127 1452.25 910.301 1455.19 930.497 C 1456.66 940.194 1458.56 954.634 1460.65 963.772 C 1463.88 977.965 1473.29 994.668 1479.23 1008.41 C 1491.05 1035.47 1498.9 1064.09 1502.52 1093.4 C 1507.12 1128.32 1504.45 1163.81 1494.68 1197.65 C 1482.75 1237.54 1460.92 1268.95 1423.99 1288.75 C 1420.15 1291.4 1415.84 1302.2 1413.4 1307.16 C 1390.28 1347.11 1358.47 1381.35 1320.32 1407.33 C 1292.74 1426.13 1277.45 1423.95 1272.18 1462.54 C 1266.76 1502.28 1261.36 1529.72 1225.9 1552.22 L 1214.83 1557.35 C 1191.03 1565.32 1173.68 1566.52 1148.51 1566.67 C 1118.19 1566.84 1082.54 1563.12 1059.82 1540.58 C 1038.87 1519.81 1039.64 1488.33 1039.95 1460.89 C 1001.1 1460.98 945.637 1461.24 907.65 1459.18 z" />
-      <path id="k-miolo" d="M 1067 1458.34 C 1083.98 1457.19 1130.43 1449.51 1141.72 1435.29 C 1144.06 1432.34 1140.02 1424.75 1135.47 1425.18 C 1107.15 1427.87 1079.83 1431.26 1051.21 1432.76 C 1023.93 1434.18 996.606 1434.57 969.295 1433.93 C 950.316 1433.52 930.593 1431.74 911.67 1433.19 C 902.855 1433.86 896.825 1434.54 890.161 1441.05 C 870.923 1459.83 884.348 1503.1 848.34 1527.17 C 824.099 1543.37 776.289 1542.42 748.934 1536.98 C 680.541 1523.35 727.723 1457.01 702.86 1414.25 C 691.76 1395.16 670.295 1386.7 652.336 1375.49 C 642.836 1369.56 633.649 1362.87 624.787 1356.02 C 600.623 1337.02 579.691 1314.23 562.801 1288.54 C 499.528 1191.77 506.025 1082.13 528.527 973.539 C 540.475 918.566 555.909 864.41 574.736 811.397 C 624.038 669.187 696.392 518.685 825.96 433.729 C 911.855 377.792 1016.26 357.768 1116.75 377.956 C 1202.03 395.86 1264.57 438.128 1312.47 511.946 C 1382.81 620.352 1398.25 756.965 1420.58 881.789 C 1425.43 908.868 1428.34 937.089 1433.09 964.135 C 1436.75 985.028 1448.08 1003.26 1455.950 1022.59 C 1476.93 1074.1 1484.05 1121.37 1472.57 1175.8 C 1463.61 1209.96 1449.3 1243.04 1417.42 1261.76 C 1377.64 1285.11 1318.9 1271.48 1300.71 1226.79 C 1296.77 1216.67 1294.91 1208.15 1295.84 1197.24 C 1301.86 1126.09 1405.37 1121.91 1398.78 1043.79 C 1398.31 1038.21 1397.89 1035.13 1394.15 1030.93 C 1389.98 1028.91 1386.92 1028.08 1384.51 1032.63 C 1381.58 1038.15 1380.22 1044.15 1378.28 1050.06 C 1375.61 1058.37 1371.78 1066.27 1366.91 1073.51 C 1352.02 1096.15 1319.55 1110.83 1299.89 1130.93 C 1238.75 1193.43 1273.48 1287.04 1358.98 1298.39 C 1368.57 1299.66 1377.39 1299.24 1387.02 1299.05 C 1365.49 1336.85 1333 1366.97 1297.17 1391.04 C 1283.36 1400.31 1269.63 1404.23 1259.950 1418.26 C 1239.7 1447.59 1250.3 1491.91 1225.98 1518.57 C 1208.92 1537.26 1173.53 1540.67 1149.77 1540.72 C 1128.43 1540.76 1095.52 1538.76 1079.58 1522.28 C 1064.39 1506.58 1066.96 1478.9 1067 1458.34 z" />
-      <path id="k-vinco" d="M 1472.57 1175.8 C 1463.61 1209.96 1449.3 1243.04 1417.42 1261.76 C 1377.64 1285.11 1318.9 1271.48 1300.71 1226.79 C 1308.45 1228.5 1319.73 1236.73 1327.68 1238.81 C 1373.6 1251.41 1417.27 1231.72 1450.18 1199.79 C 1456.17 1193.99 1465.96 1178.75 1472.57 1175.8 z" />
-      <path id="k-boca" d="M 822.693 1022.7 C 834.305 1022.47 837.329 1031.6 844.451 1040.46 C 850.382 1047.87 856.914 1054.77 863.979 1061.11 C 903.153 1096.38 964.363 1091.84 1000.48 1132.19 C 1037.7 1173.8 1032.61 1237.38 991.449 1274.08 C 948.883 1312.02 889.903 1318.19 835.748 1316.02 L 824.514 1314.5 C 818.211 1309.82 812.889 1301.75 817.787 1294.48 C 824.79 1285.4 844.075 1289.57 854.592 1289.87 C 917.133 1291.65 1011.55 1262.62 996.898 1182.47 C 985.698 1121.22 908.119 1123.89 866.205 1095.44 C 847.709 1082.88 835.643 1067.84 826.315 1047.3 C 822.088 1038.22 815.75 1032.26 822.693 1022.7 z" />
-      <path id="k-olho-d" d="M 1238.1 698.181 C 1282.66 693.042 1272.56 744.168 1273.7 771.925 C 1274.66 795.085 1275.03 812.773 1250.69 822.708 C 1244.8 823.284 1239.74 823.224 1234.16 821.024 C 1226.71 818.085 1221.5 812.128 1218.53 804.782 C 1213.84 793.182 1213.24 728.042 1218.25 716.452 C 1222.4 706.844 1228.6 702.027 1238.1 698.181 z" />
-      <path id="k-olho-e" d="M 996.871 700.229 C 1034.92 695.616 1034.3 730.488 1033.17 757.411 C 1032.66 769.711 1034.35 782.694 1032.92 795.076 C 1032.44 799.578 1031.24 803.974 1029.36 808.096 C 1025.39 816.63 1018.69 820.906 1010.16 823.885 C 970.547 830.019 974.284 783.578 974.925 758.46 C 975.542 734.277 969.949 712.016 996.871 700.229 z" />
+      <!-- O Kiro novo (22/11), as mesmas peças do app (desenho-do-kiro-neutro.tsx). -->
+      <path id="k-silhueta" d="M11.8549 115.747C13.7841 89.8514 22.1783 68.7142 41.3309 50.545C45.3263 46.7493 54.7263 41.7187 57.2212 38.3614C55.6687 29.0096 53.638 21.1561 59.7833 13.4284C80.4833 -12.5981 115.719 3.26068 130.097 26.6642C156.104 33.2321 176.525 44.6868 190.958 68.9477C199.2 82.9034 203.903 98.7362 204.639 115.018C212.697 125.129 218.26 135.24 216.753 148.855C215.933 156.698 212.027 163.871 205.935 168.698C201.29 172.444 195.746 171.91 192.833 173.631C190.342 175.101 182.896 184.999 180.148 187.781C174.309 193.689 165.422 194.068 164.197 201.815L165 201.735C163.209 207.312 162.597 209.42 159.726 214.4C147.715 225.605 130.66 224.762 122 209.587L120.642 210.071C117.155 210.06 102.109 209.755 99.7307 210.5L96 215.228C85.2387 225.622 70.4812 223.258 60.1468 213.516L58 208.303L56 200.873L54.7148 198.72C40.1779 189.63 36.9867 188.726 25.7247 174.011C-4.69074 169.34 -6.55628 135.785 11.8549 115.747Z" />
+      <path id="k-braco-e" d="M25.7247 174.011C-4.69074 169.34 -6.55628 135.785 11.8549 115.747C30 124 38 158 25.7247 174.011Z" />
+      <path id="k-tronco" d="M11.8549 115.747C13.7841 89.8514 22.1783 68.7142 41.3309 50.545C45.3263 46.7493 54.7263 41.7187 57.2212 38.3614C55.6687 29.0096 53.638 21.1561 59.7833 13.4284C80.4833 -12.5981 115.719 3.26068 130.097 26.6642C156.104 33.2321 176.525 44.6868 190.958 68.9477C199.2 82.9034 203.903 98.7362 204.639 115.018C205.5 134.6 202.8 167.7 192.833 173.631C190.342 175.101 182.896 184.999 180.148 187.781C174.309 193.689 165.422 194.068 164.197 201.815L164.219 199C160.921 199.166 146.825 204.137 142.155 205.411C134.783 207.421 129.399 208.126 122 209.587L120.642 210.071C117.155 210.06 102.109 209.755 99.7307 210.5L99.2537 209.508C85.2505 207.611 72.1002 203.844 58.5021 200L56 200.873L54.7148 198.72C40.1779 189.63 36.9867 188.726 25.7247 174.011C17.2 162.9 10.3 136.5 11.8549 115.747Z" />
+      <path id="k-pe-d" d="M122 209.587C129.399 208.126 134.783 207.421 142.155 205.411C146.825 204.137 160.921 199.166 164.219 199L165 201.735C163.209 207.312 162.597 209.42 159.726 214.4C147.715 225.605 130.66 224.762 122 209.587Z" />
+      <path id="k-pe-e" d="M58 208.303L59.1798 206C71.33 206.543 75.758 208.719 86.8727 212.735C89.2224 213.576 93.618 214.11 96 215.228C85.2387 225.622 70.4812 223.258 60.1468 213.516L58 208.303Z" />
+      <path id="k-pe-e-dobra" d="M56 200.873C56.1768 200.815 58.5021 200 58.5021 200C72.1002 203.844 85.2505 207.611 99.2537 209.508C99.5021 209.633 99.7517 209.767 100 209.901C99.1434 211.079 97.1379 214.032 96.2474 215C93.8481 213.917 89.417 213.399 87.0491 212.584C75.8478 208.693 71.3853 206.585 59.1418 206.058L57.9515 208.29C56.9971 206.212 56.4954 203.182 56 200.873Z" />
+      <path id="k-braco-d" d="M204.639 115.018C212.697 125.129 218.26 135.24 216.753 148.855C215.933 156.698 212.027 163.871 205.935 168.698C201.29 172.444 195.746 171.91 192.833 173.631C188 160 192 128 204.639 115.018Z" />
+      <path id="k-dobra" d="M206.081 130C207.157 133.736 207.802 141.146 205.004 144L204.033 143.332C203.803 138.057 204.8 135.102 206.081 130Z" />
+      <path id="k-rosto" d="M102.848 52.9047C121.287 50.0795 147.791 53.7948 163.311 65.1278C175.624 74.06 183.892 87.6673 186.252 102.9C192.619 144.069 157.17 159.204 123.904 163.743C99.9556 164.479 77.3646 164.653 56.844 149.43C25.6319 126.281 36.0807 81.5319 67.0853 63.9757C79.1973 57.1153 89.2982 54.6179 102.848 52.9047Z" />
+      <path id="k-boca" d="M105.014 116C118.022 121.659 115.404 117.878 127.241 117.085C128.438 119.027 127.99 118.604 127.454 121.548C119.371 127.326 104.479 129.323 105.014 116Z" />
+      <path id="k-olho-d" d="M141.654 86.8075C155.538 63.632 171.34 106.129 160.301 117.648C147.314 131.2 139.217 115.185 139.009 102.472C138.921 98.0658 139.471 93.672 140.642 89.4278L141.654 86.8075Z" />
+      <path id="k-olho-e" d="M73.1492 89.0092C74.5572 86.494 77.3542 82.2417 80.2632 82.0374C97.7382 80.8112 97.4581 110.112 89.8071 119.593C80.5691 131.042 70.1952 118.522 70.0422 108.298C69.9282 102.544 69.9442 98.4657 71.4352 92.9933C71.7582 91.3816 72.3832 90.4418 73.1492 89.0092Z" />
+      <path id="k-brilho-d" d="M143.046 87.2392C145.849 85.6133 144.595 85.9462 147.794 85.9431C151.242 88.7324 150.455 92.0327 148.379 95.5616C146.084 97.0619 147.133 96.8565 144.464 96.3375C141.985 94.2959 141.387 93.2164 141.552 89.9627L140.642 89.4275L141.654 86.8071L143.046 87.2392Z" />
+      <path id="k-brilho-e" d="M74.0431 89.1597C77.0911 87.0057 75.929 87.2788 79.092 86.9268C83.452 89.5137 82.2291 95.3908 78.4611 97.7289C75.1031 97.7157 74.375 96.9286 72.618 93.8398L71.4351 92.9931C71.7581 91.3814 72.383 90.4415 73.149 89.0089L74.0431 89.1597Z" />
     </defs>
   </svg>
 
@@ -811,12 +823,7 @@
   <header class="topo">
     <div class="envelope">
       <a class="marca" href="#" aria-label="Think Capture, início">
-        <svg viewBox="461.333 318.667 1068 1272" aria-hidden="true">
-          <use href="#k-corpo" fill="var(--kiro-corpo)" />
-          <use href="#k-miolo" fill="var(--kiro-miolo)" />
-          <use href="#k-olho-d" fill="var(--kiro-corpo)" />
-          <use href="#k-olho-e" fill="var(--kiro-corpo)" />
-        </svg>
+        <svg viewBox="-4 -4 225 242" aria-hidden="true"><use href="#k-silhueta" fill="none" stroke="var(--kiro-contorno)" stroke-width="4.6" stroke-linejoin="round" /><use href="#k-braco-e" fill="#212124" /><use href="#k-tronco" fill="#212124" /><use href="#k-pe-d" fill="#111114" /><use href="#k-pe-e" fill="#18171D" /><use href="#k-pe-e-dobra" fill="#111114" /><use href="#k-braco-d" fill="#212124" /><use href="#k-dobra" fill="#111114" /><use href="#k-rosto" fill="#FBF8F5" /><use href="#k-boca" fill="#18171D" /><use href="#k-olho-d" fill="#111114" /><use href="#k-olho-e" fill="#111114" /><use href="#k-brilho-d" fill="#FCFBFC" /><use href="#k-brilho-e" fill="#FCFBFC" /></svg>
         Think Capture
       </a>
       <nav class="navegacao" aria-label="Principal">
@@ -898,16 +905,15 @@
             </div>
             <div class="kiro" id="kiro" role="button" tabindex="0" aria-label="Kiro, o mascote do Think Capture. Toque para ele acenar.">
               <div class="kiro-pulo" id="kiro-pulo">
-                <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
-                  <ellipse cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
-                  <use href="#k-corpo" fill="var(--kiro-corpo)" />
-                  <use href="#k-miolo" fill="var(--kiro-miolo)" />
-                  <use href="#k-vinco" fill="var(--kiro-sombra)" />
-                  <g id="k-boca-giro"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
-                  <g id="k-olhos"><g id="k-piscar">
-                    <use href="#k-olho-d" fill="var(--kiro-corpo)" />
-                    <use href="#k-olho-e" fill="var(--kiro-corpo)" />
-                  </g></g>
+                <svg viewBox="-4 -12 225 250" aria-hidden="true">
+                  <ellipse cx="109.5" cy="225" rx="93" ry="8.5" fill="var(--kiro-sombra)" />
+                  <use href="#k-silhueta" fill="none" stroke="var(--kiro-contorno)" stroke-width="4.6" stroke-linejoin="round" />
+                  <g id="k-desliza-e"><g id="k-boca-giro"><use href="#k-braco-e" fill="#212124" /></g></g>
+                  <use href="#k-tronco" fill="#212124" />
+                  <use href="#k-pe-d" fill="#111114" /><use href="#k-pe-e" fill="#18171D" /><use href="#k-pe-e-dobra" fill="#111114" />
+                  <g id="k-desliza-d"><use href="#k-braco-d" fill="#212124" /><use href="#k-dobra" fill="#111114" /></g>
+                  <use href="#k-rosto" fill="#FBF8F5" /><use href="#k-boca" fill="#18171D" />
+                  <g id="k-olhos"><g id="k-piscar"><use href="#k-olho-d" fill="#111114" /><use href="#k-olho-e" fill="#111114" /><use href="#k-brilho-d" fill="#FCFBFC" /><use href="#k-brilho-e" fill="#FCFBFC" /></g></g>
                 </svg>
               </div>
             </div>
@@ -1217,14 +1223,15 @@
             </div>
           </div>
           <div class="kiro-final" id="kiro-final" role="button" tabindex="0" aria-label="Kiro acenando">
-            <svg viewBox="461.333 300 1068 1300" aria-hidden="true">
-              <ellipse cx="990" cy="1565" rx="508.5" ry="35" fill="var(--kiro-sombra)" />
-              <use href="#k-corpo" fill="var(--kiro-corpo)" />
-              <use href="#k-miolo" fill="var(--kiro-miolo)" />
-              <use href="#k-vinco" fill="var(--kiro-sombra)" />
-              <g id="k-boca-final"><use href="#k-boca" fill="var(--kiro-corpo)" /></g>
-              <use href="#k-olho-d" fill="var(--kiro-corpo)" />
-              <use href="#k-olho-e" fill="var(--kiro-corpo)" />
+            <svg viewBox="-4 -12 225 250" aria-hidden="true">
+              <ellipse cx="109.5" cy="225" rx="93" ry="8.5" fill="var(--kiro-sombra)" />
+              <use href="#k-silhueta" fill="none" stroke="var(--kiro-contorno)" stroke-width="4.6" stroke-linejoin="round" />
+              <g id="k-boca-final"><use href="#k-braco-e" fill="#212124" /></g>
+              <use href="#k-tronco" fill="#212124" />
+              <use href="#k-pe-d" fill="#111114" /><use href="#k-pe-e" fill="#18171D" /><use href="#k-pe-e-dobra" fill="#111114" />
+              <use href="#k-braco-d" fill="#212124" /><use href="#k-dobra" fill="#111114" />
+              <use href="#k-rosto" fill="#FBF8F5" /><use href="#k-boca" fill="#18171D" />
+              <use href="#k-olho-d" fill="#111114" /><use href="#k-olho-e" fill="#111114" /><use href="#k-brilho-d" fill="#FCFBFC" /><use href="#k-brilho-e" fill="#FCFBFC" />
             </svg>
           </div>
         </div>
@@ -1969,7 +1976,10 @@
     passarSozinho();
 
     // ---------- O Kiro: olha, pisca, acena e pula ----------
-    var PIVO = '824 1030', OLHOS_Y = 761;
+    // O Kiro novo (22/11): o ombro esquerdo, o meio dos olhos e o meio do corpo, nas unidades do desenho.
+    var PIVO = '20 125', OLHOS_Y = 104, MEIO = ' 110 132';
+    var deslizaE = document.getElementById('k-desliza-e');
+    var deslizaD = document.getElementById('k-desliza-d');
     var kiro = document.getElementById('kiro');
     var pulo = document.getElementById('kiro-pulo');
     var olhos = document.getElementById('k-olhos');
@@ -1982,7 +1992,7 @@
       var r = kiro.getBoundingClientRect();
       var dx = e.clientX - (r.left + r.width * 0.62), dy = e.clientY - (r.top + r.height * 0.36);
       var d = Math.hypot(dx, dy) || 1, f = Math.min(1, d / 320);
-      alvo.x = (dx / d) * 34 * f; alvo.y = (dy / d) * 26 * f;
+      alvo.x = (dx / d) * 7 * f; alvo.y = (dy / d) * 5 * f;
     }, { passive: true });
     (function olhar() {
       if (palcoNaTela && !semMovimento()) {
@@ -2007,9 +2017,10 @@
       acenando[g.id] = true;
       animar(1500, function (t) {
         var ang;
-        if (t < 0.18) ang = -72 * curva(t / 0.18);
-        else if (t < 0.82) ang = -72 + Math.sin(((t - 0.18) / 0.64) * Math.PI * 3) * 24;
-        else ang = -72 * (1 - curva((t - 0.82) / 0.18));
+        // O tchau do app: o braço sobe a 30° e balança até 18°, duas vezes.
+        if (t < 0.18) ang = 30 * curva(t / 0.18);
+        else if (t < 0.82) ang = 24 + Math.sin(((t - 0.18) / 0.64) * Math.PI * 4 + Math.PI / 2) * 6;
+        else ang = 30 * (1 - curva((t - 0.82) / 0.18));
         g.setAttribute('transform', 'rotate(' + ang.toFixed(2) + ' ' + PIVO + ')');
       }, function () { g.removeAttribute('transform'); acenando[g.id] = false; });
     }
@@ -2022,7 +2033,15 @@
         if (t < 0.15) { var a = t / 0.15; sx = 1 + 0.07 * a; sy = 1 - 0.08 * a; }
         else if (t < 0.6) { var h = Math.sin(((t - 0.15) / 0.45) * Math.PI); y = -36 * h; sx = 1 - 0.03 * h; sy = 1 + 0.05 * h; }
         pulo.style.transform = 'translateY(' + y.toFixed(1) + 'px) scale(' + sx.toFixed(3) + ',' + sy.toFixed(3) + ')';
-      }, function () { pulo.style.transform = ''; pulando = false; });
+        // Os braços deslizam em volta do corpo, sem abrir, como no app.
+        var g = (16 * (-y / 36)).toFixed(2);
+        if (deslizaE) deslizaE.setAttribute('transform', 'rotate(' + g + MEIO + ')');
+        if (deslizaD) deslizaD.setAttribute('transform', 'rotate(' + (-g) + MEIO + ')');
+      }, function () {
+        pulo.style.transform = ''; pulando = false;
+        if (deslizaE) deslizaE.removeAttribute('transform');
+        if (deslizaD) deslizaD.removeAttribute('transform');
+      });
     }
     var FALAS = ['Oi! Eu sou o Kiro.', 'Me dá um pensamento que eu guardo.', 'Cabeça leve decide melhor.', 'Essas são as telas do aplicativo.'];
     var indice = 0, relogioFala = null;
