@@ -273,6 +273,30 @@
     .iphone-real .volume-menos { left: -1.1%; top: 36%; height: 8.5%; }
     .iphone-real .liga { right: -1.1%; top: 27%; height: 13%; }
     .iphone-real .camera { right: -0.9%; top: 56%; height: 7%; width: 1.1%; }
+    /*
+      A moldura de verdade (22/11, pedido do proprietário): o iPhone 17 Pro Max
+      Deep Blue, do PSD da Apple, com a tela vazada e a Dynamic Island. Ela vai
+      por cima, e a tela fica no lugar exato do vidro: 1320 × 2868 dentro de
+      1470 × 3000, a 75 da esquerda e 66 do alto, com o canto de 195.
+    */
+    .iphone-real {
+      max-width: 340px; aspect-ratio: 1470 / 3000; padding: 0; border-radius: 0;
+      background: none; box-shadow: none; filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.32));
+    }
+    .iphone-real::after {
+      content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      background: url("telas/moldura-iphone.png") center / 100% 100% no-repeat;
+    }
+    .iphone-real .botao-lateral { display: none; }
+    /* Na tela viva, o topo começa abaixo da Dynamic Island, como no app. */
+    .iphone-real .tela-do-app .topo-do-app { padding-top: 17%; }
+    .iphone-real .borda-da-tela {
+      position: absolute; left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%;
+      padding: 0; border-radius: 14.77% / 6.8%; overflow: hidden; background: #000; box-shadow: none;
+    }
+    .iphone-real .borda-da-tela > .tela, .iphone-real .borda-da-tela > .tela-do-app {
+      width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0;
+    }
     .tela { position: relative; aspect-ratio: 1206 / 2622; overflow: hidden; border-radius: 12.4% / 5.7%; background: #1a1a1a; }
     .tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .telas-que-passam img { transform: translateX(100%); transition: transform .6s var(--curva), filter .6s var(--curva); }
@@ -415,7 +439,7 @@
     }
     .experimente .cabeca-secao h2 { margin-top: 0; }
     .experimente .cabeca-secao p { margin-top: 18px; color: var(--suave); font-size: 20px; max-width: 32em; }
-    .experimente .iphone-real { max-width: none; }
+    .experimente .iphone-real { max-width: 360px; }
     .iphone-real .tela-do-app { border-radius: 12.4% / 6.2%; }
     @keyframes entrar { from { opacity: 0; transform: translateY(-10px) scale(.98); } }
     @media (max-width: 960px) {
@@ -910,9 +934,9 @@
               <span class="botao-lateral direita camera"></span>
               <div class="borda-da-tela">
                 <div class="tela telas-que-passam" id="telas-que-passam">
-                  <img class="ativa" src="telas/inicio.jpg" alt="A tela de início do Think Capture, com o Kiro e os botões de falar e escrever" width="860" height="1870" />
-                  <img src="telas/pensamentos.jpg" alt="A tela Pensamentos, com a caixa de entrada dos pensamentos guardados" width="860" height="1870" />
-                  <img src="telas/acompanhar.jpg" alt="A tela Acompanhar, com os hábitos e as tarefas do dia" width="860" height="1870" />
+                  <img class="ativa" data-tela="inicio" src="telas/inicio-escuro.jpg" alt="A tela de início do Think Capture, com o Kiro, os pensamentos que esperam e o que pede atenção" width="860" height="1870" />
+                  <img data-tela="pensamentos" src="telas/pensamentos-escuro.jpg" alt="A tela Pensamentos, com a caixa de entrada dos pensamentos guardados" width="860" height="1870" />
+                  <img data-tela="acompanhar" src="telas/acompanhar-escuro.jpg" alt="A tela Acompanhar, com os hábitos e as tarefas do dia" width="860" height="1870" />
                 </div>
               </div>
             </div>
@@ -1333,7 +1357,20 @@
       var novo = atual === 'escuro' ? 'claro' : 'escuro';
       raiz.setAttribute('data-tema', novo);
       try { localStorage.setItem('tema', novo); } catch (e) { /* só nesta visita */ }
+      fotosNoTemaContrario();
     });
+
+    // As fotos do app no tema contrário ao da página (22/11, pedido do
+    // proprietário): página clara mostra o app escuro, página escura o claro,
+    // para o celular sempre se destacar do fundo.
+    function fotosNoTemaContrario() {
+      var escura = (raiz.getAttribute('data-tema') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro')) === 'escuro';
+      document.querySelectorAll('#telas-que-passam img[data-tela]').forEach(function (img) {
+        img.src = 'telas/' + img.getAttribute('data-tela') + (escura ? '-claro' : '-escuro') + '.jpg';
+      });
+    }
+    fotosNoTemaContrario();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fotosNoTemaContrario);
 
     // ---------- A janela de contato ----------
     var janela = document.getElementById('janela-contato');
