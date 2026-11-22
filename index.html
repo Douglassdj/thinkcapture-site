@@ -309,7 +309,9 @@
       background: radial-gradient(closest-side, var(--luz-do-palco), transparent); pointer-events: none; z-index: -1;
     }
     .palco { isolation: isolate; }
-    .seletor { display: flex; gap: 4px; margin-top: 20px; }
+    .seletor { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-top: 20px; width: max-content; max-width: min(calc(100vw - 32px), 600px); }
+    .seletor button { white-space: nowrap; }
+    .seletor button { padding: 0 12px; }
     .seletor button {
       position: relative; overflow: hidden; height: 40px; padding: 0 14px; border-radius: 999px;
       border: 0; background: transparent; color: var(--suave); cursor: pointer;
@@ -935,6 +937,7 @@
               <div class="borda-da-tela">
                 <div class="tela telas-que-passam" id="telas-que-passam">
                   <img class="ativa" data-tela="inicio" src="telas/inicio-escuro.jpg" alt="A tela de início do Think Capture, com o Kiro, os pensamentos que esperam e o que pede atenção" width="860" height="1870" />
+                  <img data-tela="cores" src="telas/cores-escuro.jpg" alt="As cores do Kiro no Think Capture: oito combinações prontas e a opção de criar a sua" width="860" height="1870" />
                   <img data-tela="pensamentos" src="telas/pensamentos-escuro.jpg" alt="A tela Pensamentos, com a caixa de entrada dos pensamentos guardados" width="860" height="1870" />
                   <img data-tela="ofensiva" src="telas/ofensiva-escuro.jpg" alt="O detalhe de um hábito no Think Capture: a chama com 20 dias seguidos, o recorde e o mês com a ofensiva" width="860" height="1870" />
                   <img data-tela="acompanhar" src="telas/acompanhar-escuro.jpg" alt="A tela Acompanhar, com os hábitos e as tarefas do dia" width="860" height="1870" />
@@ -943,6 +946,7 @@
             </div>
             <div class="seletor" id="seletor" aria-label="Telas do aplicativo">
               <button type="button" aria-pressed="true">Início<i></i></button>
+              <button type="button" aria-pressed="false">Cores<i></i></button>
               <button type="button" aria-pressed="false">Pensamentos<i></i></button>
               <button type="button" aria-pressed="false">Ofensiva<i></i></button>
               <button type="button" aria-pressed="false">Acompanhar<i></i></button>
