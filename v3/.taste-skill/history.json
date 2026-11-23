@@ -1,0 +1,20 @@
+{
+ "palettes": [
+  "mint-pink-accounts"
+ ],
+ "types": [
+  "gabarito"
+ ],
+ "dealt": [
+  "onest",
+  "gabarito",
+  "manrope"
+ ],
+ "moments": [
+  {
+   "id": "marquee-row",
+   "at": "2026-11-09T18:36:50.968Z",
+   "seed": "0555419b"
+  }
+ ]
+}
